@@ -1,0 +1,27 @@
+INDEX VERSION 1.127+C:\Users\Jakob\TU_Wien\Aufgaben\Bacc\AnnotationRouting\Eclipse\.metadata\.plugins\org.eclipse.jdt.core
+1285931288.index
+2477869877.index
+4282070342.index
+3030393631.index
+2769538906.index
+4127112861.index
+1545554864.index
+2053460584.index
+1716946148.index
+3929061837.index
+646625472.index
+720337607.index
+441660144.index
+724331157.index
+1995428799.index
+2058815855.index
+312643347.index
+550323007.index
+911169650.index
+2556356817.index
+2624068464.index
+1694900581.index
+82500368.index
+3794515015.index
+1491861683.index
+2046506558.index

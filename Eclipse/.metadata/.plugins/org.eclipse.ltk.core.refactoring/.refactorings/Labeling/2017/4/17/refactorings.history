@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;implementations.GraphCreatorPanel.routeAnnotations(...)&apos; to &apos;routeAnnotationsGreedy&apos;&#x0D;&#x0A;- Original project: &apos;Labeling&apos;&#x0D;&#x0A;- Original element: &apos;implementations.GraphCreatorPanel.routeAnnotations(...)&apos;&#x0D;&#x0A;- Renamed element: &apos;implementations.GraphCreatorPanel.routeAnnotationsGreedy(...)&apos;&#x0D;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;routeAnnotations&apos;" flags="589826" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;implementations{GraphCreatorPanel.java[GraphCreatorPanel~routeAnnotations~QWeightedGraph\&lt;QGraphTuple;QDefaultWeightedEdge;&gt;;~QTreeMap\&lt;QInteger;QGraphTuple;&gt;;~QGraphics;" name="routeAnnotationsGreedy" references="true" stamp="1493135736404" version="1.0"/>
+</session>

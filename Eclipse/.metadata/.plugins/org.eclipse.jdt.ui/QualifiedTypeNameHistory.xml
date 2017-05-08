@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.awt.geom.Rectangle2D"/>
+<fullyQualifiedTypeName name="javax.swing.JPanel"/>
+<fullyQualifiedTypeName name="javax.xml.bind.DatatypeConverter"/>
+<fullyQualifiedTypeName name="org.jgrapht.graph.ListenableUndirectedGraph"/>
+<fullyQualifiedTypeName name="org.jgrapht.graph.ListenableUndirectedWeightedGraph"/>
+<fullyQualifiedTypeName name="org.jgrapht.graph.WeightedMultigraph"/>
+<fullyQualifiedTypeName name="org.jgrapht.ext.JGraphXAdapter"/>
+<fullyQualifiedTypeName name="org.jgrapht.graph.DefaultWeightedEdge"/>
+<fullyQualifiedTypeName name="java.util.TreeMap"/>
+<fullyQualifiedTypeName name="org.jgrapht.Graph"/>
+<fullyQualifiedTypeName name="java.util.Set"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
+<fullyQualifiedTypeName name="org.jgrapht.WeightedGraph"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="org.jgrapht.graph.GraphWalk"/>
+</qualifiedTypeNameHistroy>
