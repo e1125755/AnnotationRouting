@@ -1,2 +1,2 @@
-Eclipse/Labeling/bin/*
-Eclipse/.metadata/*
+Eclipse/Labeling/bin/**
+Eclipse/.metadata/**

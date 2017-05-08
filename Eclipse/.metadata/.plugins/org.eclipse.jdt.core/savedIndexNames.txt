@@ -12,7 +12,6 @@ INDEX VERSION 1.127+C:\Users\Jakob\TU_Wien\Aufgaben\Bacc\AnnotationRouting\Eclip
 646625472.index
 720337607.index
 441660144.index
-724331157.index
 1995428799.index
 2058815855.index
 312643347.index
