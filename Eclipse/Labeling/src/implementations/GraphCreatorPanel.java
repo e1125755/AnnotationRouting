@@ -205,7 +205,7 @@ public class GraphCreatorPanel extends JComponent {
 						ann+=" "+words[i].substring(0,words[i].indexOf('}'));
 					}
 				}
-				System.out.println(ann);
+				//System.out.println(ann);
 
 				//Annotation title is currently stored in the GraphTuple's name attribute 
 				GraphTuple annTuple=new GraphTuple(ann,x+metrics.stringWidth(temp[0])/2,y-metrics.getAscent()-spaceBetweenLines/2);
