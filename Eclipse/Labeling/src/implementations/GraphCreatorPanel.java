@@ -205,7 +205,6 @@ public class GraphCreatorPanel extends JComponent {
 						ann+=" "+words[i].substring(0,words[i].indexOf('}'));
 					}
 				}
-				//System.out.println(ann);
 
 				//Annotation title is currently stored in the GraphTuple's name attribute 
 				GraphTuple annTuple=new GraphTuple(ann,x+metrics.stringWidth(temp[0])/2,y-metrics.getAscent()-spaceBetweenLines/2);
@@ -216,13 +215,13 @@ public class GraphCreatorPanel extends JComponent {
 
 				g.drawString(temp[0], x, y);
 
-				GraphTuple t1=new GraphTuple(x,y-metrics.getAscent()-spaceBetweenLines/2);
+				GraphTuple t1=new GraphTuple(x-metrics.stringWidth(" ")/2,y-metrics.getAscent()-spaceBetweenLines/2);
 				graph.addVertex(t1);
-				upperTuples.put(x, t1);
+				upperTuples.put(x-metrics.stringWidth(" ")/2, t1);
 
-				GraphTuple t2=new GraphTuple(x,y+metrics.getDescent()+spaceBetweenLines/2);
+				GraphTuple t2=new GraphTuple(x-metrics.stringWidth(" ")/2,y+metrics.getDescent()+spaceBetweenLines/2);
 				graph.addVertex(t2);
-				lowerTuples.put(x, t2);
+				lowerTuples.put(x-metrics.stringWidth(" ")/2, t2);
 
 				graph.addEdge(t1,t2,new DefaultWeightedEdge());
 				if(showWordBoundaries)g.drawRect(x-1,y-metrics.getAscent(),metrics.stringWidth(temp[0])+1,metrics.getHeight());
@@ -234,13 +233,13 @@ public class GraphCreatorPanel extends JComponent {
 				//Draw word and add Nodes behind it
 				g.drawString(words [i], x, y);
 
-				GraphTuple t1=new GraphTuple(x,y-metrics.getAscent()-spaceBetweenLines/2);
+				GraphTuple t1=new GraphTuple(x-metrics.stringWidth(" ")/2,y-metrics.getAscent()-spaceBetweenLines/2);
 				graph.addVertex(t1);
-				upperTuples.put(x, t1);
+				upperTuples.put(x-metrics.stringWidth(" ")/2, t1);
 
-				GraphTuple t2=new GraphTuple(x,y+metrics.getDescent()+spaceBetweenLines/2);
+				GraphTuple t2=new GraphTuple(x-metrics.stringWidth(" ")/2,y+metrics.getDescent()+spaceBetweenLines/2);
 				graph.addVertex(t2);
-				lowerTuples.put(x, t2);
+				lowerTuples.put(x-metrics.stringWidth(" ")/2, t2);
 
 				graph.addEdge(t1,t2,new DefaultWeightedEdge()); //Vertical edges added here!
 
