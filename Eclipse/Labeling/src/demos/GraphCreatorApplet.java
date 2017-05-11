@@ -21,7 +21,11 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import routingapp.GraphCreatorPanel;
-
+/**
+ * Routing Program base class. Mostly a copy of tutorials.FontSelector.
+ * @author Jakob Klinger
+ *
+ */
 public class GraphCreatorApplet extends JApplet
 implements ChangeListener, ItemListener {
 
