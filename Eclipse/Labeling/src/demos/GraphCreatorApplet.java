@@ -1,7 +1,5 @@
 package demos;
 
-import implementations.GraphCreatorPanel;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -21,6 +19,8 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import routingapp.GraphCreatorPanel;
 
 public class GraphCreatorApplet extends JApplet
 implements ChangeListener, ItemListener {
