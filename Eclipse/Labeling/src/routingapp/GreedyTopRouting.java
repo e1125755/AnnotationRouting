@@ -127,29 +127,4 @@ public class GreedyTopRouting implements Routing{
 		this.nextAnnotationPos=nextAnnotationPos;
 	}
 
-	/*
-	 * 
-	 * Greedy routing algorithm - prioritizes going as far up as possible to maximize the space remaining for other annotations. 
-	 * NOTE: This method currently depends on the annotations' text being stored in a separate array - if this changes, the method needs to be reworked.
-	 *  
-	 * @param graph The graph containing all possible routes
-	 * @param annotations A TreeMap containing the starting nodes for each route, ordered by their place in the text
-	 * @param g The Graphics-object used to draw on the canvas. Not actively used in this method, but needed in calls to other methods.
-	 *
-	private void routeAnnotationsGreedy(WeightedGraph<GraphTuple,DefaultWeightedEdge> graph, TreeMap<Integer,GraphTuple> annotations, Graphics g)
-	{
-		Entry<Integer,GraphTuple> currentEntry=annotations.firstEntry();
-
-		while(currentEntry!=null)//Iterate over all nodes 
-		{
-			GraphTuple currentNode=currentEntry.getValue();
-
-
-			drawAnnotation(g,graph,new GraphWalk<GraphTuple,DefaultWeightedEdge>(graph,pathNodes,pathNodes.size()),currentEntry.getKey());
-
-			lastAnnotatedWord=currentEntry.getValue();
-			currentEntry=annotations.higherEntry(currentEntry.getKey());
-		}
-	}*/
-
 }
