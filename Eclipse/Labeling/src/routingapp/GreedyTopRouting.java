@@ -14,23 +14,117 @@ import org.jgrapht.graph.GraphWalk;
 
 public class GreedyTopRouting implements Routing{
 
-	public GreedyTopRouting()
+	private int leftAnnotationBorder, nextAnnotationPos;
+	private GraphTuple lastAnnotatedWord;
+	public GreedyTopRouting(int border)
 	{
-		//TODO: Determine which values/objects are needed for a proper routing 
+		leftAnnotationBorder=border;
+		nextAnnotationPos=0;
+		lastAnnotatedWord=new GraphTuple("Dummy",0,0);
 	}
-	
+
 	@Override
 	public GraphWalk<GraphTuple, ? extends DefaultWeightedEdge> findRouteFor(
-			GraphTuple source) {
-		// TODO Auto-generated method stub
-		return null;
+			WeightedGraph<GraphTuple,DefaultWeightedEdge> graph, GraphTuple source) {
+
+		int index=0;
+		GraphTuple currentNode=source;
+
+		ArrayList<GraphTuple> pathNodes=new ArrayList<GraphTuple>();
+		pathNodes.add(index, currentNode);
+		index++;
+
+		if(currentNode.getY()>=nextAnnotationPos)//Check whether we can route up/horizontally
+		{
+			boolean deadend=false;
+			boolean backtrack=false;
+			while(!deadend)
+			{
+
+				Set<DefaultWeightedEdge> edges=graph.edgesOf(currentNode);
+				Iterator<DefaultWeightedEdge> it=edges.iterator();
+
+				GraphTuple verticalCandidate=null;
+				GraphTuple horizontalCandidate=null;
+
+				while(it.hasNext())//Iterate over neighbours of current node
+				{
+					DefaultWeightedEdge edge=it.next();
+
+					if(graph.getEdgeWeight(edge)>0.0)// Limit for paths per edge
+					{
+						GraphTuple temp=graph.getEdgeSource(edge);
+
+						if(temp.equals(currentNode)) temp=graph.getEdgeTarget(edge);
+
+						if((temp.getX()>currentNode.getX()))
+						{
+							horizontalCandidate=temp;
+						}
+						else if((!backtrack)&&(temp.getY()<currentNode.getY())&&(temp.getY()>nextAnnotationPos))
+						{
+							if((currentNode.getX()>lastAnnotatedWord.getX())||(currentNode.getY()>lastAnnotatedWord.getY()))
+							{
+								verticalCandidate=temp;
+							}
+						}
+					}
+				}
+				if(verticalCandidate!=null)
+				{
+					DefaultWeightedEdge temp=graph.getEdge(currentNode, verticalCandidate);
+					currentNode=verticalCandidate;
+					pathNodes.add(index,currentNode);
+					index++;
+				}
+				else if(horizontalCandidate!=null)
+				{
+					DefaultWeightedEdge temp=graph.getEdge(currentNode, horizontalCandidate);
+					currentNode=horizontalCandidate;
+					pathNodes.add(index,currentNode);
+					index++;
+					backtrack=false;
+				}
+				else//No suitable nodes found - dead end or upper border for annotation position encountered
+				{
+					if(currentNode.getX()<leftAnnotationBorder) //True dead end encountered, initiate backtracking
+					{
+						GraphTuple tempNode=currentNode;
+						backtrack=true;
+						while((tempNode.getY()==currentNode.getY())&&(currentNode!=pathNodes.get(0)))	
+						{
+							index--;
+							pathNodes.remove(index);
+							currentNode=pathNodes.get(index-1);
+						}
+						if(currentNode==pathNodes.get(0)&&(tempNode.getY()==currentNode.getY()))// <=> No possible solution for this algorithm
+						{
+							deadend=true;
+							//Add error message?
+						}
+					}
+					else// Right side was already reached, nothing to do here
+					{
+						deadend=true;
+					}
+				}
+			}//end while
+		}
+
+		return new GraphWalk<GraphTuple,DefaultWeightedEdge>(graph, pathNodes,pathNodes.size());
 	}
 
 	@Override
 	public GraphWalk<GraphTuple, ? extends DefaultWeightedEdge>[] findRoutes(
-			List<GraphTuple> list) {
-		// TODO Auto-generated method stub
-		return null;
+			WeightedGraph<GraphTuple,? extends DefaultWeightedEdge> graph, List<GraphTuple> list) {
+		throw new UnsupportedOperationException("Method not implemented yet!");
+		//TODO: Implement method or remove it from Interface.
+		//return null;
+	}
+
+	@Override
+	public void updateNextAnnotationPos(int nextAnnotationPos) {
+		this.nextAnnotationPos=nextAnnotationPos;
 	}
 
 	/*
@@ -49,88 +143,7 @@ public class GreedyTopRouting implements Routing{
 		while(currentEntry!=null)//Iterate over all nodes 
 		{
 			GraphTuple currentNode=currentEntry.getValue();
-			int index=0;
 
-			ArrayList<GraphTuple> pathNodes=new ArrayList<GraphTuple>();
-			pathNodes.add(index, currentNode);
-			index++;
-
-			if(currentNode.getY()>=nextAnnotationPos)//Check whether we can route up/horizontally
-			{
-				boolean deadend=false;
-				boolean backtrack=false;
-				while(!deadend)
-				{
-
-					Set<DefaultWeightedEdge> edges=graph.edgesOf(currentNode);
-					Iterator<DefaultWeightedEdge> it=edges.iterator();
-
-					GraphTuple verticalCandidate=null;
-					GraphTuple horizontalCandidate=null;
-
-					while(it.hasNext())//Iterate over neighbours of current node
-					{
-						DefaultWeightedEdge edge=it.next();
-
-						if(graph.getEdgeWeight(edge)>0.0)// Limit for paths per edge
-						{
-							GraphTuple temp=graph.getEdgeSource(edge);
-
-							if(temp.equals(currentNode)) temp=graph.getEdgeTarget(edge);
-
-							if((temp.getX()>currentNode.getX()))
-							{
-								horizontalCandidate=temp;
-							}
-							else if((!backtrack)&&(temp.getY()<currentNode.getY())&&(temp.getY()>nextAnnotationPos))
-							{
-								if((currentNode.getX()>lastAnnotatedWord.getX())||(currentNode.getY()>lastAnnotatedWord.getY()))
-								{
-									verticalCandidate=temp;
-								}
-							}
-						}
-					}
-					if(verticalCandidate!=null)
-					{
-						DefaultWeightedEdge temp=graph.getEdge(currentNode, verticalCandidate);
-						currentNode=verticalCandidate;
-						pathNodes.add(index,currentNode);
-						index++;
-					}
-					else if(horizontalCandidate!=null)
-					{
-						DefaultWeightedEdge temp=graph.getEdge(currentNode, horizontalCandidate);
-						currentNode=horizontalCandidate;
-						pathNodes.add(index,currentNode);
-						index++;
-						backtrack=false;
-					}
-					else//No suitable nodes found - dead end or upper border for annotation position encountered
-					{
-						if(currentNode.getX()<rightTextBorder) //True dead end encountered, initiate backtracking
-						{
-							GraphTuple tempNode=currentNode;
-							backtrack=true;
-							while((tempNode.getY()==currentNode.getY())&&(currentNode!=pathNodes.get(0)))	
-							{
-								index--;
-								pathNodes.remove(index);
-								currentNode=pathNodes.get(index-1);
-							}
-							if(currentNode==pathNodes.get(0)&&(tempNode.getY()==currentNode.getY()))// <=> No possible solution for this algorithm
-							{
-								deadend=true;
-								//Add error message?
-							}
-						}
-						else// Right side was already reached, nothing to do here
-						{
-							deadend=true;
-						}
-					}
-				}//end while
-			}
 
 			drawAnnotation(g,graph,new GraphWalk<GraphTuple,DefaultWeightedEdge>(graph,pathNodes,pathNodes.size()),currentEntry.getKey());
 
@@ -138,6 +151,5 @@ public class GreedyTopRouting implements Routing{
 			currentEntry=annotations.higherEntry(currentEntry.getKey());
 		}
 	}*/
-	 */
-	
+
 }

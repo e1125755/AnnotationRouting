@@ -44,12 +44,14 @@ public class GraphCreatorPanel extends JComponent {
 
 	private int width=550;
 	private int height=600;
-	private int leftTextBorder, rightTextBorder, rightBorder;
+	private int leftTextBorder, rightTextBorder, leftAnnotationBorder, rightAnnotationBorder;
 	private int upperBorder=10;
 	private int spaceBetweenLines=6;
 
-	private GraphTuple lastAnnotatedWord=new GraphTuple("Dummy",0,0);//NOTE:This might not be enough information for the routing!
+	//private GraphTuple lastAnnotatedWord=new GraphTuple("Dummy",0,0);//NOTE:This might not be enough information for the routing!
 	private int nextAnnotationPos=0;
+	
+	private String routingtype="greedytop";
 
 	public Dimension getPreferredSize() {
 		return new Dimension(width,height);//NOTE: This might be a bad idea - may cause varying preferred sizes if called later on!
@@ -67,13 +69,13 @@ public class GraphCreatorPanel extends JComponent {
 		width=this.getWidth();
 		height=this.getHeight();
 
-		rightTextBorder=(int) (width*0.75);
+		rightTextBorder=leftAnnotationBorder=(int) (width*0.75);
 		leftTextBorder=(int) (width*0.1);
-		rightBorder=(int) (width*0.95);
+		rightAnnotationBorder=(int) (width*0.95);
 
 		//resetting routing values, since routing needs to be re-done
 		nextAnnotationPos=0;
-		lastAnnotatedWord=new GraphTuple("Dummy",0,0);
+		//lastAnnotatedWord=new GraphTuple("Dummy",0,0);
 	}
 
 	/**
@@ -128,6 +130,7 @@ public class GraphCreatorPanel extends JComponent {
 
 		TreeMap<Integer,GraphTuple> annotations=new TreeMap<Integer,GraphTuple>();
 		int annNumber=0;
+		Routing router=getRouter(routingtype);
 
 
 		//While it is possible to have line breaks in more places than after each word, this will be ignored for ease of implementation.
@@ -294,7 +297,18 @@ public class GraphCreatorPanel extends JComponent {
 		graph=(ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge>) finishTupleLine(lowerTuples,graph);
 
 		visualizeGraph(graph,g,Color.LIGHT_GRAY);
-		routeAnnotationsGreedy(graph,annotations,g);
+		//routeAnnotationsGreedy(graph,annotations,g);
+		
+		//TODO: Program out findRoutes() and relpace this part with a single call.
+		Entry<Integer,GraphTuple> currentEntry=annotations.firstEntry();
+		while(currentEntry!=null)
+		{
+			router.updateNextAnnotationPos(nextAnnotationPos);
+			GraphWalk<GraphTuple, ? extends DefaultWeightedEdge> result=router.findRouteFor(graph, currentEntry.getValue());
+			drawAnnotation(g, graph, result);
+			currentEntry=annotations.higherEntry(currentEntry.getKey());
+		}
+		
 		//drawAnnotations(g);
 	}
 
@@ -327,14 +341,32 @@ public class GraphCreatorPanel extends JComponent {
 	}
 
 	/**
+	 * Creates an instance of the requested routing type, if supported.
+	 * Currently recognized routing types are:
+	 * 		greedytop	-	A greedy routing with backtracking, aiming to place the label as high up as possible.
+	 * @param routingType The parameter determining the type of routing that will be used.
+	 * @return
+	 * @throws
+	 */
+	private Routing getRouter(String routingType)
+	{
+		if(routingType.equals("greedytop"))
+		{
+			return new GreedyTopRouting(leftAnnotationBorder);
+		}
+		else//Argument not recognized.
+		{
+			throw new IllegalArgumentException("Unknown routing type: \""+routingType+"\"");
+		}
+	}
+	/**
 	 * Greedy routing algorithm - prioritizes going as far up as possible to maximize the space remaining for other annotations. 
-	 * NOTE: This method currently depends on the annotations' text being stored in a separate array - if this changes, the method needs to be reworked.
 	 *  
 	 * @param graph The graph containing all possible routes
 	 * @param annotations A TreeMap containing the starting nodes for each route, ordered by their place in the text
 	 * @param g The Graphics-object used to draw on the canvas. Not actively used in this method, but needed in calls to other methods.
 	 */
-	private void routeAnnotationsGreedy(WeightedGraph<GraphTuple,DefaultWeightedEdge> graph, TreeMap<Integer,GraphTuple> annotations, Graphics g)
+	/*private void routeAnnotationsGreedy(WeightedGraph<GraphTuple,DefaultWeightedEdge> graph, TreeMap<Integer,GraphTuple> annotations, Graphics g)
 	{
 		Entry<Integer,GraphTuple> currentEntry=annotations.firstEntry();
 
@@ -424,12 +456,12 @@ public class GraphCreatorPanel extends JComponent {
 				}//end while
 			}
 
-			drawAnnotation(g,graph,new GraphWalk<GraphTuple,DefaultWeightedEdge>(graph,pathNodes,pathNodes.size()),currentEntry.getKey());
+			drawAnnotation(g,graph,new GraphWalk<GraphTuple,DefaultWeightedEdge>(graph,pathNodes,pathNodes.size()));
 
 			lastAnnotatedWord=currentEntry.getValue();
 			currentEntry=annotations.higherEntry(currentEntry.getKey());
 		}
-	}
+	}/**/
 
 	/**
 	 * Draws the path created by the routing and - if applicable - the annotation it is connected to.
@@ -438,9 +470,8 @@ public class GraphCreatorPanel extends JComponent {
 	 * @param g The Graphics object - used to draw and retrieve font-metrics
 	 * @param graph the Graph that the routes are based on
 	 * @param path The route that was created by routeAnnotations()
-	 * @param annNumber the Number of the annotation that belongs to the routing
 	 */
-	private void drawAnnotation(Graphics g, WeightedGraph<GraphTuple,DefaultWeightedEdge> graph, GraphWalk<GraphTuple,DefaultWeightedEdge>path, Integer annNumber) {
+	private void drawAnnotation(Graphics g, WeightedGraph<GraphTuple,DefaultWeightedEdge> graph, GraphWalk<GraphTuple,? extends DefaultWeightedEdge>path) {
 
 
 		if((path.getEndVertex().getX()>=rightTextBorder)||(path.getStartVertex().getX()>=rightTextBorder))//Draw Annotation (only if routing was successful)
@@ -466,7 +497,7 @@ public class GraphCreatorPanel extends JComponent {
 
 			for(int w=0;w<words.length;w++)
 			{
-				if((x+metrics.stringWidth(words[w]))>(rightBorder-3))
+				if((x+metrics.stringWidth(words[w]))>(rightAnnotationBorder-3))
 				{
 					x=rightTextBorder+3;
 					y+=metrics.getHeight()+spaceBetweenLines;
@@ -474,7 +505,7 @@ public class GraphCreatorPanel extends JComponent {
 				g.drawString(words[w], x, y);
 				x+=metrics.stringWidth(words[w]+" ");
 			}
-			g.drawRect(rightTextBorder+1, startpos-metrics.getAscent(), rightBorder-rightTextBorder-1, y+spaceBetweenLines/2+metrics.getHeight()-startpos);
+			g.drawRect(rightTextBorder+1, startpos-metrics.getAscent(), rightAnnotationBorder-rightTextBorder-1, y+spaceBetweenLines/2+metrics.getHeight()-startpos);
 			y+=metrics.getHeight()+spaceBetweenLines;
 			x=rightTextBorder+3;
 			nextAnnotationPos=y;
