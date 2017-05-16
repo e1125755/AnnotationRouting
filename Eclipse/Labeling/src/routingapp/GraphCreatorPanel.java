@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -48,7 +47,6 @@ public class GraphCreatorPanel extends JComponent {
 	private int upperBorder=10;
 	private int spaceBetweenLines=6;
 
-	//private GraphTuple lastAnnotatedWord=new GraphTuple("Dummy",0,0);//NOTE:This might not be enough information for the routing!
 	private int nextAnnotationPos=0;
 	
 	private String routingtype="greedytop";
@@ -75,7 +73,6 @@ public class GraphCreatorPanel extends JComponent {
 
 		//resetting routing values, since routing needs to be re-done
 		nextAnnotationPos=0;
-		//lastAnnotatedWord=new GraphTuple("Dummy",0,0);
 	}
 
 	/**
@@ -103,7 +100,7 @@ public class GraphCreatorPanel extends JComponent {
 
 	/**
 	 * Splits the text and displays it on-screen - this is done manually, as java.awt.font.LineBreakMeasurer doesn't allow to extract the text line-by-line.
-	 * As it is easy to do, the Graph is also constructed here. 
+	 * As it is easy to do at this point, the Graph is also constructed here. 
 	 * @param g The Graphics object used to display everything - usually provided by Java.
 	 */
 	public void paintComponent(Graphics g) {
@@ -126,7 +123,9 @@ public class GraphCreatorPanel extends JComponent {
 		ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge> graph=new ListenableUndirectedWeightedGraph(DefaultWeightedEdge.class);
 		TreeMap<Integer, GraphTuple> upperTuples=new TreeMap<Integer, GraphTuple>();
 		TreeMap<Integer, GraphTuple> lowerTuples=new TreeMap<Integer, GraphTuple>();
-		GraphTuple lastTuple=null;
+		TreeMap<Integer,TreeMap<Integer,GraphTuple>> allLines=new TreeMap<Integer,TreeMap<Integer,GraphTuple>>();
+		
+		ArrayList<Integer> lineEnds=new ArrayList<Integer>();//Saves the position at which the text ends for each line.
 
 		TreeMap<Integer,GraphTuple> annotations=new TreeMap<Integer,GraphTuple>();
 		int annNumber=0;
@@ -149,33 +148,40 @@ public class GraphCreatorPanel extends JComponent {
 				lowerTuples.put(x, t2);
 
 				graph.addEdge(t1,t2,new DefaultWeightedEdge());
-
-				//Add extra node at the page border
-				t1=new GraphTuple(rightTextBorder,y-metrics.getAscent()-spaceBetweenLines/2);
-				if(graph.addVertex(t1)==true)
+				
+				lineEnds.add(x);
+				
+				//Create single tuple at page border, it will be propagated downwards
+				if(allLines.isEmpty())
 				{
-					upperTuples.put(rightTextBorder, t1);
-
+					t1=new GraphTuple(rightTextBorder,y-metrics.getAscent()-spaceBetweenLines/2);
+					if(graph.addVertex(t1)==true)
+					{
+						upperTuples.put(rightTextBorder, t1);
+					}
 				}
-				else
+				
+				//Creating additional tuples after end of current line
+				Entry<Integer,GraphTuple> temp=upperTuples.higherEntry(x);
+				while(temp!=null)
 				{
-					t1=upperTuples.lastEntry().getValue();
+					t2=new GraphTuple(temp.getValue().getX(),y+metrics.getDescent()+spaceBetweenLines/2);
+					graph.addVertex(t2);
+					lowerTuples.put(t2.getX(), t2);
+					graph.addEdge(temp.getValue(),t2);
+						
+					temp=upperTuples.higherEntry(temp.getKey());
 				}
-				if(lastTuple!=null)//connect new tuple with its counterpart in the previous line
-				{
-					if(!graph.containsEdge(lastTuple,t1))graph.addEdge(lastTuple, t1);
-				}
-				lastTuple=t1;
-
-				//Connect tuples above finished line
-				graph=(ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge>) finishTupleLine(upperTuples,graph);
 
 				//Reset drawing coordinates and move lists of tuples adjacent to new line to correct labels
-				x=leftTextBorder;
-				y+=lineHeight;
-
+				
+				allLines.put(y, upperTuples);
 				upperTuples=lowerTuples;
 				lowerTuples=new TreeMap<Integer,GraphTuple>();
+				
+				
+				x=leftTextBorder;
+				y+=lineHeight;
 			}
 
 			//detect possible annotations for current word - Only detects one annotation per word so far!
@@ -226,7 +232,8 @@ public class GraphCreatorPanel extends JComponent {
 				graph.addVertex(t2);
 				lowerTuples.put(x-metrics.stringWidth(" ")/2, t2);
 
-				graph.addEdge(t1,t2,new DefaultWeightedEdge());
+				graph.addEdge(t1,t2,new DefaultWeightedEdge());//Add Horizontal edge
+				
 				if(showWordBoundaries)g.drawRect(x-1,y-metrics.getAscent(),metrics.stringWidth(temp[0])+1,metrics.getHeight());
 				x+=metrics.stringWidth(temp[0]+" ");
 			}
@@ -244,7 +251,7 @@ public class GraphCreatorPanel extends JComponent {
 				graph.addVertex(t2);
 				lowerTuples.put(x-metrics.stringWidth(" ")/2, t2);
 
-				graph.addEdge(t1,t2,new DefaultWeightedEdge()); //Vertical edges added here!
+				graph.addEdge(t1,t2,new DefaultWeightedEdge()); //Horizontal edges added here!
 
 				if(showWordBoundaries)g.drawRect(x-1,y-metrics.getAscent(),metrics.stringWidth(words[i])+1,metrics.getHeight());
 				x+=metrics.stringWidth(words[i]+" ");
@@ -261,43 +268,77 @@ public class GraphCreatorPanel extends JComponent {
 		lowerTuples.put(x, t2);
 
 		graph.addEdge(t1,t2,new DefaultWeightedEdge());
-		//System.out.println(graph.getEdgeWeight(graph.getEdge(t1,t2)));
-
-		//Add pair of tuples at right border
-		t1=new GraphTuple(rightTextBorder,y-metrics.getAscent()-spaceBetweenLines/2);
-		if(graph.addVertex(t1))
+		
+		lineEnds.add(x);
+		
+		//Creating additional tuples after end of current line 
+		Entry<Integer,GraphTuple> temp=upperTuples.higherEntry(x);
+		while(temp!=null)
 		{
-			upperTuples.put(rightTextBorder, t1);
+			t2=new GraphTuple(temp.getValue().getX(),y+metrics.getDescent()+spaceBetweenLines/2);
+			graph.addVertex(t2);
+			lowerTuples.put(t2.getX(), t2);
+			graph.addEdge(temp.getValue(),t2);
+				
+			temp=upperTuples.higherEntry(temp.getKey());
 		}
-		else
+		
+		allLines.put(y, upperTuples);
+		allLines.put((y+lineHeight),lowerTuples);
+		
+				
+		//Adding more extra nodes after the end of shorter lines - this time coming from below
+		
+		Entry<Integer,TreeMap<Integer,GraphTuple>> prev=allLines.lowerEntry(y);
+		int i=lineEnds.size()-1;
+		while(prev!=null)
 		{
-			t1=upperTuples.lastEntry().getValue();
+			TreeMap<Integer,GraphTuple> prevLine=prev.getValue();
+			
+			temp=lowerTuples.higherEntry(lineEnds.get(i));
+			while(temp!=null)
+			{
+				//Check if corresponding tuple already exists because of downward propagation
+				if(!upperTuples.containsKey(temp.getKey()))
+				{
+					t2=temp.getValue();
+					t1=new GraphTuple(t2.getX(),t2.getY()-lineHeight);
+					graph.addVertex(t1);
+					upperTuples.put(t1.getX(),t1);
+					graph.addEdge(t1, t2);
+					
+				}
+				temp=lowerTuples.higherEntry(temp.getKey());
+			}
+			graph=(ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge>) finishTupleLine(lowerTuples,graph);
+			
+			i--;
+			lowerTuples=upperTuples;
+			upperTuples=prevLine;
+			prev=allLines.lowerEntry(prev.getKey());
 		}
-
-		t2=new GraphTuple(rightTextBorder,y+metrics.getDescent()+spaceBetweenLines/2);
-		if(graph.addVertex(t2))
+		
+		//Additional iteration for the top line
+		temp=lowerTuples.higherEntry(lineEnds.get(0));
+		while(temp!=null)
 		{
-			lowerTuples.put(rightTextBorder, t2);
+			//Check if corresponding tuple already exists because of downward propagation
+			if(!upperTuples.containsKey(temp.getKey()))
+			{
+				t2=temp.getValue();
+				t1=new GraphTuple(t2.getX(),t2.getY()-lineHeight);
+				graph.addVertex(t1);
+				upperTuples.put(t1.getX(),t1);
+				graph.addEdge(t1, t2);
+				
+			}
+			temp=lowerTuples.higherEntry(temp.getKey());
 		}
-		else
-		{
-			t2=lowerTuples.lastEntry().getValue();
-		}
-		//Connect last tuples in the final three lines
-		if(lastTuple!=null)
-		{
-			if(!graph.containsEdge(lastTuple,t1))graph.addEdge(lastTuple,t1);
-		}
-		if(!graph.containsEdge(t1,t2))graph.addEdge(t1,t2);
-
-
-
-		//Connect tuples adjacent to the last line
+		
 		graph=(ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge>) finishTupleLine(upperTuples,graph);
 		graph=(ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge>) finishTupleLine(lowerTuples,graph);
 
 		visualizeGraph(graph,g,Color.LIGHT_GRAY);
-		//routeAnnotationsGreedy(graph,annotations,g);
 		
 		//TODO: Program out findRoutes() and relpace this part with a single call.
 		Entry<Integer,GraphTuple> currentEntry=annotations.firstEntry();
