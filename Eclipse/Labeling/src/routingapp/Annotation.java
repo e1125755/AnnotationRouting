@@ -18,6 +18,7 @@ public class Annotation {
 	{
 		this.text=annText;
 		this.annotatedNode=node;
+		this.annotatedNode.setAnnotation(this);
 	}
 	
 	public String getText()

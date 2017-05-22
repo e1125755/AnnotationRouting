@@ -17,7 +17,7 @@ public interface Routing {
 	/**
 	 * Finds a possible location for a single annotation
 	 * @param graph The graph that will be used to find a route.
-	 * @param source A node, designating the location of the annotated word. The annotation's text will be equal to the node's name.
+	 * @param source A node, designating the location of the annotated word. The annotation's information will be retrieved from the node's annotation object.
 	 * @return A GraphWalk containing either the route to the Annotation's position, or an attempt at a solution.
 	 */
 	public GraphWalk<GraphTuple,? extends DefaultWeightedEdge> findRouteFor(WeightedGraph<GraphTuple, DefaultWeightedEdge> graph, GraphTuple source);

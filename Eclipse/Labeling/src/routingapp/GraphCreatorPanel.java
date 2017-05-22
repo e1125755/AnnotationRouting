@@ -120,14 +120,14 @@ public class GraphCreatorPanel extends JComponent {
 		int y = metrics.getAscent()+10;
 
 		String words[]=text.split(" ");
-		ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge> graph=new ListenableUndirectedWeightedGraph(DefaultWeightedEdge.class);
+		ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge> graph=new ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge>(DefaultWeightedEdge.class);
 		TreeMap<Integer, GraphTuple> upperTuples=new TreeMap<Integer, GraphTuple>();
 		TreeMap<Integer, GraphTuple> lowerTuples=new TreeMap<Integer, GraphTuple>();
 		TreeMap<Integer,TreeMap<Integer,GraphTuple>> allLines=new TreeMap<Integer,TreeMap<Integer,GraphTuple>>();
 		
 		ArrayList<Integer> lineEnds=new ArrayList<Integer>();//Saves the position at which the text ends for each line.
 
-		TreeMap<Integer,GraphTuple> annotations=new TreeMap<Integer,GraphTuple>();
+		TreeMap<Integer,GraphTuple> annotatedTuples=new TreeMap<Integer,GraphTuple>();
 		int annNumber=0;
 		Routing router=getRouter(routingtype);
 
@@ -151,7 +151,7 @@ public class GraphCreatorPanel extends JComponent {
 				
 				lineEnds.add(x);
 				
-				//Create single tuple at page border, it will be propagated downwards
+				//Create single tuple at text border, it will be propagated downwards
 				if(allLines.isEmpty())
 				{
 					t1=new GraphTuple(rightTextBorder,y-metrics.getAscent()-spaceBetweenLines/2);
@@ -189,37 +189,38 @@ public class GraphCreatorPanel extends JComponent {
 			{
 				String temp[]=words[i].split("\\\\");
 				//Create annotation
-				String ann="";
+				String annText="";
 				if(temp[1].contains("{")&&temp[1].contains("}"))//Currently assumes there's only one Argument 
 				{
-					ann=temp[1].substring(temp[1].indexOf('{')+1, temp[1].lastIndexOf('}'));
+					annText=temp[1].substring(temp[1].indexOf('{')+1, temp[1].lastIndexOf('}'));
 				}
 				else
 				{
-					ann=temp[1].substring(temp[1].indexOf('{')+1);
+					annText=temp[1].substring(temp[1].indexOf('{')+1);
 					i++;
 					while((i<words.length)&&(!words[i].contains("}")))
 					{
-						ann+=" "+words[i];
+						annText+=" "+words[i];
 						i++;
 					}
 					if((i>=words.length)&&(!words[i-1].contains("}")))
 					{
-						ann="Malformed Command: "+temp[1];
+						annText="Malformed Command: "+temp[1];
 						//TODO: Replace with proper error dialog, if necessary
 					}
 					else
 					{
 						assert(words[i].contains("}"));
-						ann+=" "+words[i].substring(0,words[i].indexOf('}'));
+						annText+=" "+words[i].substring(0,words[i].indexOf('}'));
 					}
 				}
 
 				//Annotation title is currently stored in the GraphTuple's name attribute 
-				GraphTuple annTuple=new GraphTuple(ann,x+metrics.stringWidth(temp[0])/2,y-metrics.getAscent()-spaceBetweenLines/2);
+				GraphTuple annTuple=new GraphTuple("Annotated Tuple",x+metrics.stringWidth(temp[0])/2,y-metrics.getAscent()-spaceBetweenLines/2);
+				Annotation ann=new Annotation(annText,annTuple);
 				graph.addVertex(annTuple);
 				upperTuples.put(annTuple.getX(), annTuple);
-				annotations.put(annNumber,annTuple);
+				annotatedTuples.put(annNumber,annTuple);
 				annNumber++;
 
 				g.drawString(temp[0], x, y);
@@ -341,13 +342,13 @@ public class GraphCreatorPanel extends JComponent {
 		visualizeGraph(graph,g,Color.LIGHT_GRAY);
 		
 		//TODO: Program out findRoutes() and relpace this part with a single call.
-		Entry<Integer,GraphTuple> currentEntry=annotations.firstEntry();
+		Entry<Integer,GraphTuple> currentEntry=annotatedTuples.firstEntry();
 		while(currentEntry!=null)
 		{
 			router.updateNextAnnotationPos(nextAnnotationPos);
 			GraphWalk<GraphTuple, ? extends DefaultWeightedEdge> result=router.findRouteFor(graph, currentEntry.getValue());
 			drawAnnotation(g, graph, result);
-			currentEntry=annotations.higherEntry(currentEntry.getKey());
+			currentEntry=annotatedTuples.higherEntry(currentEntry.getKey());
 		}
 		
 		//drawAnnotations(g);
@@ -426,11 +427,11 @@ public class GraphCreatorPanel extends JComponent {
 			//Retrieving annotation text
 			if(path.getStartVertex().getX()<path.getEndVertex().getX())
 			{
-				words=path.getStartVertex().getName().split(" ");
+				words=path.getStartVertex().getAnnotation().getText().split(" ");
 			}
 			else
 			{
-				words=path.getEndVertex().getName().split(" ");
+				words=path.getEndVertex().getAnnotation().getText().split(" ");
 			}
 
 			for(int w=0;w<words.length;w++)
