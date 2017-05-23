@@ -52,7 +52,7 @@ public class GraphCreatorPanel extends JComponent {
 	private String routingtype="greedytop";
 
 	public Dimension getPreferredSize() {
-		return new Dimension(width,height);//NOTE: This might be a bad idea - may cause varying preferred sizes if called later on!
+		return new Dimension(width,height);//NOTE: Causes varying preferred sizes if called after window resizes -> Bad idea?
 	}
 
 	public void setFont(Font font) {
@@ -108,14 +108,15 @@ public class GraphCreatorPanel extends JComponent {
 
 		g.setFont(this.getFont());
 		updateMeasurements(g);
-
+		
 		g.setColor(Color.white);
 		g.fillRect(0, 0, width, height);
 		g.setColor(Color.black);
 		FontMetrics metrics = g.getFontMetrics();
 
-
-		int lineHeight=metrics.getHeight()+spaceBetweenLines;
+		//IMPORTANT: DO NOT use FontMetrics.getHeight() for the graph, FontMetrics.getAscent() plus FontMetrics.getDescent() might not equal FontMetrics.getHeight()!
+		//It is assumed that all Nodes adjacent to each other share exactly one coordinate, which would be violated if Ascent+Descent!=Height
+		int lineHeight=metrics.getAscent()+metrics.getDescent()+spaceBetweenLines;
 		int x = leftTextBorder;
 		int y = metrics.getAscent()+10;
 
@@ -130,7 +131,6 @@ public class GraphCreatorPanel extends JComponent {
 		TreeMap<Integer,GraphTuple> annotatedTuples=new TreeMap<Integer,GraphTuple>();
 		int annNumber=0;
 		Routing router=getRouter(routingtype);
-
 
 		//While it is possible to have line breaks in more places than after each word, this will be ignored for ease of implementation.
 		for(int i=0;i<words.length; i++)
@@ -272,7 +272,7 @@ public class GraphCreatorPanel extends JComponent {
 		
 		lineEnds.add(x);
 		
-		//Creating additional tuples after end of current line 
+		//Creating additional tuples after end of current line (Last line only)
 		Entry<Integer,GraphTuple> temp=upperTuples.higherEntry(x);
 		while(temp!=null)
 		{
@@ -350,7 +350,6 @@ public class GraphCreatorPanel extends JComponent {
 			drawAnnotation(g, graph, result);
 			currentEntry=annotatedTuples.higherEntry(currentEntry.getKey());
 		}
-		
 		//drawAnnotations(g);
 	}
 

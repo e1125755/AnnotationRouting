@@ -31,5 +31,9 @@ public class Annotation {
 		return annotatedNode;
 	}
 	
+	public String toString()
+	{
+		return "Annotation: "+text;
+	}
 
 }
