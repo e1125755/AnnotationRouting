@@ -67,8 +67,9 @@ public class GraphCreatorPanel extends JComponent {
 		width=this.getWidth();
 		height=this.getHeight();
 
-		rightTextBorder=leftAnnotationBorder=(int) (width*0.75);
+		rightTextBorder=(int) (width*0.75);
 		leftTextBorder=(int) (width*0.1);
+		leftAnnotationBorder=(int) (width*0.76);
 		rightAnnotationBorder=(int) (width*0.95);
 
 		//resetting routing values, since routing needs to be re-done
@@ -115,7 +116,7 @@ public class GraphCreatorPanel extends JComponent {
 		FontMetrics metrics = g.getFontMetrics();
 
 		//IMPORTANT: DO NOT use FontMetrics.getHeight() for the graph, FontMetrics.getAscent() plus FontMetrics.getDescent() might not equal FontMetrics.getHeight()!
-		//It is assumed that all Nodes adjacent to each other share exactly one coordinate, which would be violated if Ascent+Descent!=Height
+		//It is assumed that all Nodes adjacent to each other share exactly one coordinate, which would be violated for vertically adjacent coordinates if Ascent+Descent!=Height
 		int lineHeight=metrics.getAscent()+metrics.getDescent()+spaceBetweenLines;
 		int x = leftTextBorder;
 		int y = metrics.getAscent()+10;
@@ -217,7 +218,7 @@ public class GraphCreatorPanel extends JComponent {
 
 				//Annotation title is currently stored in the GraphTuple's name attribute 
 				GraphTuple annTuple=new GraphTuple("Annotated Tuple",x+metrics.stringWidth(temp[0])/2,y-metrics.getAscent()-spaceBetweenLines/2);
-				Annotation ann=new Annotation(annText,annTuple);
+				Annotation ann=new Annotation(annText,this.getFont(),annTuple);
 				graph.addVertex(annTuple);
 				upperTuples.put(annTuple.getX(), annTuple);
 				annotatedTuples.put(annNumber,annTuple);
@@ -393,7 +394,7 @@ public class GraphCreatorPanel extends JComponent {
 	{
 		if(routingType.equals("greedytop"))
 		{
-			return new GreedyTopRouting(leftAnnotationBorder);
+			return new GreedyTopRouting(rightTextBorder);
 		}
 		else//Argument not recognized.
 		{
@@ -415,38 +416,53 @@ public class GraphCreatorPanel extends JComponent {
 		if((path.getEndVertex().getX()>=rightTextBorder)||(path.getStartVertex().getX()>=rightTextBorder))//Draw Annotation (only if routing was successful)
 		{
 			g.setColor(Color.BLACK);
-			FontMetrics metrics=g.getFontMetrics(); 
 
-			int x=rightTextBorder+3;
-			int y=(path.getEndVertex().getX()>=rightTextBorder) ? (path.getEndVertex().getY()) : (path.getStartVertex().getY());
-			y+=metrics.getAscent();
-
-			int startpos=y;
+			
+			//TODO: Replace "magic number" (3) with variable - Location, name yet unknown
+			int x=leftAnnotationBorder+3,y;
+			
+			Annotation ann;
+			
+			
 			String words[];
-			//Retrieving annotation text
+			//Identifying which end of the path connects to the annotated word, and extracting the annotation and its location from the respective ends. 
 			if(path.getStartVertex().getX()<path.getEndVertex().getX())
 			{
-				words=path.getStartVertex().getAnnotation().getText().split(" ");
+				y=path.getEndVertex().getY();
+				ann=path.getStartVertex().getAnnotation();
+				words=ann.getText().split(" ");
 			}
 			else
 			{
-				words=path.getEndVertex().getAnnotation().getText().split(" ");
+				y=path.getStartVertex().getY();
+				ann=path.getEndVertex().getAnnotation();
+				words=ann.getText().split(" ");
 			}
+			
+			Font oldfont=g.getFont();
+			g.setFont(ann.getFont());
+			FontMetrics metrics=g.getFontMetrics();
+			
+			y+=metrics.getAscent();
+			int startpos=y;
 
 			for(int w=0;w<words.length;w++)
 			{
 				if((x+metrics.stringWidth(words[w]))>(rightAnnotationBorder-3))
 				{
-					x=rightTextBorder+3;
+					x=leftAnnotationBorder+3;
 					y+=metrics.getHeight()+spaceBetweenLines;
 				}
 				g.drawString(words[w], x, y);
 				x+=metrics.stringWidth(words[w]+" ");
 			}
-			g.drawRect(rightTextBorder+1, startpos-metrics.getAscent(), rightAnnotationBorder-rightTextBorder-1, y+spaceBetweenLines/2+metrics.getHeight()-startpos);
+			int annHeight=ann.calculateHeight(rightAnnotationBorder-leftAnnotationBorder-2*3, spaceBetweenLines);
+			
+			g.drawRect(leftAnnotationBorder, startpos-metrics.getAscent(), rightAnnotationBorder-leftAnnotationBorder, annHeight);
 			y+=metrics.getHeight()+spaceBetweenLines;
-			x=rightTextBorder+3;
-			nextAnnotationPos=y;
+			//x=leftAnnotationBorder+3;
+			nextAnnotationPos=startpos+annHeight;
+			g.setFont(oldfont);
 			g.setColor(Color.BLUE);
 
 		}
