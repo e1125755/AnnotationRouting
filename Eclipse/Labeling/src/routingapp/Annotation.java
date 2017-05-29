@@ -37,9 +37,7 @@ public class Annotation {
 	 */
 	public int calculateHeight(int width, int spaceBetweenLines)
 	{
-		//Workaround to create a FontMetrics Object from a Font (Constructor is protected)
-		Canvas c=new Canvas();
-		FontMetrics met=c.getFontMetrics(font);
+		FontMetrics met=this.getFontMetrics();
 		
 		int ret=met.getHeight();
 		String[] words=text.split(" ");
@@ -57,6 +55,15 @@ public class Annotation {
 		
 		
 		return (ret+spaceBetweenLines);
+	}
+	/**
+	 * Workaround method to create a FontMetrics Object from a Font, since the actual Constructor is protected. 
+	 * @return A FontMetrics Object that uses this Object's Font for it's measurements. 
+	 */
+	public FontMetrics getFontMetrics()
+	{
+		Canvas c=new Canvas();
+		return c.getFontMetrics(font);
 	}
 	
 	public String getText()

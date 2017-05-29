@@ -49,7 +49,9 @@ public class GraphCreatorPanel extends JComponent {
 
 	private int nextAnnotationPos=0;
 	
-	private String routingtype="greedytop";
+	private String routingtype="greedytop";//Change this to change the type of routing - see also GraphCreatorPanel.getRouter()
+	
+	private Font AnnotationFont;
 
 	public Dimension getPreferredSize() {
 		return new Dimension(width,height);//NOTE: Causes varying preferred sizes if called after window resizes -> Bad idea?
@@ -57,6 +59,7 @@ public class GraphCreatorPanel extends JComponent {
 
 	public void setFont(Font font) {
 		super.setFont(font);
+		this.AnnotationFont=new Font(font.getFontName(),font.getStyle(),((font.getSize()>2)?(font.getSize()-2):(font.getSize())));
 		repaint();
 	}
 
@@ -218,7 +221,7 @@ public class GraphCreatorPanel extends JComponent {
 
 				//Annotation title is currently stored in the GraphTuple's name attribute 
 				GraphTuple annTuple=new GraphTuple("Annotated Tuple",x+metrics.stringWidth(temp[0])/2,y-metrics.getAscent()-spaceBetweenLines/2);
-				Annotation ann=new Annotation(annText,this.getFont(),annTuple);
+				Annotation ann=new Annotation(annText,AnnotationFont,annTuple);
 				graph.addVertex(annTuple);
 				upperTuples.put(annTuple.getX(), annTuple);
 				annotatedTuples.put(annNumber,annTuple);
@@ -441,7 +444,7 @@ public class GraphCreatorPanel extends JComponent {
 			
 			Font oldfont=g.getFont();
 			g.setFont(ann.getFont());
-			FontMetrics metrics=g.getFontMetrics();
+			FontMetrics metrics=ann.getFontMetrics();
 			
 			y+=metrics.getAscent();
 			int startpos=y;
