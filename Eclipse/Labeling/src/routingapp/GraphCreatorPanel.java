@@ -351,6 +351,7 @@ public class GraphCreatorPanel extends JComponent {
 		{
 			router.updateNextAnnotationPos(nextAnnotationPos);
 			GraphWalk<GraphTuple, ? extends DefaultWeightedEdge> result=router.findRouteFor(graph, currentEntry.getValue());
+			currentEntry.getValue().getAnnotation().setRoute(result);
 			drawAnnotation(g, graph, result);
 			currentEntry=annotatedTuples.higherEntry(currentEntry.getKey());
 		}

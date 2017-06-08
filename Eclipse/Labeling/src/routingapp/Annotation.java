@@ -4,6 +4,9 @@ import java.awt.Canvas;
 import java.awt.Font;
 import java.awt.FontMetrics;
 
+import org.jgrapht.graph.DefaultWeightedEdge;
+import org.jgrapht.graph.GraphWalk;
+
 /**
  * Class to encapsulate annotations and store some additional information, such as the Node associated with the annotation. 
  * 
@@ -14,6 +17,7 @@ public class Annotation {
 	private String text;
 	private GraphTuple annotatedNode;
 	private Font font;
+	private GraphWalk<GraphTuple,? extends DefaultWeightedEdge> route;
 	
 	/**
 	 * Creates a new annotation object. The values are not meant to be edited later on.
@@ -26,6 +30,7 @@ public class Annotation {
 		this.font=f;
 		this.annotatedNode=node;
 		this.annotatedNode.setAnnotation(this);
+		this.route=null;
 	}
 	
 	/**
@@ -52,7 +57,6 @@ public class Annotation {
 			}
 			x+=met.stringWidth(words[w]+" ");
 		}
-		
 		
 		return (ret+spaceBetweenLines);
 	}
@@ -81,6 +85,20 @@ public class Annotation {
 		return font;
 	}
 	
+	public GraphWalk<GraphTuple,? extends DefaultWeightedEdge> getRoute() {
+		return route;
+	}
+
+	/**
+	 * Sets the route the annotation's leader takes throughout the graph. Only usable once, throws an exception if used with the route already set.
+	 * @param route The GraphWalk describing the leader's route throughout the graph
+	 */
+	public void setRoute(GraphWalk<GraphTuple,? extends DefaultWeightedEdge> route) {
+		
+		if(this.route==null)this.route = route;
+		else throw new UnsupportedOperationException("Error: Route already set for "+this.toString());
+	}
+
 	public String toString()
 	{
 		return "Annotation: "+text;

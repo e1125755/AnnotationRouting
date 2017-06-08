@@ -14,11 +14,11 @@ import org.jgrapht.graph.GraphWalk;
 
 public class GreedyTopRouting implements Routing{
 
-	private int leftAnnotationBorder, nextAnnotationPos;
+	private int rightTextBorder, nextAnnotationPos;
 	private GraphTuple lastAnnotatedWord;
 	public GreedyTopRouting(int border)
 	{
-		leftAnnotationBorder=border;
+		rightTextBorder=border;
 		nextAnnotationPos=0;
 		lastAnnotatedWord=new GraphTuple("Dummy",0,0);
 	}
@@ -87,7 +87,7 @@ public class GreedyTopRouting implements Routing{
 				}
 				else//No suitable nodes found - dead end or upper border for annotation position encountered
 				{
-					if(currentNode.getX()<leftAnnotationBorder) //True dead end encountered, initiate backtracking
+					if(currentNode.getX()<rightTextBorder) //True dead end encountered, initiate backtracking
 					{
 						GraphTuple tempNode=currentNode;
 						backtrack=true;
