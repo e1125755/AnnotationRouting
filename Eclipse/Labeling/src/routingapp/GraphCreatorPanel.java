@@ -46,15 +46,19 @@ public class GraphCreatorPanel extends JComponent {
 	private int leftTextBorder, rightTextBorder, leftAnnotationBorder, rightAnnotationBorder;
 	private int upperBorder=10;
 	private int spaceBetweenLines=6;
+	
+	private int annotationBorderSize=3;//Distance from annotation content to it's border rectangle
+	private Font AnnotationFont;
 
 	private int nextAnnotationPos=0;
 	
 	private String routingtype="greedytop";//Change this to change the type of routing - see also GraphCreatorPanel.getRouter()
-	
-	private Font AnnotationFont;
 
+	/**
+	 * NOTE: Current implementation causes varying preferred sizes if called after a window resize.
+	 */
 	public Dimension getPreferredSize() {
-		return new Dimension(width,height);//NOTE: Causes varying preferred sizes if called after window resizes -> Bad idea?
+		return new Dimension(width,height);
 	}
 
 	public void setFont(Font font) {
@@ -66,13 +70,13 @@ public class GraphCreatorPanel extends JComponent {
 	/**
 	 * Helper method - updates width, height and related values whenever called.
 	 */
-	private void updateMeasurements(Graphics g) {
+	private void updateMeasurements() {
 		width=this.getWidth();
 		height=this.getHeight();
 
-		rightTextBorder=(int) (width*0.75);
-		leftTextBorder=(int) (width*0.1);
-		leftAnnotationBorder=(int) (width*0.76);
+		rightTextBorder=(int) (width*0.70);
+		leftTextBorder=(int) (width*0.05);
+		leftAnnotationBorder=(int) (width*0.80);
 		rightAnnotationBorder=(int) (width*0.95);
 
 		//resetting routing values, since routing needs to be re-done
@@ -111,7 +115,7 @@ public class GraphCreatorPanel extends JComponent {
 		super.paintComponent(g);
 
 		g.setFont(this.getFont());
-		updateMeasurements(g);
+		updateMeasurements();
 		
 		g.setColor(Color.white);
 		g.fillRect(0, 0, width, height);
@@ -422,23 +426,22 @@ public class GraphCreatorPanel extends JComponent {
 			g.setColor(Color.BLACK);
 
 			
-			//TODO: Replace "magic number" (3) with variable - Location, name yet unknown
-			int x=leftAnnotationBorder+3,y;
+			int x=leftAnnotationBorder+annotationBorderSize;
+			int y=nextAnnotationPos;
+			GraphTuple lastPointInRoute;
 			
 			Annotation ann;
-			
-			
 			String words[];
-			//Identifying which end of the path connects to the annotated word, and extracting the annotation and its location from the respective ends. 
-			if(path.getStartVertex().getX()<path.getEndVertex().getX())
+			
+			if(path.getStartVertex().getX()<path.getEndVertex().getX())//Identifying which end of the path connects to the annotated word
 			{
-				y=path.getEndVertex().getY();
+				lastPointInRoute=path.getEndVertex();
 				ann=path.getStartVertex().getAnnotation();
 				words=ann.getText().split(" ");
 			}
 			else
 			{
-				y=path.getStartVertex().getY();
+				lastPointInRoute=path.getStartVertex();
 				ann=path.getEndVertex().getAnnotation();
 				words=ann.getText().split(" ");
 			}
@@ -452,22 +455,23 @@ public class GraphCreatorPanel extends JComponent {
 
 			for(int w=0;w<words.length;w++)
 			{
-				if((x+metrics.stringWidth(words[w]))>(rightAnnotationBorder-3))
+				if((x+metrics.stringWidth(words[w]))>(rightAnnotationBorder-annotationBorderSize))
 				{
-					x=leftAnnotationBorder+3;
+					x=leftAnnotationBorder+annotationBorderSize;
 					y+=metrics.getHeight()+spaceBetweenLines;
 				}
 				g.drawString(words[w], x, y);
 				x+=metrics.stringWidth(words[w]+" ");
 			}
-			int annHeight=ann.calculateHeight(rightAnnotationBorder-leftAnnotationBorder-2*3, spaceBetweenLines);
+			int annHeight=ann.calculateHeight(rightAnnotationBorder-leftAnnotationBorder-2*annotationBorderSize, spaceBetweenLines);
 			
 			g.drawRect(leftAnnotationBorder, startpos-metrics.getAscent(), rightAnnotationBorder-leftAnnotationBorder, annHeight);
-			y+=metrics.getHeight()+spaceBetweenLines;
-			//x=leftAnnotationBorder+3;
-			nextAnnotationPos=startpos+annHeight;
+			//y+=metrics.getHeight()+spaceBetweenLines;
 			g.setFont(oldfont);
 			g.setColor(Color.BLUE);
+			g.drawLine(lastPointInRoute.getX(),lastPointInRoute.getY(),leftAnnotationBorder,nextAnnotationPos);//TODO: Replace with OPO-Leader
+			
+			nextAnnotationPos+=annHeight+spaceBetweenLines;
 
 		}
 		else
