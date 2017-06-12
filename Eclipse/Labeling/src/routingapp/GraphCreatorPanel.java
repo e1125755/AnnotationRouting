@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -39,7 +41,10 @@ public class GraphCreatorPanel extends JComponent {
 					"Kapitälchen, Kerning oder Ligaturen (sehr pfiffig) nicht richtig dargestellt werden.\\note{test test}";/**/
 	//Source: http://www.blindtextgenerator.de/
 
-	private boolean showWordBoundaries=false;//Debug-value, draws rectangles around detected word boundaries in main text, if set to true
+	//DEBUG VALUES
+	private boolean showWordBoundaries=false;//draws rectangles around detected word boundaries in main text, if set to true
+	private boolean showGraphGrid=false;//Draws the whole routing Graph 
+	//DEBUG VALUES END
 
 	private int width=550;
 	private int height=600;
@@ -49,9 +54,10 @@ public class GraphCreatorPanel extends JComponent {
 	
 	private int annotationBorderSize=3;//Distance from annotation content to it's border rectangle
 	private Font AnnotationFont;
+	
+	private int curveSize=3;
 
 	private int nextAnnotationPos=0;
-	
 	private String routingtype="greedytop";//Change this to change the type of routing - see also GraphCreatorPanel.getRouter()
 
 	/**
@@ -347,7 +353,7 @@ public class GraphCreatorPanel extends JComponent {
 		graph=(ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge>) finishTupleLine(upperTuples,graph);
 		graph=(ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge>) finishTupleLine(lowerTuples,graph);
 
-		visualizeGraph(graph,g,Color.LIGHT_GRAY);
+		if(showGraphGrid)visualizeGraph(graph,g,Color.LIGHT_GRAY);
 		
 		//TODO: Program out findRoutes() and relpace this part with a single call.
 		Entry<Integer,GraphTuple> currentEntry=annotatedTuples.firstEntry();
@@ -421,6 +427,8 @@ public class GraphCreatorPanel extends JComponent {
 	private void drawAnnotation(Graphics g, WeightedGraph<GraphTuple,DefaultWeightedEdge> graph, GraphWalk<GraphTuple,? extends DefaultWeightedEdge>path) {
 
 
+		int currentAnnotationPos=nextAnnotationPos;
+		
 		if((path.getEndVertex().getX()>=rightTextBorder)||(path.getStartVertex().getX()>=rightTextBorder))//Draw Annotation (only if routing was successful)
 		{
 			g.setColor(Color.BLACK);
@@ -428,20 +436,16 @@ public class GraphCreatorPanel extends JComponent {
 			
 			int x=leftAnnotationBorder+annotationBorderSize;
 			int y=nextAnnotationPos;
-			GraphTuple lastPointInRoute;
-			
 			Annotation ann;
 			String words[];
 			
 			if(path.getStartVertex().getX()<path.getEndVertex().getX())//Identifying which end of the path connects to the annotated word
 			{
-				lastPointInRoute=path.getEndVertex();
 				ann=path.getStartVertex().getAnnotation();
 				words=ann.getText().split(" ");
 			}
 			else
 			{
-				lastPointInRoute=path.getStartVertex();
 				ann=path.getEndVertex().getAnnotation();
 				words=ann.getText().split(" ");
 			}
@@ -469,7 +473,6 @@ public class GraphCreatorPanel extends JComponent {
 			//y+=metrics.getHeight()+spaceBetweenLines;
 			g.setFont(oldfont);
 			g.setColor(Color.BLUE);
-			g.drawLine(lastPointInRoute.getX(),lastPointInRoute.getY(),leftAnnotationBorder,nextAnnotationPos);//TODO: Replace with OPO-Leader
 			
 			nextAnnotationPos+=annHeight+spaceBetweenLines;
 
@@ -479,23 +482,52 @@ public class GraphCreatorPanel extends JComponent {
 			g.setColor(Color.RED);
 		}
 		//Draw Route or its fragment
+		
+		Graphics2D g2d=(Graphics2D)g;
 
 		List<GraphTuple> nodeList=path.getVertexList();
 
 		if(nodeList.size()>=2)
-		{
+		{			
 			Iterator<GraphTuple> it=nodeList.iterator();
 			GraphTuple nextTuple=it.next();
+			GraphTuple currentTuple=nextTuple;
+			GraphTuple oldTuple=currentTuple;
+			
+			GeneralPath route=new GeneralPath();
+			route.moveTo(nextTuple.getX(), nextTuple.getY());
 
 			while(it.hasNext())
-			{
-				GraphTuple oldTuple=nextTuple;
+			{				
+				oldTuple=currentTuple;
+				currentTuple=nextTuple;
 				nextTuple=it.next();
 
-				g.drawLine(oldTuple.getX(),oldTuple.getY(),nextTuple.getX(),nextTuple.getY());
-				DefaultWeightedEdge temp=graph.getEdge(oldTuple, nextTuple);
-				graph.setEdgeWeight(temp, graph.getEdgeWeight(temp)-1);
+				if((oldTuple.getX()!=nextTuple.getX())&&(oldTuple.getY()!=nextTuple.getY()))//Curve detection
+				{
+					if(oldTuple.getY()==currentTuple.getY())
+					{
+						route.lineTo(currentTuple.getX()+curveSize*Math.signum(oldTuple.getX()-currentTuple.getX()),currentTuple.getY());
+						route.curveTo(route.getCurrentPoint().getX(), route.getCurrentPoint().getY(), currentTuple.getX(), currentTuple.getY(),currentTuple.getX(), currentTuple.getY()+curveSize*Math.signum(nextTuple.getY()-currentTuple.getY()));
+					}
+					else
+					{
+						route.lineTo(currentTuple.getX(),currentTuple.getY()+curveSize*Math.signum(oldTuple.getY()-currentTuple.getY()));
+						route.curveTo(route.getCurrentPoint().getX(), route.getCurrentPoint().getY(), currentTuple.getX(), currentTuple.getY(),currentTuple.getX()+curveSize*Math.signum(nextTuple.getX()-currentTuple.getX()),currentTuple.getY());
+					}
+				}
+				else
+				{
+					route.lineTo(currentTuple.getX(),currentTuple.getY());
+				}
+				DefaultWeightedEdge temp=graph.getEdge(oldTuple, currentTuple);
+				if(temp!=null)graph.setEdgeWeight(temp, graph.getEdgeWeight(temp)-1);
 			}
+			
+			route.lineTo(nextTuple.getX(), nextTuple.getY());
+			route.lineTo(leftAnnotationBorder,currentAnnotationPos);//TODO: Replace with OPO-Leader
+			
+			g2d.draw(route);
 		}
 		else//Mark blocked off source node
 		{
