@@ -399,7 +399,8 @@ public class GraphCreatorPanel extends JComponent {
 	/**
 	 * Creates an instance of the requested routing type, if supported.
 	 * Currently recognized routing types are:
-	 * 		greedytop	-	A greedy routing with backtracking, aiming to place the label as high up as possible.
+	 * 		greedytop		-		A greedy routing with backtracking, aiming to place the label as high up as possible. Can only place labels separately.
+	 * 		greedytop2pass	-		Variation on the above, it will adjust all annotation's positions after finding a  place to move them closer to where the routing ends its path through the text. 
 	 * @param routingType The parameter determining the type of routing that will be used.
 	 * @return
 	 * @throws
