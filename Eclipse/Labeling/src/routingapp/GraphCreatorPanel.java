@@ -58,7 +58,7 @@ public class GraphCreatorPanel extends JComponent {
 	private int curveSize=3;
 
 	private int nextAnnotationPos=0;
-	private String routingtype="greedytop";//Change this to change the type of routing - see also GraphCreatorPanel.getRouter()
+	private String routingtype="greedytop2pass";//Change this to change the type of routing - see also GraphCreatorPanel.getRouter()
 
 	/**
 	 * NOTE: Current implementation causes varying preferred sizes if called after a window resize.
@@ -231,7 +231,7 @@ public class GraphCreatorPanel extends JComponent {
 
 				//Annotation title is currently stored in the GraphTuple's name attribute 
 				GraphTuple annTuple=new GraphTuple("Annotated Tuple",x+metrics.stringWidth(temp[0])/2,y-metrics.getAscent()-spaceBetweenLines/2);
-				Annotation ann=new Annotation(annText,AnnotationFont,annTuple);
+				Annotation ann=new Annotation(annText,AnnotationFont,annTuple,annotationBorderSize);
 				graph.addVertex(annTuple);
 				upperTuples.put(annTuple.getX(), annTuple);
 				annotatedTuples.put(annNumber,annTuple);
@@ -410,6 +410,10 @@ public class GraphCreatorPanel extends JComponent {
 		{
 			return new GreedyTopRouting(rightTextBorder);
 		}
+		else if(routingType.equals("greedytop2pass"))
+		{
+			return new GreedyTopTwoPassRouting(rightTextBorder, leftAnnotationBorder, rightAnnotationBorder, spaceBetweenLines);//Last argument should be replaced with space between annotations, if that becomes it's own thing
+		}
 		else//Argument not recognized.
 		{
 			throw new IllegalArgumentException("Unknown routing type: \""+routingType+"\"");
@@ -467,7 +471,7 @@ public class GraphCreatorPanel extends JComponent {
 				g.drawString(words[w], x, y);
 				x+=metrics.stringWidth(words[w]+" ");
 			}
-			int annHeight=ann.calculateHeight(rightAnnotationBorder-leftAnnotationBorder-2*annotationBorderSize, spaceBetweenLines);
+			int annHeight=ann.calculateHeight(rightAnnotationBorder-leftAnnotationBorder, spaceBetweenLines);
 			
 			g.drawRect(leftAnnotationBorder, startpos-metrics.getAscent(), rightAnnotationBorder-leftAnnotationBorder, annHeight);
 			//y+=metrics.getHeight()+spaceBetweenLines;

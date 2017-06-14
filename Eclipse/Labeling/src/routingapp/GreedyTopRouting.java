@@ -14,11 +14,12 @@ import org.jgrapht.graph.GraphWalk;
 
 public class GreedyTopRouting implements Routing{
 
-	private int rightTextBorder, nextAnnotationPos;
-	private GraphTuple lastAnnotatedWord;
-	public GreedyTopRouting(int border)
+	protected int rightTextBorder;
+	protected int nextAnnotationPos;
+	protected GraphTuple lastAnnotatedWord;
+	public GreedyTopRouting(int textBorder)
 	{
-		rightTextBorder=border;
+		rightTextBorder=textBorder;
 		nextAnnotationPos=0;
 		lastAnnotatedWord=new GraphTuple("Dummy",0,0);
 	}
@@ -115,8 +116,8 @@ public class GreedyTopRouting implements Routing{
 	}
 
 	@Override
-	public GraphWalk<GraphTuple, ? extends DefaultWeightedEdge>[] findRoutes(
-			WeightedGraph<GraphTuple,? extends DefaultWeightedEdge> graph, List<GraphTuple> list) {
+	public List<GraphWalk<GraphTuple, ? extends DefaultWeightedEdge>> findRoutes(
+			WeightedGraph<GraphTuple, DefaultWeightedEdge> graph, List<GraphTuple> list) {
 		throw new UnsupportedOperationException("Method not implemented yet!");
 		//TODO: Implement method or remove it from Interface.
 		//return null;

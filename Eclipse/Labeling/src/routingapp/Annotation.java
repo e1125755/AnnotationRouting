@@ -17,6 +17,7 @@ public class Annotation {
 	private String text;
 	private GraphTuple annotatedNode;
 	private Font font;
+	private int borderSize;
 	private GraphWalk<GraphTuple,? extends DefaultWeightedEdge> route;
 	
 	/**
@@ -24,24 +25,26 @@ public class Annotation {
 	 * @param annText The text of the annotation.
 	 * @param node The node this annotation belongs to.
 	 */
-	public Annotation(String annText, Font f, GraphTuple node)
+	public Annotation(String annText, Font f, GraphTuple node, int borderSize)
 	{
 		this.text=annText;
 		this.font=f;
 		this.annotatedNode=node;
 		this.annotatedNode.setAnnotation(this);
+		this.borderSize=borderSize;
 		this.route=null;
 	}
 	
 	/**
 	 * Calculates the height of an annotation by using the same process that is used in the main program, and looking at the results.
 	 * Theoretically, using LineBreakMeasurer would be possible, and allow better fits, but has the downside of being very difficult to work with for anything else.    
-	 * @param width The space each annotation's line has available.
+	 * @param width The space each annotation's line has available, including space for borders.
 	 * @param spaceBetweenLines The amount of free space that has to be left between each line.
 	 * @return The total height of the annotation's text, including the free space below the last line.
 	 */
 	public int calculateHeight(int width, int spaceBetweenLines)
 	{
+		width-=2*borderSize;
 		FontMetrics met=this.getFontMetrics();
 		
 		int ret=met.getHeight();
@@ -83,6 +86,11 @@ public class Annotation {
 	public Font getFont()
 	{
 		return font;
+	}
+	
+	public int getBorderSize()
+	{
+		return borderSize;
 	}
 	
 	public GraphWalk<GraphTuple,? extends DefaultWeightedEdge> getRoute() {

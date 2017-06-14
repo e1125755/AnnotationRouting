@@ -15,7 +15,7 @@ import org.jgrapht.graph.GraphWalk;
 public interface Routing {
 
 	/**
-	 * Finds a possible location for a single annotation
+	 * Finds a possible location for a single annotation.
 	 * @param graph The graph that will be used to find a route.
 	 * @param source A node, designating the location of the annotated word. The annotation's information will be retrieved from the node's annotation object.
 	 * @return A GraphWalk containing either the route to the Annotation's position, or an attempt at a solution.
@@ -24,11 +24,12 @@ public interface Routing {
 	
 	/**
 	 * Finds possible Locations for a multiple annotations at once.
+	 * Depending on the implementation, attempts that failed to find a route might be omitted from the list. 
 	 * @param graph The graph that will be used to find the routes.
 	 * @param list A List containing all Annotations that need to be routed.
-	 * @return An Array of GraphWalks, each either leading to a found destination or an unfinished attempt.
+	 * @return A List of GraphWalks, each either leading to a found destination or an unfinished attempt.
 	 */
-	public GraphWalk<GraphTuple,? extends DefaultWeightedEdge>[] findRoutes(WeightedGraph<GraphTuple,? extends DefaultWeightedEdge> graph,List<GraphTuple> list);
+	public List<GraphWalk<GraphTuple,? extends DefaultWeightedEdge>> findRoutes(WeightedGraph<GraphTuple, DefaultWeightedEdge> graph,List<GraphTuple> list);
 
 	/**
 	 * Helper method - allows the main program to tell the routing algorithm the first position a new annotation could take.
