@@ -15,9 +15,9 @@ import org.jgrapht.graph.GraphWalk;
 public class Annotation {
 	
 	private String text;
-	private GraphTuple annotatedNode;
 	private Font font;
-	private int borderSize;
+	private Integer borderSize, ypos;
+	private GraphTuple annotatedNode;
 	private GraphWalk<GraphTuple,? extends DefaultWeightedEdge> route;
 	
 	/**
@@ -32,7 +32,8 @@ public class Annotation {
 		this.annotatedNode=node;
 		this.annotatedNode.setAnnotation(this);
 		this.borderSize=borderSize;
-		this.route=null;
+		this.route=null; 
+		this.ypos=null;
 	}
 	
 	/**
@@ -92,6 +93,10 @@ public class Annotation {
 	{
 		return borderSize;
 	}
+	public Integer getYpos()
+	{
+		return ypos;
+	}
 	
 	public GraphWalk<GraphTuple,? extends DefaultWeightedEdge> getRoute() {
 		return route;
@@ -105,6 +110,11 @@ public class Annotation {
 		
 		if(this.route==null)this.route = route;
 		else throw new UnsupportedOperationException("Error: Route already set for "+this.toString());
+	}
+	
+	public void setYpos(int y)
+	{
+		ypos=y;
 	}
 
 	public String toString()

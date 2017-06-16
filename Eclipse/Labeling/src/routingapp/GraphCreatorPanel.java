@@ -355,17 +355,28 @@ public class GraphCreatorPanel extends JComponent {
 
 		if(showGraphGrid)visualizeGraph(graph,g,Color.LIGHT_GRAY);
 		
-		//TODO: Program out findRoutes() and relpace this part with a single call.
-		Entry<Integer,GraphTuple> currentEntry=annotatedTuples.firstEntry();
-		while(currentEntry!=null)
+		//TODO: Program out findRoutes() in all algorithms and rework this part.
+		if(router.supportsFindRoutes()==false)
 		{
-			router.updateNextAnnotationPos(nextAnnotationPos);
-			GraphWalk<GraphTuple, ? extends DefaultWeightedEdge> result=router.findRouteFor(graph, currentEntry.getValue());
-			currentEntry.getValue().getAnnotation().setRoute(result);
-			drawAnnotation(g, graph, result);
-			currentEntry=annotatedTuples.higherEntry(currentEntry.getKey());
+			Entry<Integer,GraphTuple> currentEntry=annotatedTuples.firstEntry();
+			while(currentEntry!=null)
+			{
+				router.updateNextAnnotationPos(nextAnnotationPos);
+				GraphWalk<GraphTuple, ? extends DefaultWeightedEdge> result=router.findRouteFor(graph, currentEntry.getValue());
+				currentEntry.getValue().getAnnotation().setRoute(result);//TODO: Move to routing algorithm (?)
+				drawAnnotation(g, graph, result);
+				currentEntry=annotatedTuples.higherEntry(currentEntry.getKey());
+			}
 		}
-		//drawAnnotations(g);
+		else
+		{
+			List<GraphWalk<GraphTuple,? extends DefaultWeightedEdge>> results=router.findRoutes(graph, annotatedTuples);
+			Iterator<GraphWalk<GraphTuple,? extends DefaultWeightedEdge>> it=results.iterator();
+			while(it.hasNext())
+			{
+				drawAnnotation(g,graph,it.next());
+			}
+		}
 	}
 
 	/**
@@ -459,6 +470,9 @@ public class GraphCreatorPanel extends JComponent {
 			g.setFont(ann.getFont());
 			FontMetrics metrics=ann.getFontMetrics();
 			
+			if(ann.getYpos()!=null)y=ann.getYpos();
+			else ann.setYpos(y);
+			
 			y+=metrics.getAscent();
 			int startpos=y;
 
@@ -525,8 +539,6 @@ public class GraphCreatorPanel extends JComponent {
 				{
 					route.lineTo(currentTuple.getX(),currentTuple.getY());
 				}
-				DefaultWeightedEdge temp=graph.getEdge(oldTuple, currentTuple);
-				if(temp!=null)graph.setEdgeWeight(temp, graph.getEdgeWeight(temp)-1);
 			}
 			
 			route.lineTo(nextTuple.getX(), nextTuple.getY());

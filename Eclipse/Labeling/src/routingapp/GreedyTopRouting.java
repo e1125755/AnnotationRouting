@@ -1,12 +1,10 @@
 package routingapp;
 
-import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.Map.Entry;
 
 import org.jgrapht.WeightedGraph;
 import org.jgrapht.graph.DefaultWeightedEdge;
@@ -108,6 +106,17 @@ public class GreedyTopRouting implements Routing{
 					{
 						deadend=true;
 						lastAnnotatedWord=source;
+						
+						//Adjust used Edge's weights
+						Iterator<GraphTuple>iter=pathNodes.iterator();
+						GraphTuple oldTuple=iter.next();
+						while(iter.hasNext())
+						{
+							GraphTuple newTuple=iter.next();
+							DefaultWeightedEdge temp=graph.getEdge(oldTuple, newTuple);
+							if(temp!=null)graph.setEdgeWeight(temp, graph.getEdgeWeight(temp)-1);
+							oldTuple=newTuple;
+						}
 					}
 				}
 			}//end while
@@ -118,7 +127,7 @@ public class GreedyTopRouting implements Routing{
 
 	@Override
 	public List<GraphWalk<GraphTuple, ? extends DefaultWeightedEdge>> findRoutes(
-			WeightedGraph<GraphTuple, DefaultWeightedEdge> graph, List<GraphTuple> list) {
+			WeightedGraph<GraphTuple, DefaultWeightedEdge> graph, TreeMap<Integer,GraphTuple> map) {
 		throw new UnsupportedOperationException("Method not implemented yet!");
 		//TODO: Implement method or remove it from Interface.
 		//return null;
@@ -128,5 +137,8 @@ public class GreedyTopRouting implements Routing{
 	public void updateNextAnnotationPos(int nextAnnotationPos) {
 		this.nextAnnotationPos=nextAnnotationPos;
 	}
+	
+	@Override
+	public boolean supportsFindRoutes() {return false;}
 
 }
