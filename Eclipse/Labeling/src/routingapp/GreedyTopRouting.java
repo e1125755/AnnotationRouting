@@ -107,6 +107,7 @@ public class GreedyTopRouting implements Routing{
 					else// Right side was already reached, nothing to do here
 					{
 						deadend=true;
+						lastAnnotatedWord=source;
 					}
 				}
 			}//end while
