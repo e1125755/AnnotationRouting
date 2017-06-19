@@ -12,11 +12,12 @@ import org.jgrapht.graph.GraphWalk;
 
 public class GreedyTopTwoPassRouting extends GreedyTopRouting {
 	
-	private int leftAnnotationBorder, rightAnnotationBorder, annotationSpacing;
+	private int pageHeight, leftAnnotationBorder, rightAnnotationBorder, annotationSpacing;
 	//Inherited from parent: int rightTextBorder, nextAnnotationPos; GraphTuple lastAnnotatedWord.
 	
-	public GreedyTopTwoPassRouting(int textBorder, int leftAnnotationBorder, int rightAnnotationBorder, int annotationSpacing) {
+	public GreedyTopTwoPassRouting(int textBorder, int pageHeight, int leftAnnotationBorder, int rightAnnotationBorder, int annotationSpacing) {
 		super(textBorder);
+		this.pageHeight=pageHeight;
 		this.leftAnnotationBorder = leftAnnotationBorder;
 		this.rightAnnotationBorder = rightAnnotationBorder;
 		this.annotationSpacing = annotationSpacing;
@@ -51,9 +52,36 @@ public class GreedyTopTwoPassRouting extends GreedyTopRouting {
 			allRoutes.add(temp);
 			currentEntry=map.higherEntry(currentEntry.getKey());
 		}
-		
-		//TODO: Add second pass (to adjust annotation's positions) 
-		
+		if(!successfulRoutes.isEmpty())// Second Pass - adjust Annotation's position to keep them closer to the GraphWalk's last node
+		{
+			nextAnnotationPos=pageHeight;
+			GraphWalk<GraphTuple, ? extends DefaultWeightedEdge> currentWalk;
+			int i=successfulRoutes.size()-1;
+			
+			do
+			{
+				currentWalk=successfulRoutes.get(i);
+				GraphTuple startVertex=currentWalk.getStartVertex();
+				Annotation ann=startVertex.getAnnotation();
+				int walkEnd=currentWalk.getEndVertex().getY();
+				int annHeight=ann.calculateHeight(rightAnnotationBorder-leftAnnotationBorder, annotationSpacing);
+				
+				if(nextAnnotationPos-annHeight>=walkEnd)
+				{
+					ann.setYpos(walkEnd);
+					nextAnnotationPos=walkEnd-annotationSpacing;
+				}
+				else
+				{
+					ann.setYpos(nextAnnotationPos-annHeight);
+					nextAnnotationPos=nextAnnotationPos-annHeight-annotationSpacing;
+				}
+
+				i--;
+			}
+			while(i>=0);
+
+		}
 		return allRoutes;
 	}
 	

@@ -424,7 +424,7 @@ public class GraphCreatorPanel extends JComponent {
 		}
 		else if(routingType.equals("greedytop2pass"))
 		{
-			return new GreedyTopTwoPassRouting(rightTextBorder, leftAnnotationBorder, rightAnnotationBorder, spaceBetweenLines);//Last argument should be replaced with space between annotations, if that becomes it's own thing
+			return new GreedyTopTwoPassRouting(rightTextBorder, height, leftAnnotationBorder, rightAnnotationBorder, spaceBetweenLines);//Last argument should be replaced with space between annotations, if that becomes it's own thing
 		}
 		else//Argument not recognized.
 		{
@@ -470,7 +470,12 @@ public class GraphCreatorPanel extends JComponent {
 			g.setFont(ann.getFont());
 			FontMetrics metrics=ann.getFontMetrics();
 			
-			if(ann.getYpos()!=null)y=ann.getYpos();
+			if(ann.getYpos()!=null)
+			{
+				y=ann.getYpos();
+				currentAnnotationPos=y;
+			}
+				
 			else ann.setYpos(y);
 			
 			y+=metrics.getAscent();
