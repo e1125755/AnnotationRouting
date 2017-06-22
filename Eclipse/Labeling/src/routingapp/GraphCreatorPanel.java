@@ -46,8 +46,8 @@ public class GraphCreatorPanel extends JComponent {
 	private boolean showGraphGrid=false;//Draws the whole routing Graph 
 	//DEBUG VALUES END
 
-	private int width=550;
-	private int height=600;
+	private int width=600;
+	private int height=550;
 	private int leftTextBorder, rightTextBorder, leftAnnotationBorder, rightAnnotationBorder;
 	private int upperBorder=10;
 	private int spaceBetweenLines=6;
@@ -58,7 +58,7 @@ public class GraphCreatorPanel extends JComponent {
 	private int curveSize=3;
 
 	private int nextAnnotationPos=0;
-	private String routingtype="greedytop2pass";//Change this to change the type of routing - see also GraphCreatorPanel.getRouter()
+	private String routingtype;//Determines the type of routing - see also GraphCreatorPanel.getRouter() and GraphCreatorApplet.algNames[]
 
 	/**
 	 * NOTE: Current implementation causes varying preferred sizes if called after a window resize.
@@ -67,9 +67,10 @@ public class GraphCreatorPanel extends JComponent {
 		return new Dimension(width,height);
 	}
 
-	public void setFont(Font font) {
+	public void setInfo(Font font, String algorithm) {
 		super.setFont(font);
 		this.AnnotationFont=new Font(font.getFontName(),font.getStyle(),((font.getSize()>2)?(font.getSize()-2):(font.getSize())));
+		this.routingtype=algorithm;
 		repaint();
 	}
 
@@ -410,19 +411,19 @@ public class GraphCreatorPanel extends JComponent {
 	/**
 	 * Creates an instance of the requested routing type, if supported.
 	 * Currently recognized routing types are:
-	 * 		greedytop		-		A greedy routing with backtracking, aiming to place the label as high up as possible. Can only place labels separately.
-	 * 		greedytop2pass	-		Variation on the above, it will adjust all annotation's positions after finding a  place to move them closer to where the routing ends its path through the text. 
+	 * 		Greedy/Topmost			-		A greedy routing with backtracking, aiming to place the label as high up as possible. Can only place labels separately.
+	 * 		Greedy/Topmost (2-Pass)	-		Variation on the above, it will adjust all annotation's positions after finding a  place to move them closer to where the routing ends its path through the text. 
 	 * @param routingType The parameter determining the type of routing that will be used.
 	 * @return
 	 * @throws
 	 */
 	private Routing getRouter(String routingType)
 	{
-		if(routingType.equals("greedytop"))
+		if(routingType.equals("Greedy/Topmost"))
 		{
 			return new GreedyTopRouting(rightTextBorder);
 		}
-		else if(routingType.equals("greedytop2pass"))
+		else if(routingType.equals("Greedy/Topmost (2-Pass)"))
 		{
 			return new GreedyTopTwoPassRouting(rightTextBorder, height, leftAnnotationBorder, rightAnnotationBorder, spaceBetweenLines);//Last argument should be replaced with space between annotations, if that becomes it's own thing
 		}

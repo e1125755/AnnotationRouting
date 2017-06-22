@@ -30,11 +30,17 @@ public class GraphCreatorApplet extends JApplet
 implements ChangeListener, ItemListener {
 
 	GraphCreatorPanel graphCreatorPanel;
-	JComboBox fonts, styles;
+	JComboBox fonts, styles, algorithm;
 	JSpinner sizes;
 	String fontChoice = "Dialog";
 	int styleChoice = 0;
 	int sizeChoice = 12;
+	
+	//Names for the algorithms - they MUST be the same as in GraphCreatorPanel.getRouter()!
+	String algNames[]={	"Greedy/Topmost",
+						"Greedy/Topmost (2-Pass)"
+	};
+	String algChoice=algNames[0];
 
 	public void init() {
 
@@ -68,9 +74,14 @@ implements ChangeListener, ItemListener {
 		sizes = new JSpinner(new SpinnerNumberModel(12, 6, 24, 1));
 		sizes.addChangeListener(this);
 		fontSelectorPanel.add(sizes);
+		
+		algorithm=new JComboBox(algNames);
+		algorithm.setSelectedItem(algChoice);
+		algorithm.addItemListener(this);
+		fontSelectorPanel.add(algorithm);
 
 		graphCreatorPanel = new GraphCreatorPanel();
-		graphCreatorPanel.setFont(new Font(fontChoice, styleChoice, sizeChoice));
+		graphCreatorPanel.setInfo(new Font(fontChoice, styleChoice, sizeChoice),algChoice);
 		graphCreatorPanel.setBackground(Color.white);
 
 		add(BorderLayout.NORTH, fontSelectorPanel);
@@ -85,19 +96,23 @@ implements ChangeListener, ItemListener {
 		if (e.getStateChange() != ItemEvent.SELECTED) {
 			return;
 		}
+		if(e.getSource()==algorithm)
+		{
+			algChoice=(String)algorithm.getSelectedItem();
+		}
 		if (e.getSource() == fonts) {
 			fontChoice = (String)fonts.getSelectedItem();
 		} else {
 			styleChoice = styles.getSelectedIndex();
 		}
-		graphCreatorPanel.setFont(new Font(fontChoice, styleChoice, sizeChoice));
+		graphCreatorPanel.setInfo(new Font(fontChoice, styleChoice, sizeChoice),algChoice);
 	}
 
 	public void stateChanged(ChangeEvent e) {
 		try {
 			String size = sizes.getModel().getValue().toString();
 			sizeChoice = Integer.parseInt(size);
-			graphCreatorPanel.setFont(new Font(fontChoice,styleChoice,sizeChoice));
+			graphCreatorPanel.setInfo(new Font(fontChoice,styleChoice,sizeChoice),algChoice);
 		} catch (NumberFormatException nfe) {
 		}
 	}
