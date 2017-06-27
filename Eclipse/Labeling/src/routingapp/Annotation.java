@@ -18,7 +18,8 @@ public class Annotation {
 	private Font font;
 	private Integer borderSize, ypos;
 	private GraphTuple annotatedNode;
-	private GraphWalk<GraphTuple,? extends DefaultWeightedEdge> route;
+	private RouteInfo routeinfo;
+	private GraphWalk<GraphTuple, ? extends DefaultWeightedEdge> route;
 	
 	/**
 	 * Creates a new annotation object. The values are not meant to be edited later on.
@@ -32,7 +33,7 @@ public class Annotation {
 		this.annotatedNode=node;
 		this.annotatedNode.setAnnotation(this);
 		this.borderSize=borderSize;
-		this.route=null; 
+		this.routeinfo=null; 
 		this.ypos=null;
 	}
 	
@@ -98,10 +99,16 @@ public class Annotation {
 		return ypos;
 	}
 	
-	public GraphWalk<GraphTuple,? extends DefaultWeightedEdge> getRoute() {
+	public GraphWalk<GraphTuple, ? extends DefaultWeightedEdge> getRoute()
+	{
 		return route;
 	}
+	
+	public RouteInfo getRouteInfo() {
+		return routeinfo;
+	}
 
+	
 	/**
 	 * Sets the route the annotation's leader takes throughout the graph. Only usable once, throws an exception if used with the route already set.
 	 * @param route The GraphWalk describing the leader's route throughout the graph
@@ -110,6 +117,12 @@ public class Annotation {
 		
 		if(this.route==null)this.route = route;
 		else throw new UnsupportedOperationException("Error: Route already set for "+this.toString());
+	}
+
+	public void setRouteInfo(RouteInfo info) {
+		
+		if(this.routeinfo==null)this.routeinfo = info;
+		else throw new UnsupportedOperationException("Error: Route information already set for "+this.toString());
 	}
 	
 	public void setYpos(int y)

@@ -12,6 +12,7 @@ public class GraphTuple{
 	private int x;
 	private int y;
 	private Annotation annotation;
+	private RouteInfo routeinfo;
 	
 	public GraphTuple(int e1, int e2)
 	{
@@ -19,6 +20,7 @@ public class GraphTuple{
 		y=e2;
 		name="Tuple";
 		annotation=null;
+		routeinfo=null;
 	}
 	public GraphTuple(String nm, int e1, int e2)
 	{
@@ -32,9 +34,20 @@ public class GraphTuple{
 		annotation=ann;
 	}
 	
+	public void setRouteInfo(RouteInfo info)
+	{
+		//NOTE: Maybe allow changes only once?
+		this.routeinfo=info;
+	}
+	
 	public Annotation getAnnotation()
 	{
 		return annotation;
+	}
+	
+	public RouteInfo getRouteInfo()
+	{
+		return routeinfo;
 	}
 	
 	public String getName() {
@@ -56,7 +69,7 @@ public class GraphTuple{
 		return ret;
 	}
 
-	//IMPORTANT: Name and annotation are currently not considered while comparing two GraphTuples 
+	//IMPORTANT: This only looks at the coordinates while comparing two GraphTuples
 	public boolean equals(Object o)
 	{
 		if((o==null)||(o.getClass()!=this.getClass())) return false;

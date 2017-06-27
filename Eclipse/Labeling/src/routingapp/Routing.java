@@ -38,11 +38,4 @@ public interface Routing {
 	 * @param nextAnnotationPos the first position the next annotation could start at
 	 */
 	public void updateNextAnnotationPos(int nextAnnotationPos);
-	
-	/**
-	 * Helper method - tells the main program whether findRoutes() is implemented.
-	 * TODO: Eliminate this method and find a way to implement findRoutes() for all routing algorithms. 
-	 * @return True, if findRoutes() is supported, else false. 
-	 */
-	public boolean supportsFindRoutes();
 }

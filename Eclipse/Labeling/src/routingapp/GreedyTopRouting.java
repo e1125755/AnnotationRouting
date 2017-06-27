@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.Map.Entry;
 
 import org.jgrapht.WeightedGraph;
 import org.jgrapht.graph.DefaultWeightedEdge;
@@ -12,12 +13,16 @@ import org.jgrapht.graph.GraphWalk;
 
 public class GreedyTopRouting implements Routing{
 
-	protected int rightTextBorder;
+	protected int rightTextBorder, leftAnnotationBorder, rightAnnotationBorder, annotationSpacing;
 	protected int nextAnnotationPos;
 	protected GraphTuple lastAnnotatedWord;
-	public GreedyTopRouting(int textBorder)
+	public GreedyTopRouting(int textBorder, int leftAnnBorder, int rightAnnBorder, int annSpacing)
 	{
 		rightTextBorder=textBorder;
+		leftAnnotationBorder=leftAnnBorder;
+		rightAnnotationBorder=rightAnnBorder;
+		annotationSpacing=annSpacing;
+		
 		nextAnnotationPos=0;
 		lastAnnotatedWord=new GraphTuple("Dummy",0,0);
 	}
@@ -128,17 +133,33 @@ public class GreedyTopRouting implements Routing{
 	@Override
 	public List<GraphWalk<GraphTuple, ? extends DefaultWeightedEdge>> findRoutes(
 			WeightedGraph<GraphTuple, DefaultWeightedEdge> graph, TreeMap<Integer,GraphTuple> map) {
-		throw new UnsupportedOperationException("Method not implemented yet!");
-		//TODO: Implement method or remove it from Interface.
-		//return null;
+		
+		ArrayList<GraphWalk<GraphTuple, ? extends DefaultWeightedEdge>> allRoutes, successfulRoutes;
+		allRoutes=new ArrayList<GraphWalk<GraphTuple, ? extends DefaultWeightedEdge>>();
+		successfulRoutes=new ArrayList<GraphWalk<GraphTuple, ? extends DefaultWeightedEdge>>();
+		
+		Entry<Integer,GraphTuple> currentEntry=map.firstEntry();
+		
+		while(currentEntry!=null)
+		{
+			GraphTuple currentTuple=currentEntry.getValue();
+			GraphWalk<GraphTuple, ? extends DefaultWeightedEdge> temp=findRouteFor(graph, currentTuple);
+			if(temp.getLength()>1)//Since Backtracking is used, all failed attempts' routes have length 1 
+			{
+				successfulRoutes.add(temp);
+				currentTuple.getAnnotation().setYpos(nextAnnotationPos);
+				currentTuple.getAnnotation().setRoute(temp);
+				nextAnnotationPos+=annotationSpacing+currentTuple.getAnnotation().calculateHeight(rightAnnotationBorder-leftAnnotationBorder, annotationSpacing);
+			}
+			allRoutes.add(temp);
+			currentEntry=map.higherEntry(currentEntry.getKey());
+		}
+		return allRoutes;
 	}
 
 	@Override
 	public void updateNextAnnotationPos(int nextAnnotationPos) {
 		this.nextAnnotationPos=nextAnnotationPos;
 	}
-	
-	@Override
-	public boolean supportsFindRoutes() {return false;}
 
 }
