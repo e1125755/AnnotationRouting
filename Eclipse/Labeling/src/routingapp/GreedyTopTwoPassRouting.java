@@ -1,7 +1,6 @@
 package routingapp;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -27,27 +26,29 @@ public class GreedyTopTwoPassRouting extends GreedyTopRouting {
 		return super.findRouteFor(graph, source);
 	}
 	
-	public List<GraphWalk<GraphTuple, ? extends DefaultWeightedEdge>> findRoutes(
+	public List<RouteInfo> findRoutes(
 			WeightedGraph<GraphTuple, DefaultWeightedEdge> graph, TreeMap<Integer,GraphTuple> map)
 	{
-		ArrayList<GraphWalk<GraphTuple, ? extends DefaultWeightedEdge>> allRoutes, successfulRoutes;
-		allRoutes=new ArrayList<GraphWalk<GraphTuple, ? extends DefaultWeightedEdge>>();
-		successfulRoutes=new ArrayList<GraphWalk<GraphTuple, ? extends DefaultWeightedEdge>>();
+		ArrayList<RouteInfo> allRoutes, successfulRoutes;
+		allRoutes=new ArrayList<RouteInfo>();
+		successfulRoutes=new ArrayList<RouteInfo>();
 		
 		Entry<Integer,GraphTuple> currentEntry=map.firstEntry();
 		
 		while(currentEntry!=null)
 		{
 			GraphTuple currentTuple=currentEntry.getValue();
-			GraphWalk<GraphTuple, ? extends DefaultWeightedEdge> temp=findRouteFor(graph, currentTuple);
-			if(temp.getLength()>1)//Since Backtracking is used, all failed attempts' routes have length 1 
+			GraphWalk<GraphTuple, ? extends DefaultWeightedEdge> route=findRouteFor(graph, currentTuple);
+			
+			RouteInfo info=new RouteInfo(currentTuple.getAnnotation(),route,currentTuple);
+			
+			if(route.getLength()>1)//Since Backtracking is used, all failed attempts' routes have length 1 
 			{
-				successfulRoutes.add(temp);
+				successfulRoutes.add(info);
 				currentTuple.getAnnotation().setYpos(nextAnnotationPos);
-				currentTuple.getAnnotation().setRoute(temp);
 				nextAnnotationPos+=annotationSpacing+currentTuple.getAnnotation().calculateHeight(rightAnnotationBorder-leftAnnotationBorder, annotationSpacing);
 			}
-			allRoutes.add(temp);
+			allRoutes.add(info);
 			currentEntry=map.higherEntry(currentEntry.getKey());
 		}
 		if(!successfulRoutes.isEmpty())// Second Pass - adjust Annotation's position to keep them closer to the GraphWalk's last node
@@ -58,7 +59,7 @@ public class GreedyTopTwoPassRouting extends GreedyTopRouting {
 			
 			do
 			{
-				currentWalk=successfulRoutes.get(i);
+				currentWalk=successfulRoutes.get(i).getPath();
 				GraphTuple startVertex=currentWalk.getStartVertex();
 				Annotation ann=startVertex.getAnnotation();
 				int walkEnd=currentWalk.getEndVertex().getY();

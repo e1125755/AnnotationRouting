@@ -34,7 +34,7 @@ public class GraphTuple{
 		annotation=ann;
 	}
 	
-	public void setRouteInfo(RouteInfo info)
+	protected void setRouteInfo(RouteInfo info)
 	{
 		//NOTE: Maybe allow changes only once?
 		this.routeinfo=info;

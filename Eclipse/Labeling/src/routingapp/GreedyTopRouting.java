@@ -76,14 +76,12 @@ public class GreedyTopRouting implements Routing{
 				}
 				if(verticalCandidate!=null)
 				{
-					DefaultWeightedEdge temp=graph.getEdge(currentNode, verticalCandidate);
 					currentNode=verticalCandidate;
 					pathNodes.add(index,currentNode);
 					index++;
 				}
 				else if(horizontalCandidate!=null)
 				{
-					DefaultWeightedEdge temp=graph.getEdge(currentNode, horizontalCandidate);
 					currentNode=horizontalCandidate;
 					pathNodes.add(index,currentNode);
 					index++;
@@ -131,27 +129,25 @@ public class GreedyTopRouting implements Routing{
 	}
 
 	@Override
-	public List<GraphWalk<GraphTuple, ? extends DefaultWeightedEdge>> findRoutes(
+	public List<RouteInfo> findRoutes(
 			WeightedGraph<GraphTuple, DefaultWeightedEdge> graph, TreeMap<Integer,GraphTuple> map) {
 		
-		ArrayList<GraphWalk<GraphTuple, ? extends DefaultWeightedEdge>> allRoutes, successfulRoutes;
-		allRoutes=new ArrayList<GraphWalk<GraphTuple, ? extends DefaultWeightedEdge>>();
-		successfulRoutes=new ArrayList<GraphWalk<GraphTuple, ? extends DefaultWeightedEdge>>();
+		ArrayList<RouteInfo> allRoutes;
+		allRoutes=new ArrayList<RouteInfo>();
 		
 		Entry<Integer,GraphTuple> currentEntry=map.firstEntry();
 		
 		while(currentEntry!=null)
 		{
 			GraphTuple currentTuple=currentEntry.getValue();
-			GraphWalk<GraphTuple, ? extends DefaultWeightedEdge> temp=findRouteFor(graph, currentTuple);
-			if(temp.getLength()>1)//Since Backtracking is used, all failed attempts' routes have length 1 
+			GraphWalk<GraphTuple, ? extends DefaultWeightedEdge> route=findRouteFor(graph, currentTuple);
+			if(route.getLength()>1)//Since Backtracking is used, all failed attempts' routes have length 1 
 			{
-				successfulRoutes.add(temp);
 				currentTuple.getAnnotation().setYpos(nextAnnotationPos);
-				currentTuple.getAnnotation().setRoute(temp);
 				nextAnnotationPos+=annotationSpacing+currentTuple.getAnnotation().calculateHeight(rightAnnotationBorder-leftAnnotationBorder, annotationSpacing);
 			}
-			allRoutes.add(temp);
+			RouteInfo info=new RouteInfo(currentTuple.getAnnotation(),route,currentTuple);
+			allRoutes.add(info);
 			currentEntry=map.higherEntry(currentEntry.getKey());
 		}
 		return allRoutes;

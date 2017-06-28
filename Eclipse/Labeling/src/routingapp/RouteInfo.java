@@ -25,6 +25,16 @@ public class RouteInfo {
 		ann.setRouteInfo(this);
 	}
 
+	/**
+	 * Determines if a routing lead to a successful path. Since Backtracking is always used, this can be solved by measuring the path's length.
+	 * Shouldn't lead to any false negatives, since it currently is impossible for source nodes to be at the rightmost position of a graph.
+	 * @return whether or not this object contains a successful routing.
+	 */
+	public boolean isSuccessful()
+	{
+		return path.getLength()!=1;
+	}
+	
 	public int getOpoPosition() {
 		return opoPosition;
 	}

@@ -49,7 +49,6 @@ public class GraphCreatorPanel extends JComponent {
 	private int width=600;
 	private int height=550;
 	private int leftTextBorder, rightTextBorder, leftAnnotationBorder, rightAnnotationBorder;
-	private int upperBorder=10;
 	private int spaceBetweenLines=6;
 	
 	private int annotationBorderSize=3;//Distance from annotation content to it's border rectangle
@@ -221,6 +220,7 @@ public class GraphCreatorPanel extends JComponent {
 					if((i>=words.length)&&(!words[i-1].contains("}")))
 					{
 						annText="Malformed Command: "+temp[1];
+						throw new RuntimeException(annText);
 						//TODO: Replace with proper error dialog, if necessary
 					}
 					else
@@ -233,6 +233,7 @@ public class GraphCreatorPanel extends JComponent {
 				//Annotation title is currently stored in the GraphTuple's name attribute 
 				GraphTuple annTuple=new GraphTuple("Annotated Tuple",x+metrics.stringWidth(temp[0])/2,y-metrics.getAscent()-spaceBetweenLines/2);
 				Annotation ann=new Annotation(annText,AnnotationFont,annTuple,annotationBorderSize);
+				annTuple.setAnnotation(ann);
 				graph.addVertex(annTuple);
 				upperTuples.put(annTuple.getX(), annTuple);
 				annotatedTuples.put(annNumber,annTuple);
@@ -358,11 +359,11 @@ public class GraphCreatorPanel extends JComponent {
 		
 		//Calculate all Routes via Router.findRoutes();
 
-		List<GraphWalk<GraphTuple,? extends DefaultWeightedEdge>> results=router.findRoutes(graph, annotatedTuples);
-		Iterator<GraphWalk<GraphTuple,? extends DefaultWeightedEdge>> it=results.iterator();
+		List<RouteInfo> results=router.findRoutes(graph, annotatedTuples);
+		Iterator<RouteInfo> it=results.iterator();
 		while(it.hasNext())
 		{
-			drawAnnotation(g,graph,it.next());
+			drawAnnotation(g,graph,it.next().getPath());
 		}
 
 	}

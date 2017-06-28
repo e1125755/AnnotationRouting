@@ -25,12 +25,11 @@ public interface Routing {
 	
 	/**
 	 * Finds possible Locations for a multiple annotations at once.
-	 * Depending on the implementation, attempts that failed to find a route might be omitted from the list. 
 	 * @param graph The graph that will be used to find the routes.
 	 * @param map A Treemap containing all Annotations that need to be routed, in order of appearance in the text.
-	 * @return A List of GraphWalks, each either leading to a found destination or an unfinished attempt.
+	 * @return A List of RouteInfos, each containing all information about the routing, including whether or not it was successful.
 	 */
-	public List<GraphWalk<GraphTuple,? extends DefaultWeightedEdge>> findRoutes(WeightedGraph<GraphTuple, DefaultWeightedEdge> graph,TreeMap<Integer,GraphTuple> map);
+	public List<RouteInfo> findRoutes(WeightedGraph<GraphTuple, DefaultWeightedEdge> graph,TreeMap<Integer,GraphTuple> map);
 
 	/**
 	 * Helper method - allows the main program to tell the routing algorithm the first position a new annotation could take.
