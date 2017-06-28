@@ -363,7 +363,7 @@ public class GraphCreatorPanel extends JComponent {
 		Iterator<RouteInfo> it=results.iterator();
 		while(it.hasNext())
 		{
-			drawAnnotation(g,graph,it.next().getPath());
+			drawRouteInfo(g,graph,it.next());
 		}
 
 	}
@@ -423,37 +423,26 @@ public class GraphCreatorPanel extends JComponent {
 
 	/**
 	 * Draws the path created by the routing and - if applicable - the annotation it is connected to.
-	 * Afterwards it updates nextAnnotationPos, which is needed for subsequent routings.
-	 * Edges are also marked as "used" here, was it is easy to distinguish between completed and aborted routings at this point.
+	 * Afterwards it updates nextAnnotationPos, which might be needed for subsequent routings.
 	 * @param g The Graphics object - used to draw and retrieve font-metrics
 	 * @param graph the Graph that the routes are based on
 	 * @param path The route that was created by routeAnnotations()
 	 */
-	private void drawAnnotation(Graphics g, WeightedGraph<GraphTuple,DefaultWeightedEdge> graph, GraphWalk<GraphTuple,? extends DefaultWeightedEdge>path) {
+	private void drawRouteInfo(Graphics g, WeightedGraph<GraphTuple,DefaultWeightedEdge> graph, RouteInfo info) {
 
 
 		int currentAnnotationPos=nextAnnotationPos;
+		GraphWalk<GraphTuple, ? extends DefaultWeightedEdge> path=info.getPath();
 		
-		if((path.getEndVertex().getX()>=rightTextBorder)||(path.getStartVertex().getX()>=rightTextBorder))//Draw Annotation (only if routing was successful)
+		if((path.getEndVertex().getX()>=rightTextBorder)||(path.getStartVertex().getX()>=rightTextBorder))
+			//Draw Annotation (only if routing was successful)
 		{
 			g.setColor(Color.BLACK);
 
-			
 			int x=leftAnnotationBorder+annotationBorderSize;
 			int y=nextAnnotationPos;
-			Annotation ann;
-			String words[];
-			
-			if(path.getStartVertex().getX()<path.getEndVertex().getX())//Identifying which end of the path connects to the annotated word
-			{
-				ann=path.getStartVertex().getAnnotation();
-				words=ann.getText().split(" ");
-			}
-			else
-			{
-				ann=path.getEndVertex().getAnnotation();
-				words=ann.getText().split(" ");
-			}
+			Annotation ann=info.getAnnotation();
+			String words[]=ann.getText().split(" ");
 			
 			Font oldfont=g.getFont();
 			g.setFont(ann.getFont());
@@ -470,7 +459,7 @@ public class GraphCreatorPanel extends JComponent {
 			y+=metrics.getAscent();
 			int startpos=y;
 
-			for(int w=0;w<words.length;w++)
+			for(int w=0;w<words.length;w++)//Draw annotation text
 			{
 				if((x+metrics.stringWidth(words[w]))>(rightAnnotationBorder-annotationBorderSize))
 				{
@@ -483,18 +472,17 @@ public class GraphCreatorPanel extends JComponent {
 			int annHeight=ann.calculateHeight(rightAnnotationBorder-leftAnnotationBorder, spaceBetweenLines);
 			
 			g.drawRect(leftAnnotationBorder, startpos-metrics.getAscent(), rightAnnotationBorder-leftAnnotationBorder, annHeight);
-			//y+=metrics.getHeight()+spaceBetweenLines;
-			g.setFont(oldfont);
-			g.setColor(Color.BLUE);
 			
 			nextAnnotationPos+=annHeight+spaceBetweenLines;
+			g.setFont(oldfont);
+			g.setColor(Color.BLUE);
 
 		}
 		else
 		{
 			g.setColor(Color.RED);
 		}
-		//Draw Route or its fragment
+		//Draw complete or unfinished Route
 		
 		Graphics2D g2d=(Graphics2D)g;
 
@@ -543,7 +531,7 @@ public class GraphCreatorPanel extends JComponent {
 		else//Mark blocked off source node
 		{
 			assert(nodeList.size()==1);//Path should always at least contain the starting node
-			GraphTuple temp=path.getStartVertex();
+			GraphTuple temp=info.getSource();
 			g.fillRect(temp.getX()-2,temp.getY()-2,4,4);
 		}
 		g.setColor(Color.BLACK);
