@@ -415,6 +415,10 @@ public class GraphCreatorPanel extends JComponent {
 		{
 			return new GreedyTopTwoPassRouting(rightTextBorder, height, leftAnnotationBorder, rightAnnotationBorder, spaceBetweenLines);//Last argument should be replaced with space between annotations, if that becomes it's own thing
 		}
+		else if(routingType.equals("Greedy/Topmost (OPO-Leader)"))
+		{
+			return new GreedyTopOpo(rightTextBorder, leftAnnotationBorder, rightAnnotationBorder, spaceBetweenLines);
+		}
 		else//Argument not recognized.
 		{
 			throw new IllegalArgumentException("Unknown routing type: \""+routingType+"\"");
@@ -483,6 +487,7 @@ public class GraphCreatorPanel extends JComponent {
 			g.setColor(Color.RED);
 		}
 		//Draw complete or unfinished Route
+		//NOTE: Only tested with paths that go up and to the right, although it should be capable of handling any kind of path.
 		
 		Graphics2D g2d=(Graphics2D)g;
 
@@ -504,7 +509,7 @@ public class GraphCreatorPanel extends JComponent {
 				currentTuple=nextTuple;
 				nextTuple=it.next();
 
-				if((oldTuple.getX()!=nextTuple.getX())&&(oldTuple.getY()!=nextTuple.getY()))//Curve detection
+				if((oldTuple.getX()!=nextTuple.getX())&&(oldTuple.getY()!=nextTuple.getY()))//Curve detection - Draws rounded curves
 				{
 					if(oldTuple.getY()==currentTuple.getY())
 					{
@@ -524,7 +529,28 @@ public class GraphCreatorPanel extends JComponent {
 			}
 			
 			route.lineTo(nextTuple.getX(), nextTuple.getY());
-			route.lineTo(leftAnnotationBorder,currentAnnotationPos);//TODO: Replace with OPO-Leader
+			//TODO: Curve detection if coming from below!
+			
+			//Connection from Graph to the Annotation
+			if(route.getCurrentPoint().getX()!=rightTextBorder)//Compensating for right-to-left routed paths
+			{
+					route.moveTo(nodeList.get(0).getX(), nodeList.get(0).getY());
+			}
+			
+			if((info.getOpoStart()==null)||(info.getOpoStart()==info.getOpoEnd()))
+			{
+				route.lineTo(leftAnnotationBorder,currentAnnotationPos);
+			}
+			else
+			{
+				Annotation ann=info.getAnnotation();
+				
+				route.lineTo(info.getOpoBendPosition()-curveSize, route.getCurrentPoint().getY());
+				route.curveTo(route.getCurrentPoint().getX(), route.getCurrentPoint().getY(), info.getOpoBendPosition(), route.getCurrentPoint().getY(), info.getOpoBendPosition(), route.getCurrentPoint().getY()-curveSize);
+				route.lineTo(route.getCurrentPoint().getX(), ann.getYpos()+curveSize);
+				route.curveTo(route.getCurrentPoint().getX(), route.getCurrentPoint().getY(), route.getCurrentPoint().getX(), ann.getYpos(), route.getCurrentPoint().getX()+curveSize, ann.getYpos());
+				route.lineTo(leftAnnotationBorder, ann.getYpos());
+			}
 			
 			g2d.draw(route);
 		}

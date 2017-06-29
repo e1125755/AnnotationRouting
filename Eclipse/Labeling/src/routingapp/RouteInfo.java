@@ -14,13 +14,15 @@ public class RouteInfo {
 	private Annotation annotation;
 	private GraphWalk<GraphTuple, ? extends DefaultWeightedEdge> path;
 	private GraphTuple source;
-	int opoPosition;
+	private Integer opoStart, opoBend;
 	
 	public RouteInfo(Annotation ann, GraphWalk<GraphTuple, ? extends DefaultWeightedEdge> wlk, GraphTuple src)
 	{
 		this.annotation=ann;
 		this.path=wlk;
 		this.source=src;
+		this.opoStart=null;
+		this.opoBend=null;
 		src.setRouteInfo(this);
 		ann.setRouteInfo(this);
 	}
@@ -32,15 +34,25 @@ public class RouteInfo {
 	 */
 	public boolean isSuccessful()
 	{
-		return path.getLength()!=1;
+		return path.getLength()>1;
 	}
 	
-	public int getOpoPosition() {
-		return opoPosition;
+	/**
+	 * Helper method - only here to provide a clearer name and eliminate some calls to RouteInfo.getAnnotation() if only its position is needed.
+	 * @return The Y-Position of the Annotation object - which is equal to the position where the vertical part of the OPO-Leader ends.
+	 */
+	public int getOpoEnd()
+	{
+		return annotation.getYpos();
 	}
-
-	public void setOpoPosition(int opoPosition) {
-		this.opoPosition = opoPosition;
+	
+	public Integer getOpoStart() {
+		return opoStart;
+	}
+	
+	public Integer getOpoBendPosition()
+	{
+		return opoBend;
 	}
 
 	public Annotation getAnnotation() {
@@ -54,4 +66,14 @@ public class RouteInfo {
 	public GraphTuple getSource() {
 		return source;
 	}
+	
+	public void setOpoStart(int opoStart) {
+		this.opoStart = opoStart;
+	}
+	
+	public void setOpoBendPosition(int position)
+	{
+		this.opoBend=position;
+	}
+	
 }

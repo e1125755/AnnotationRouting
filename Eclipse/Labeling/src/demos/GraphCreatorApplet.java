@@ -38,6 +38,7 @@ implements ChangeListener, ItemListener {
 	
 	//Names for the algorithms - they MUST be the same as in GraphCreatorPanel.getRouter()!
 	String algNames[]={	"Greedy/Topmost",
+						"Greedy/Topmost (OPO-Leader)",
 						"Greedy/Topmost (2-Pass)"
 	};
 	String algChoice=algNames[0];

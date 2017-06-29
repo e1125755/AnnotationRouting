@@ -149,7 +149,9 @@ public class GreedyTopRouting implements Routing{
 			RouteInfo info=new RouteInfo(currentTuple.getAnnotation(),route,currentTuple);
 			allRoutes.add(info);
 			currentEntry=map.higherEntry(currentEntry.getKey());
+			
 		}
+		
 		return allRoutes;
 	}
 
