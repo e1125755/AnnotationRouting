@@ -81,8 +81,8 @@ public class GreedyTopTwoPassRouting extends GreedyTopRouting {
 			while(i>=0);
 
 		}
-		GreedyTopOpo temp=new GreedyTopOpo(rightTextBorder, leftAnnotationBorder, rightAnnotationBorder, annotationSpacing);
+		OpoCalculator calc=new OpoCalculator(rightTextBorder, leftAnnotationBorder);
 		
-		return temp.doOpoCalculations(allRoutes);
+		return calc.simpleOpo(allRoutes);
 	}
 }
