@@ -13,7 +13,7 @@ public class Annotation {
 	
 	private String text;
 	private Font font;
-	private Integer borderSize, ypos;
+	private Integer borderSize, ypos, spaceBetweenLines;
 	private GraphTuple annotatedNode;
 	private RouteInfo routeinfo;
 	
@@ -22,11 +22,12 @@ public class Annotation {
 	 * @param annText The text of the annotation.
 	 * @param node The node this annotation belongs to.
 	 */
-	public Annotation(String annText, Font f, GraphTuple node, int borderSize)
+	public Annotation(String annText, Font f, GraphTuple node, int spaceBetweenLines, int borderSize)
 	{
 		this.text=annText;
 		this.font=f;
 		this.annotatedNode=node;
+		this.spaceBetweenLines=spaceBetweenLines;
 		this.borderSize=borderSize;
 		this.routeinfo=null; 
 		this.ypos=null;
@@ -39,7 +40,7 @@ public class Annotation {
 	 * @param spaceBetweenLines The amount of free space that has to be left between each line.
 	 * @return The total height of the annotation's text, including the free space below the last line.
 	 */
-	public int calculateHeight(int width, int spaceBetweenLines)
+	public int calculateHeight(int width)
 	{
 		width-=2*borderSize;
 		FontMetrics met=this.getFontMetrics();
@@ -64,7 +65,7 @@ public class Annotation {
 	 * Workaround method to create a FontMetrics Object from a Font, since the actual Constructor is protected. 
 	 * @return A FontMetrics Object that uses this Object's Font for it's measurements. 
 	 */
-	public FontMetrics getFontMetrics()
+	protected FontMetrics getFontMetrics()
 	{
 		Canvas c=new Canvas();
 		return c.getFontMetrics(font);
@@ -89,6 +90,12 @@ public class Annotation {
 	{
 		return borderSize;
 	}
+	
+	public int getSpaceBetweenLines()
+	{
+		return spaceBetweenLines;
+	}
+	
 	public Integer getYpos()
 	{
 		return ypos;

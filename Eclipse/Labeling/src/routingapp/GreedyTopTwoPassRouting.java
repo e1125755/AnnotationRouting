@@ -46,7 +46,7 @@ public class GreedyTopTwoPassRouting extends GreedyTopRouting {
 			{
 				successfulRoutes.add(info);
 				currentTuple.getAnnotation().setYpos(nextAnnotationPos);
-				nextAnnotationPos+=annotationSpacing+currentTuple.getAnnotation().calculateHeight(rightAnnotationBorder-leftAnnotationBorder, annotationSpacing);
+				nextAnnotationPos+=annotationSpacing+currentTuple.getAnnotation().calculateHeight(rightAnnotationBorder-leftAnnotationBorder);
 			}
 			allRoutes.add(info);
 			currentEntry=map.higherEntry(currentEntry.getKey());
@@ -63,7 +63,7 @@ public class GreedyTopTwoPassRouting extends GreedyTopRouting {
 				GraphTuple startVertex=currentWalk.getStartVertex();
 				Annotation ann=startVertex.getAnnotation();
 				int walkEnd=currentWalk.getEndVertex().getY();
-				int annHeight=ann.calculateHeight(rightAnnotationBorder-leftAnnotationBorder, annotationSpacing);
+				int annHeight=ann.calculateHeight(rightAnnotationBorder-leftAnnotationBorder);
 				
 				if(nextAnnotationPos-annHeight>=walkEnd)
 				{

@@ -144,7 +144,7 @@ public class GreedyTopRouting implements Routing{
 			if(route.getLength()>1)//Since Backtracking is used, all failed attempts' routes have length 1 
 			{
 				currentTuple.getAnnotation().setYpos(nextAnnotationPos);
-				nextAnnotationPos+=annotationSpacing+currentTuple.getAnnotation().calculateHeight(rightAnnotationBorder-leftAnnotationBorder, annotationSpacing);
+				nextAnnotationPos+=annotationSpacing+currentTuple.getAnnotation().calculateHeight(rightAnnotationBorder-leftAnnotationBorder);
 			}
 			RouteInfo info=new RouteInfo(currentTuple.getAnnotation(),route,currentTuple);
 			allRoutes.add(info);

@@ -52,6 +52,7 @@ public class GraphCreatorPanel extends JComponent {
 	private int spaceBetweenLines=6;
 	
 	private int annotationBorderSize=3;//Distance from annotation content to it's border rectangle
+	private int spaceBetweenAnnLines=4;
 	private Font AnnotationFont;
 	
 	private int curveSize=3;
@@ -232,7 +233,7 @@ public class GraphCreatorPanel extends JComponent {
 
 				//Annotation title is currently stored in the GraphTuple's name attribute 
 				GraphTuple annTuple=new GraphTuple("Annotated Tuple",x+metrics.stringWidth(temp[0])/2,y-metrics.getAscent()-spaceBetweenLines/2);
-				Annotation ann=new Annotation(annText,AnnotationFont,annTuple,annotationBorderSize);
+				Annotation ann=new Annotation(annText,AnnotationFont,annTuple,spaceBetweenAnnLines,annotationBorderSize);
 				annTuple.setAnnotation(ann);
 				graph.addVertex(annTuple);
 				upperTuples.put(annTuple.getX(), annTuple);
@@ -468,16 +469,16 @@ public class GraphCreatorPanel extends JComponent {
 				if((x+metrics.stringWidth(words[w]))>(rightAnnotationBorder-annotationBorderSize))
 				{
 					x=leftAnnotationBorder+annotationBorderSize;
-					y+=metrics.getHeight()+spaceBetweenLines;
+					y+=metrics.getHeight()+ann.getSpaceBetweenLines();
 				}
 				g.drawString(words[w], x, y);
 				x+=metrics.stringWidth(words[w]+" ");
 			}
-			int annHeight=ann.calculateHeight(rightAnnotationBorder-leftAnnotationBorder, spaceBetweenLines);
+			int annHeight=ann.calculateHeight(rightAnnotationBorder-leftAnnotationBorder);
 			
 			g.drawRect(leftAnnotationBorder, startpos-metrics.getAscent(), rightAnnotationBorder-leftAnnotationBorder, annHeight);
 			
-			nextAnnotationPos+=annHeight+spaceBetweenLines;
+			nextAnnotationPos+=annHeight+ann.getSpaceBetweenLines();
 			g.setFont(oldfont);
 			g.setColor(Color.BLUE);
 
