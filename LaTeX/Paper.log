@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  4 JUL 2017 16:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  5 JUL 2017 15:31
 entering extended mode
 **C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
 (C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
@@ -587,23 +587,26 @@ Package caption Info: End \AtBeginDocument code.
 {C:/Users/Jakob/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] (Paper.aux)
  ) 
 Here is how much of TeX's memory you used:
- 3439 strings out of 493634
- 52461 string characters out of 3135239
- 113558 words of memory out of 3000000
- 6814 multiletter control sequences out of 15000+200000
- 5657 words of font info for 21 fonts, out of 3000000 for 9000
+ 3445 strings out of 493634
+ 52539 string characters out of 3135239
+ 115558 words of memory out of 3000000
+ 6818 multiletter control sequences out of 15000+200000
+ 6613 words of font info for 24 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 36i,4n,38p,463b,156s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmbx12.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmr10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fo
-nts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Jakob/AppData/Local/Programs/M
-iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/Jakob/AppData/Loca
-l/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/Jakob
-/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on Paper.pdf (1 page, 71735 bytes).
+ 36i,4n,38p,607b,156s stack positions out of 5000i,500n,10000p,200000b,50000s
+ <C:\Users\Jakob\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\
+tcrm1095.pk><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publi
+c/amsfonts/cm/cmbx10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Jakob/AppData/Local/Programs/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Jakob/AppData/Local
+/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Jakob/A
+ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/U
+sers/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmt
+i10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/am
+sfonts/cm/cmtt12.pfb>
+Output written on Paper.pdf (1 page, 90639 bytes).
 PDF statistics:
- 30 PDF objects out of 1000 (max. 8388607)
+ 39 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
