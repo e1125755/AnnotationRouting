@@ -43,7 +43,7 @@ public class GraphCreatorPanel extends JComponent {
 
 	//DEBUG VALUES
 	private boolean showWordBoundaries=false;//draws rectangles around detected word boundaries in main text, if set to true
-	private boolean showGraphGrid=false;//Draws the whole routing Graph 
+	private boolean showGraphGrid=true;//Draws the whole routing Graph 
 	//DEBUG VALUES END
 
 	private int width=600;
