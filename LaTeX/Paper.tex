@@ -4,6 +4,8 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{caption}
+\usepackage{wrapfig}
+%\usepackage{placeins}
 
 %opening
 \title{Boundary Labeling for annotated documents}%Vielleicht genauerer Titel?
@@ -28,16 +30,24 @@ In this paper, we will look at ways to use Boundary Labeling, which means that a
 %TODO: Bezug auf Programm & Ergebnisse nehmen!
 
 \section{Boundary Labeling}
-Boundary Labeling can be explained very quickly -  connect a Point of Interest with a box containing further information which is located outside of the main area. To easily reference important concepts, some additional Terminology will be introduced:
+Boundary Labeling can be explained very quickly -  connect a Point of Interest with a box containing further information which is located outside of the main area. To easily reference important concepts, some additional Terminology will be introduced (See Fig.~\ref{fig:term} for a visual explanation)
+
+\begin{wrapfigure}{r}{0.35\textwidth}
+ \captionsetup{justification=centering, margin=0.75cm}
+ \raggedleft
+  \includegraphics[scale=0.5]{IPE_TerminologyDrawing.pdf}
+  \caption{Test}
+ \label{fig:term}
+\end{wrapfigure}
 
 \begin{itemize}
-\item \textbf{Label:} The additional information, usually represented as a box containing the additional information. Will also be referred to as \textbf{``Annotation''} in this paper.
-\item \textbf{Site:} The point, object or word that is labeled - without it, there wouldn't be any labeling necessary.%Is that the correct name? - Feature Point?
-%Weiterer Begriff: Port!
-%Skizze hinzufügen
-%Zeichentool: IPE
-\item \textbf{Leader:} The line connecting the site to the label - depending on its shape, it can be further classified into several subgroups.
+ \item \textbf{Label:} The additional information, usually represented as a box containing the additional information. Will also be referred to as \textbf{``Annotation''} in this paper.
+ \item \textbf{Site:} The point, object or word that is labeled - without it, there wouldn't be any labeling necessary.
+ \item \textbf{Leader:} The line connecting the site to the label - depending on its shape, it can be further classified into several subgroups.
+ \item \textbf{Port:} The location where the leader connects to the label. It may be restricted pre-determined locations, like only at the corners.
 \end{itemize}
+
+%\FloatBarrier
 
 \subsection{Boundary Labeling in Documents}
 As with other labeling techniques, Boundary Labeling has guidelines on how to create an optimal labeling - the leaders should be as direct as possible, no important information should be obscured, and it should be easily discernable which Label belongs to which site. These three often stand in conflict with one another, especially when labeling documents, as the text usually is very dense and leaves little space for leaders in between, yet one shouldn't allow them to pass through the text, as this makes the text harder to read.
