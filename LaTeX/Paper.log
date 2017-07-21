@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  17 JUL 2017 16:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  21 JUL 2017 15:45
 entering extended mode
 **C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
 (C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
@@ -519,25 +519,25 @@ Package: wrapfig 2003/01/31  v 3.6
 ) (Paper.aux)
 \openout1 = `Paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 19.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 18.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 18.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    ... okay on input line 18.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -596,12 +596,16 @@ Package caption Info: End \AtBeginDocument code.
 File: IPE_TerminologyDrawing.pdf Graphic file (type pdf)
 
 <use IPE_TerminologyDrawing.pdf>
-Package pdftex.def Info: IPE_TerminologyDrawing.pdf used on input line 38.
+Package pdftex.def Info: IPE_TerminologyDrawing.pdf used on input line 37.
 (pdftex.def)             Requested size: 185.78815pt x 64.64133pt.
 
-Overfull \hbox (16.4913pt too wide) in paragraph at lines 38--39
+Overfull \hbox (16.4913pt too wide) in paragraph at lines 37--38
  [][]
  []
+
+
+Package wrapfig Warning: Stationary wrapfigure forced to float on input line 43
+.
 
 
 Package wrapfig Warning: Stationary wrapfigure forced to float on input line 44
@@ -612,40 +616,53 @@ Package wrapfig Warning: Stationary wrapfigure forced to float on input line 45
 .
 
 
-Package wrapfig Warning: Stationary wrapfigure forced to float on input line 46
+Package wrapfig Warning: Stationary wrapfigure forced to float on input line 47
 .
 
 
-Package wrapfig Warning: Stationary wrapfigure forced to float on input line 47
+Package wrapfig Warning: Stationary wrapfigure forced to float on input line 48
+.
+
+
+Package wrapfig Warning: Stationary wrapfigure forced to float on input line 49
+.
+
+
+Package wrapfig Warning: Stationary wrapfigure forced to float on input line 51
 .
 
 
 Package wrapfig Warning: Stationary wrapfigure forced to float on input line 52
 .
 
-(Paper.bbl [1
+[1
 
-{C:/Users/Jakob/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./IPE_Termi
-nologyDrawing.pdf>]) [2] (Paper.aux) ) 
+{C:/Users/Jakob/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+
+Package wrapfig Warning: Stationary wrapfigure forced to float on input line 57
+.
+
+(Paper.bbl) [2 <./IPE_TerminologyDrawing.pdf>] (Paper.aux) ) 
 Here is how much of TeX's memory you used:
- 3513 strings out of 493634
- 53586 string characters out of 3135239
+ 3514 strings out of 493634
+ 53602 string characters out of 3135239
  116558 words of memory out of 3000000
- 6881 multiletter control sequences out of 15000+200000
+ 6882 multiletter control sequences out of 15000+200000
  6613 words of font info for 24 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  36i,6n,39p,607b,245s stack positions out of 5000i,500n,10000p,200000b,50000s
- <C:\Users\Jakob\AppData\Local\MiKTeX\2.9
-\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1095.pk><C:/Users/Jakob/AppData/Local/P
-rograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Jakob/Ap
-pData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/U
-sers/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr
-10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/ams
-fonts/cm/cmr12.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type
-1/public/amsfonts/cm/cmr17.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.
-9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/Jakob/AppData/Local/Progr
-ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on Paper.pdf (2 pages, 104293 bytes).
+ <C:\Users\Jakob\Ap
+pData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1095.pk><C:/Users
+/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.
+pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfon
+ts/cm/cmbx12.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
+public/amsfonts/cm/cmr10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/
+fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Jakob/AppData/Local/Programs
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/Jakob/AppData/Lo
+cal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/Jak
+ob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+
+Output written on Paper.pdf (2 pages, 110501 bytes).
 PDF statistics:
  54 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

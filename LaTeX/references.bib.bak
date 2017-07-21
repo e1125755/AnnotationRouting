@@ -1,3 +1,4 @@
+% Encoding: UTF-8
 @Inbook{Kindermann2014,
 author="Kindermann, Philipp
 and Lipp, Fabian
@@ -34,3 +35,12 @@ keywords = "Boundary labeling",
 keywords = "Straight-line leaders",
 keywords = "Rectilinear leaders"
 }
+
+@MastersThesis{,
+  author = {Amrei Loose},
+  title  = {Annotation von Texten unter Berücksichtigung von Textzwischenräumen},
+  school = {Karlsruhe Institute of Technology},
+  year   = {2015},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}

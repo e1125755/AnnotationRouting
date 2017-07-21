@@ -5,7 +5,6 @@
 \usepackage{textcomp}
 \usepackage{caption}
 \usepackage{wrapfig}
-%\usepackage{placeins}
 
 %opening
 \title{Boundary Labeling for annotated documents}%Vielleicht genauerer Titel?
@@ -36,22 +35,32 @@ Boundary Labeling can be explained very quickly -  connect a Point of Interest w
  \captionsetup{justification=centering, margin=0.75cm}
  \raggedleft
   \includegraphics[scale=0.5]{IPE_TerminologyDrawing.pdf}
-  \caption{Test}
+  \caption{Illustrated guide to the labeling terminology}
  \label{fig:term}
 \end{wrapfigure}
 
 \begin{itemize}
  \item \textbf{Label:} The additional information, usually represented as a box containing the additional information. Will also be referred to as \textbf{``Annotation''} in this paper.
  \item \textbf{Site:} The point, object or word that is labeled - without it, there wouldn't be any labeling necessary.
- \item \textbf{Leader:} The line connecting the site to the label - depending on its shape, it can be further classified into several subgroups.
+ \item \textbf{Leader:} The line connecting the site to the label - depending on its shape, it can be further classified into several subgroups which can be freely combined to form new leader types:
+  \begin{itemize}
+   \item \textit{S-Leader:} This Leader connects site and label in a straight line.
+   \item \textit{O-Leader:} This leader runs orthogonally to the border between text and label area.
+   \item \textit{P-Leader:} This Leader runs parallel to the border between text and label area. It must be combined with other leader styles, as it won't reach the label area otherwise.
+  \end{itemize}
+    For example, the leader from Fig.~\ref{fig:term} would be classified as an opo-Leader.
  \item \textbf{Port:} The location where the leader connects to the label. It may be restricted pre-determined locations, like only at the corners.
 \end{itemize}
 
-%\FloatBarrier
+\newpage
 
 \subsection{Boundary Labeling in Documents}
 As with other labeling techniques, Boundary Labeling has guidelines on how to create an optimal labeling - the leaders should be as direct as possible, no important information should be obscured, and it should be easily discernable which Label belongs to which site. These three often stand in conflict with one another, especially when labeling documents, as the text usually is very dense and leaves little space for leaders in between, yet one shouldn't allow them to pass through the text, as this makes the text harder to read.
-%Beispiele von suboptimalen Lösungen einfügen (Bilder)
+%Beispiele von suboptimalen Lösungen einfügen? (Bilder)
+
+\section{Previous Attempts}%Sub(sub)section machen?
+
+While there haven't been many papers written about this topic, they do offer interesting contributions. For example, the paper\cite{Kindermann2014} about the Luatodonotes-Package illustrates some of the different leader types available, and came to the conclusion that leaders without bends are easier to follow. %Bild einfügen?
 
 %TODO: Über bisherige Versuche/Papers sprechen
 %TODO: Was genau wollen wir erreichen?

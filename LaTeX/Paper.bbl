@@ -6,4 +6,10 @@ Michael~A. Bekos, Michael Kaufmann, Antonios Symvonis, and Alexander Wolff.
   maps.
 \newblock {\em Computational Geometry}, 36(3):215 -- 236, 2007.
 
+\bibitem{Kindermann2014}
+Philipp Kindermann, Fabian Lipp, and Alexander Wolff.
+\newblock {\em Luatodonotes: Boundary Labeling for Annotations in Texts}, pages
+  76--88.
+\newblock Springer Berlin Heidelberg, Berlin, Heidelberg, 2014.
+
 \end{thebibliography}
