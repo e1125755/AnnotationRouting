@@ -43,7 +43,7 @@ public class GraphCreatorPanel extends JComponent {
 
 	//DEBUG VALUES
 	private boolean showWordBoundaries=false;//draws rectangles around detected word boundaries in main text, if set to true
-	private boolean showGraphGrid=true;//Draws the whole routing Graph 
+	private boolean showGraphGrid=false;//Draws the whole routing Graph 
 	//DEBUG VALUES END
 
 	private int width=600;
@@ -52,7 +52,7 @@ public class GraphCreatorPanel extends JComponent {
 	private int spaceBetweenLines=6;
 	
 	private int annotationBorderSize=3;//Distance from annotation content to it's border rectangle
-	private int spaceBetweenAnnLines=4;
+	private int spaceBetweenAnnLines=5;
 	private Font AnnotationFont;
 	
 	private int curveSize=3;
@@ -515,12 +515,40 @@ public class GraphCreatorPanel extends JComponent {
 					if(oldTuple.getY()==currentTuple.getY())
 					{
 						route.lineTo(currentTuple.getX()+curveSize*Math.signum(oldTuple.getX()-currentTuple.getX()),currentTuple.getY());
-						route.curveTo(route.getCurrentPoint().getX(), route.getCurrentPoint().getY(), currentTuple.getX(), currentTuple.getY(),currentTuple.getX(), currentTuple.getY()+curveSize*Math.signum(nextTuple.getY()-currentTuple.getY()));
+						route.quadTo(currentTuple.getX(), currentTuple.getY(),currentTuple.getX(), currentTuple.getY()+curveSize*Math.signum(nextTuple.getY()-currentTuple.getY()));
 					}
 					else
 					{
-						route.lineTo(currentTuple.getX(),currentTuple.getY()+curveSize*Math.signum(oldTuple.getY()-currentTuple.getY()));
-						route.curveTo(route.getCurrentPoint().getX(), route.getCurrentPoint().getY(), currentTuple.getX(), currentTuple.getY(),currentTuple.getX()+curveSize*Math.signum(nextTuple.getX()-currentTuple.getX()),currentTuple.getY());
+						if((Math.abs(nextTuple.getX()-currentTuple.getX())>=2*curveSize)||(!it.hasNext()))
+						{
+							route.lineTo(currentTuple.getX(),currentTuple.getY()+curveSize*Math.signum(oldTuple.getY()-currentTuple.getY()));
+							route.quadTo(currentTuple.getX(), currentTuple.getY(),currentTuple.getX()+curveSize*Math.signum(nextTuple.getX()-currentTuple.getX()),currentTuple.getY());
+						}
+						else //Compensation for too tightly packed nodes - this will call Iterator.next()!
+						{
+							GraphTuple previewTuple=it.next();
+							
+							if(previewTuple.getX()==nextTuple.getX())//<=>2 Curves close to each other
+							{
+								route.lineTo(currentTuple.getX(),currentTuple.getY()+curveSize/2*Math.signum(oldTuple.getY()-currentTuple.getY()));
+								route.curveTo(currentTuple.getX(),currentTuple.getY(), nextTuple.getX(), nextTuple.getY(), nextTuple.getX(), nextTuple.getY()+curveSize/2*Math.signum(previewTuple.getY()-nextTuple.getY()));
+							}
+							else if(Math.abs(nextTuple.getX()-currentTuple.getX())<=curveSize)//nextTuple is too close to the curve - we will just go past it
+							{
+								route.lineTo(currentTuple.getX(),currentTuple.getY()+curveSize*Math.signum(oldTuple.getY()-currentTuple.getY()));
+								route.quadTo(currentTuple.getX(), currentTuple.getY(),currentTuple.getX()+curveSize*Math.signum(nextTuple.getX()-currentTuple.getX()),currentTuple.getY());
+							}
+							else//Proceed regularly, since no double-curve  happened, and nextTuple is far enough away
+							{
+								route.lineTo(currentTuple.getX(),currentTuple.getY()+curveSize*Math.signum(oldTuple.getY()-currentTuple.getY()));
+								route.quadTo(currentTuple.getX(), currentTuple.getY(),currentTuple.getX()+curveSize*Math.signum(nextTuple.getX()-currentTuple.getX()),currentTuple.getY());
+								route.lineTo(nextTuple.getX(),nextTuple.getY());
+							}
+							
+							oldTuple=currentTuple;
+							currentTuple=nextTuple;
+							nextTuple=previewTuple;
+						}
 					}
 				}
 				else
@@ -528,12 +556,18 @@ public class GraphCreatorPanel extends JComponent {
 					route.lineTo(currentTuple.getX(),currentTuple.getY());
 				}
 			}
-			
-			route.lineTo(nextTuple.getX(), nextTuple.getY());
-			//TODO: Curve detection if coming from below!
+			if((currentTuple.getY()!=nextTuple.getY())&&(nextTuple.getX()==rightTextBorder))//Adding curve if last routing segment before OPO/S-Leader came from below
+			{
+				route.lineTo(nextTuple.getX(), nextTuple.getY()+curveSize);
+				route.quadTo(nextTuple.getX(), nextTuple.getY(), nextTuple.getX()+curveSize*Math.signum(currentTuple.getY()-nextTuple.getY()), nextTuple.getY());
+			}
+			else
+			{
+				route.lineTo(nextTuple.getX(), nextTuple.getY());
+			}
 			
 			//Connection from Graph to the Annotation
-			if(route.getCurrentPoint().getX()!=rightTextBorder)//Compensating for right-to-left routed paths
+			if(route.getCurrentPoint().getX()<rightTextBorder)//Compensating for right-to-left routed paths
 			{
 					route.moveTo(nodeList.get(0).getX(), nodeList.get(0).getY());
 			}
@@ -542,14 +576,22 @@ public class GraphCreatorPanel extends JComponent {
 			{
 				route.lineTo(leftAnnotationBorder,currentAnnotationPos);
 			}
+			else if(Math.abs(info.getOpoStart()-info.getOpoEnd())<2*curveSize)
+			{
+				Annotation ann=info.getAnnotation();
+				
+				route.lineTo(info.getOpoBendPosition()-curveSize/2, route.getCurrentPoint().getY());
+				route.curveTo(info.getOpoBendPosition(),route.getCurrentPoint().getY(), info.getOpoBendPosition(),ann.getYpos(), info.getOpoBendPosition()+curveSize/2, ann.getYpos());
+				route.lineTo(leftAnnotationBorder,ann.getYpos());
+			}
 			else
 			{
 				Annotation ann=info.getAnnotation();
 				
 				route.lineTo(info.getOpoBendPosition()-curveSize, route.getCurrentPoint().getY());
-				route.curveTo(route.getCurrentPoint().getX(), route.getCurrentPoint().getY(), info.getOpoBendPosition(), route.getCurrentPoint().getY(), info.getOpoBendPosition(), route.getCurrentPoint().getY()-curveSize);
+				route.quadTo(info.getOpoBendPosition(), route.getCurrentPoint().getY(), info.getOpoBendPosition(), route.getCurrentPoint().getY()-curveSize);
 				route.lineTo(route.getCurrentPoint().getX(), ann.getYpos()+curveSize);
-				route.curveTo(route.getCurrentPoint().getX(), route.getCurrentPoint().getY(), route.getCurrentPoint().getX(), ann.getYpos(), route.getCurrentPoint().getX()+curveSize, ann.getYpos());
+				route.quadTo(route.getCurrentPoint().getX(), ann.getYpos(), route.getCurrentPoint().getX()+curveSize, ann.getYpos());
 				route.lineTo(leftAnnotationBorder, ann.getYpos());
 			}
 			
