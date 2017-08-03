@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  24 JUL 2017 14:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  3 AUG 2017 14:34
 entering extended mode
 **C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
 (C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
@@ -596,36 +596,12 @@ Package caption Info: End \AtBeginDocument code.
 File: IPE_TerminologyDrawing.pdf Graphic file (type pdf)
 
 <use IPE_TerminologyDrawing.pdf>
-Package pdftex.def Info: IPE_TerminologyDrawing.pdf used on input line 37.
+Package pdftex.def Info: IPE_TerminologyDrawing.pdf used on input line 45.
 (pdftex.def)             Requested size: 185.78815pt x 64.64133pt.
 
-Overfull \hbox (16.4913pt too wide) in paragraph at lines 37--38
+Overfull \hbox (16.4913pt too wide) in paragraph at lines 45--46
  [][]
  []
-
-
-Package wrapfig Warning: Stationary wrapfigure forced to float on input line 43
-.
-
-
-Package wrapfig Warning: Stationary wrapfigure forced to float on input line 44
-.
-
-
-Package wrapfig Warning: Stationary wrapfigure forced to float on input line 45
-.
-
-
-Package wrapfig Warning: Stationary wrapfigure forced to float on input line 47
-.
-
-
-Package wrapfig Warning: Stationary wrapfigure forced to float on input line 48
-.
-
-
-Package wrapfig Warning: Stationary wrapfigure forced to float on input line 49
-.
 
 
 Package wrapfig Warning: Stationary wrapfigure forced to float on input line 51
@@ -635,11 +611,35 @@ Package wrapfig Warning: Stationary wrapfigure forced to float on input line 51
 Package wrapfig Warning: Stationary wrapfigure forced to float on input line 52
 .
 
+
+Package wrapfig Warning: Stationary wrapfigure forced to float on input line 53
+.
+
+
+Package wrapfig Warning: Stationary wrapfigure forced to float on input line 55
+.
+
+
+Package wrapfig Warning: Stationary wrapfigure forced to float on input line 56
+.
+
+
+Package wrapfig Warning: Stationary wrapfigure forced to float on input line 57
+.
+
+
+Package wrapfig Warning: Stationary wrapfigure forced to float on input line 59
+.
+
 [1
 
 {C:/Users/Jakob/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
 
-Package wrapfig Warning: Stationary wrapfigure forced to float on input line 57
+Package wrapfig Warning: Stationary wrapfigure forced to float on input line 60
+.
+
+
+Package wrapfig Warning: Stationary wrapfigure forced to float on input line 64
 .
 
 (Paper.bbl) [2 <./IPE_TerminologyDrawing.pdf>] (Paper.aux) ) 
@@ -650,7 +650,7 @@ Here is how much of TeX's memory you used:
  6885 multiletter control sequences out of 15000+200000
  6613 words of font info for 24 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 36i,6n,39p,607b,245s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,6n,39p,696b,245s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\Jakob\Ap
 pData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1095.pk><C:/Users
 /Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.
@@ -662,7 +662,7 @@ fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Jakob/AppData/Local/Programs
 cal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/Jak
 ob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
 
-Output written on Paper.pdf (2 pages, 111391 bytes).
+Output written on Paper.pdf (2 pages, 110189 bytes).
 PDF statistics:
  54 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

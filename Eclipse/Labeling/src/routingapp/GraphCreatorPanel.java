@@ -55,7 +55,7 @@ public class GraphCreatorPanel extends JComponent {
 	private int spaceBetweenAnnLines=5;
 	private Font AnnotationFont;
 	
-	private int curveSize=3;
+	private int curveSize=6;
 
 	private int nextAnnotationPos=0;
 	private String routingtype;//Determines the type of routing - see also GraphCreatorPanel.getRouter() and GraphCreatorApplet.algNames[]
