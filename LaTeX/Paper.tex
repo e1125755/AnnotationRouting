@@ -36,8 +36,9 @@ The paper by Loose\cite{Loose2015} on the other hand is based around only using 
 
 %TODO: Bezug auf Programm & Ergebnisse nehmen!
 
-\section{Boundary Labeling} %Evtl in Introduction eingliedern?
-Boundary Labeling can be explained very quickly -  connect a Point of Interest with a box containing further information which is located outside of the main area. To easily reference important concepts, some additional Terminology will be introduced (See Fig.~\ref{fig:term} for a visual explanation)
+\section{Terminology and Fundamentals} %Evtl in Introduction eingliedern?
+While Boundary Labeling (or an equivalent concept) can be applied to a space with different geometry or more dimensions, this paper will only concern itself with two-dimensonal, euclidean space.
+To easily reference important concepts, some additional Terminology will be introduced as well. (See Fig.~\ref{fig:term} for a visual explanation)%Add more figures for graph-terms, etc. or change 
 
 \begin{wrapfigure}{r}{0.35\textwidth}
  \captionsetup{justification=centering, margin=0.75cm}
@@ -48,9 +49,12 @@ Boundary Labeling can be explained very quickly -  connect a Point of Interest w
 \end{wrapfigure}
 
 \begin{itemize}
- \item \textbf{Label:} The additional information, usually represented as a box containing the additional information. Will also be referred to as \textbf{``Annotation''} in this paper.
+ \item \textbf{Graph:} A Set of Vertices and Edges (see below), often used to represent routing problems. Can be further classified depending on its properties.
+ \item \textbf{Edge:} A path connecting two vertices, usually represented as a line. Can be directional, limiting its usage, or have a cost (``Weight'') associated with its use.
+ \item \textbf{Vertex:} A featureless object that can be connected to any number other vertices via edges. Usually depicted as a point or small shape. Commonly also referred to as \textbf{``Node''}, as will be the the case in this paper.
+ \item \textbf{Label:} Additional information, usually represented as a box containing the additional information. Will also be referred to as \textbf{``Annotation''} in this paper.
  \item \textbf{Site:} The point, object or word that is labeled - without it, there wouldn't be any labeling necessary.
- \item \textbf{Leader:} The path connecting the site to the label - depending on its shape, it can be further classified into several subgroups which can be freely combined to form new leader types:
+ \item \textbf{Leader:} The path connecting the site to the label - depending on its shape, it can be described further using several subgroups which can be freely combined to form new leader types:
   \begin{itemize}
    \item \textit{S-Leader:} This Leader connects site and label in a straight line.
    \item \textit{O-Leader:} This leader runs orthogonally to the border between text and label area.
@@ -61,7 +65,7 @@ Boundary Labeling can be explained very quickly -  connect a Point of Interest w
 \end{itemize}
 %Def. für Graphen hinzufügen! - Bei Koordinaten: Anmerken, dass 2d-euklidische Geometrie benutzt wird!
 
-\subsection{Boundary Labeling in Documents}
+\section{Boundary Labeling in Documents}%Rework this
 As with other labeling techniques, Boundary Labeling has guidelines on how to create an optimal labeling - the leaders should be as direct as possible, no important information should be obscured, and it should be easily discernable which Label belongs to which site. These three easily come into conflict with one another, especially when labeling documents, as the text usually is very dense and leaves little space for leaders in between, yet one shouldn't allow them to pass through the text, as this makes the text harder to read. Therefore, each implementation must come to a compromise that balances these criteria.
 %Beispiele von suboptimalen Lösungen einfügen? (Bilder)
 
