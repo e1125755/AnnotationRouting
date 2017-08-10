@@ -38,7 +38,7 @@ The paper by Loose\cite{Loose2015} on the other hand is based around only using 
 
 \section{Terminology and Fundamentals} %Evtl in Introduction eingliedern?
 While Boundary Labeling (or an equivalent concept) can be applied to a space with different geometry or more dimensions, this paper will only concern itself with two-dimensonal, euclidean space.
-To easily reference important concepts, some additional Terminology will be introduced as well. (See Fig.~\ref{fig:term} for a visual explanation)%Add more figures for graph-terms, etc. or change 
+To easily reference important concepts, some additional terminology will be introduced as well. (See Fig.~\ref{fig:term} for a visual explanation)%Add more figures for graph-terms, etc. or change 
 
 \begin{wrapfigure}{r}{0.35\textwidth}
  \captionsetup{justification=centering, margin=0.75cm}
@@ -63,10 +63,16 @@ To easily reference important concepts, some additional Terminology will be intr
     For example, the leader from Fig.~\ref{fig:term} would be classified as an opo-Leader.
  \item \textbf{Port:} The location where the leader connects to the label. It may be restricted pre-determined locations, like only at the corners.
 \end{itemize}
-%Def. für Graphen hinzufügen! - Bei Koordinaten: Anmerken, dass 2d-euklidische Geometrie benutzt wird!
+%Mehr Graphenterminologie? (zb: Path)
 
 \section{Boundary Labeling in Documents}%Rework this
 As with other labeling techniques, Boundary Labeling has guidelines on how to create an optimal labeling - the leaders should be as direct as possible, no important information should be obscured, and it should be easily discernable which Label belongs to which site. These three easily come into conflict with one another, especially when labeling documents, as the text usually is very dense and leaves little space for leaders in between, yet one shouldn't allow them to pass through the text, as this makes the text harder to read. Therefore, each implementation must come to a compromise that balances these criteria.
+
+%neue Section?
+In our program, %my program?
+the focus was put on keeping the text as readable as possible, which means leaders are only allowed in the space between words or lines. We also wanted to keep the leaders  as short as possible, given a fixed label and port position, which means that the leaders have to be monotonous.
+%Vorgehensweise erläutern
+%(Potential) Problems/Issues, solutions
 %Beispiele von suboptimalen Lösungen einfügen? (Bilder)
 
 
