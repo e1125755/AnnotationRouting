@@ -67,13 +67,25 @@ To easily reference important concepts, some additional terminology will be intr
 
 \section{Boundary Labeling in Documents}%Rework this
 As with other labeling techniques, Boundary Labeling has guidelines on how to create an optimal labeling - the leaders should be as direct as possible, no important information should be obscured, and it should be easily discernable which Label belongs to which site. These three easily come into conflict with one another, especially when labeling documents, as the text usually is very dense and leaves little space for leaders in between, yet one shouldn't allow them to pass through the text, as this makes the text harder to read. Therefore, each implementation must come to a compromise that balances these criteria.
+%Beispiele von suboptimalen Lösungen einfügen? (Bilder)
 
 %neue Section?
 In our program, %my program?
-the focus was put on keeping the text as readable as possible, which means leaders are only allowed in the space between words or lines. We also wanted to keep the leaders  as short as possible, given a fixed label and port position, which means that the leaders have to be monotonous.
+the focus was put on keeping the text as readable as possible. This means that leaders are only allowed in the space between words or lines, which can make certain locations for sites unavailable, as there might already too many leaders routed through that area to insert yet another for the new site. 
+We also wanted the leaders to be monotonous, which means that they will be one of the shortest possible connection between port and site locations.
+Our final priority was to efficiently use the space for the labels, which meant that each label should initially be placed as close to the available area's border as possible.
+While this allows for more space in which labels can be placed, it also means that the distance between Label and site often increases, which leads to longer leaders, and often more curves as well.
+
+%Subsetcion?
+\section{Implementation}
+The program was written in Java, using only JGraphT%Source & How do I link to this?
+as additional Library.
+Similar to Loose's Approach\cite{Loose2015}, we used a Graph to model the available routing space for the algorithm. As a result of this approach, it is important to know exactly where each word is placed. While Java offers a function that automatically places text in lines of given width, it does so in a way that doesn't allow the content of each line to be read as a String afterwards, which makes it unusable for our purposes. Therefore each word must be placed manually, and to since it isn't the main focus of the program, each series of characters between a space is considered one word that has to be fully placed within one line.
+
+
 %Vorgehensweise erläutern
 %(Potential) Problems/Issues, solutions
-%Beispiele von suboptimalen Lösungen einfügen? (Bilder)
+
 
 
 %TODO: Was genau wollen wir erreichen?
