@@ -4,7 +4,7 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{caption}
-\usepackage{wrapfig}
+%\usepackage{wrapfig}
 
 %opening
 \title{Boundary Labeling for annotated documents}%Vielleicht genauerer Titel?
@@ -24,7 +24,11 @@
 \section{Introduction}
 Annotating a document is usually solved by adding footnotes or figures in an appropriate position and adding a simple reference in the text, leaving the reader to find the referenced content by themselves. Sometimes however, if a more obvious connection between the text and the referenced content is required, the reference is visibly connected to the text by drawing a straight line or a more complex path between them.
 
-In this paper, we will look at ways to use Boundary Labeling, which means that all annotations will be placed outside of the text they are referencing and will be visually connected to the feature they are referencing. (See also \cite{Bekos2007}) While there are many papers discussing Boundary Labeling in general, only very few exist that apply this concept to written text. As a result, and since it is very easy to accidentally obscure parts of the text, this approach isn't used very often, and tends to use simplistic algorithms which produce mediocre results.
+In this paper, we will look at ways to use Boundary Labeling, which means that all annotations will be placed outside of the text they are referencing and will be visually connected to the feature they are referencing. (See also \cite{Bekos2007}) 
+
+The guidelines on how to create an optimal labeling are as follows: the connections should be as direct as possible, no important information should be obscured, and it should be easily discernable which Label belongs to which site. These three easily come into conflict with one another, especially when labeling documents, as the text usually is very dense and leaves little space for lines in between, yet one shouldn't allow them to pass through the text, as this makes the text harder to read. 
+
+While there are many papers discussing Boundary Labeling in general, only very few exist that apply this concept to written text. Generally, this approach isn't used very often, and tends to use simplistic algorithms which produce mediocre results. %Beispiele von suboptimalen Lösungen einfügen? (Bilder)
 However, the papers that do discuss boundary labeling in text offer interesting contributions.
 
 For example, the paper about the Luatodonotes-Package\cite{Kindermann2014} illustrates some of the different styles of drawing these connecting paths, and came to the conclusion that paths without bends are easier to follow. %Bild einfügen?
@@ -40,13 +44,13 @@ The paper by Loose\cite{Loose2015} on the other hand is based around only using 
 While Boundary Labeling (or an equivalent concept) can be applied to a space with different geometry or more dimensions, this paper will only concern itself with two-dimensonal, euclidean space.
 To easily reference important concepts, some additional terminology will be introduced as well. (See Fig.~\ref{fig:term} for a visual explanation)%Add more figures for graph-terms, etc. or change 
 
-\begin{wrapfigure}{r}{0.35\textwidth}
+\begin{figure}%{r}{0.35\textwidth}
  \captionsetup{justification=centering, margin=0.75cm}
- \raggedleft
+ \centering
   \includegraphics[scale=0.5]{IPE_TerminologyDrawing.pdf}
   \caption{Illustrated guide to the labeling terminology}
  \label{fig:term}
-\end{wrapfigure}
+\end{figure}
 
 \begin{itemize}
  \item \textbf{Graph:} A Set of Vertices and Edges (see below), often used to represent routing problems. Can be further classified depending on its properties.
@@ -65,23 +69,23 @@ To easily reference important concepts, some additional terminology will be intr
 \end{itemize}
 %Mehr Graphenterminologie? (zb: Path)
 
-\section{Boundary Labeling in Documents}%Rework this
-As with other labeling techniques, Boundary Labeling has guidelines on how to create an optimal labeling - the leaders should be as direct as possible, no important information should be obscured, and it should be easily discernable which Label belongs to which site. These three easily come into conflict with one another, especially when labeling documents, as the text usually is very dense and leaves little space for leaders in between, yet one shouldn't allow them to pass through the text, as this makes the text harder to read. Therefore, each implementation must come to a compromise that balances these criteria.
-%Beispiele von suboptimalen Lösungen einfügen? (Bilder)
+\section{The program}
 
-%neue Section?
 In our program, %my program?
 the focus was put on keeping the text as readable as possible. This means that leaders are only allowed in the space between words or lines, which can make certain locations for sites unavailable, as there might already too many leaders routed through that area to insert yet another for the new site. 
 We also wanted the leaders to be monotonous, which means that they will be one of the shortest possible connection between port and site locations.
 Our final priority was to efficiently use the space for the labels, which meant that each label should initially be placed as close to the available area's border as possible.
-While this allows for more space in which labels can be placed, it also means that the distance between Label and site often increases, which leads to longer leaders, and often more curves as well.
+While this allows for more space in which labels can be placed, it also means that the distance between Label and site often increases, which leads to longer leaders, and often more curves as well.%''Final Priority'' klingt komisch -> Ersatz finden!
 
-%Subsetcion?
-\section{Implementation}
-The program was written in Java, using only JGraphT%Source & How do I link to this?
+
+\subsection{Implementation}
+The program was written in Java, using only JGraphT %Source & How do I link to this?
 as additional Library.
 Similar to Loose's Approach\cite{Loose2015}, we used a Graph to model the available routing space for the algorithm. As a result of this approach, it is important to know exactly where each word is placed. While Java offers a function that automatically places text in lines of given width, it does so in a way that doesn't allow the content of each line to be read as a String afterwards, which makes it unusable for our purposes. Therefore each word must be placed manually, and to since it isn't the main focus of the program, each series of characters between a space is considered one word that has to be fully placed within one line.
 
+Using the dimensions of each word, we create the graph by creating and connecting nodes in the space between lines at the start and end of each word, and at the end of the text area. We also create special nodes for each annotated word, they are located above the word in a central position. Each node also is located at set co-ordinates, which allows the routing algorithms to easily fulfill the monotonicity constraint.
+We left some space in between the text area and the label area %Name=?
+to allow the labels to be placed more freely. While the routing graph only reaches up to the border of the text area, the connection between the graph and the label is done with an OPO-Leader. As there is the possibility of intersecting with other leaders, this means some extra adjustments have to be done. For demonstration purposes, we also included another algorithm that uses S-Leaders for this section.
 
 %Vorgehensweise erläutern
 %(Potential) Problems/Issues, solutions

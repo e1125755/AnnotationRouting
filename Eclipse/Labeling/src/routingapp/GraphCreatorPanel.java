@@ -489,6 +489,7 @@ public class GraphCreatorPanel extends JComponent {
 		}
 		//Draw complete or unfinished Route
 		//NOTE: Only tested with paths that go up and to the right, although it should be capable of handling any kind of path.
+		//NOTE: OPO-Leaders currently only support going up!
 		
 		Graphics2D g2d=(Graphics2D)g;
 
@@ -531,7 +532,7 @@ public class GraphCreatorPanel extends JComponent {
 							if(previewTuple.getX()==nextTuple.getX())//<=>2 Curves close to each other
 							{
 								route.lineTo(currentTuple.getX(),currentTuple.getY()+curveSize/2*Math.signum(oldTuple.getY()-currentTuple.getY()));
-								route.curveTo(currentTuple.getX(),currentTuple.getY(), nextTuple.getX(), nextTuple.getY(), nextTuple.getX(), nextTuple.getY()+curveSize/2*Math.signum(previewTuple.getY()-nextTuple.getY()));
+								route.curveTo(currentTuple.getX(),currentTuple.getY()-curveSize/2*Math.signum(oldTuple.getY()-currentTuple.getY()), nextTuple.getX(), nextTuple.getY()+curveSize/2*Math.signum(previewTuple.getY()-nextTuple.getY()), nextTuple.getX(), nextTuple.getY()+curveSize/2*Math.signum(previewTuple.getY()-nextTuple.getY()));
 							}
 							else if(Math.abs(nextTuple.getX()-currentTuple.getX())<=curveSize)//nextTuple is too close to the curve - we will just go past it
 							{
@@ -567,6 +568,7 @@ public class GraphCreatorPanel extends JComponent {
 			}
 			
 			//Connection from Graph to the Annotation
+			//NOTE: This assumes OPO-Leaders that go upwards!
 			if(route.getCurrentPoint().getX()<rightTextBorder)//Compensating for right-to-left routed paths
 			{
 					route.moveTo(nodeList.get(0).getX(), nodeList.get(0).getY());
@@ -576,12 +578,12 @@ public class GraphCreatorPanel extends JComponent {
 			{
 				route.lineTo(leftAnnotationBorder,currentAnnotationPos);
 			}
-			else if(Math.abs(info.getOpoStart()-info.getOpoEnd())<2*curveSize)
+			else if(Math.abs(info.getOpoStart()-info.getOpoEnd())<2*curveSize) //Bends are too close to each other
 			{
 				Annotation ann=info.getAnnotation();
 				
 				route.lineTo(info.getOpoBendPosition()-curveSize/2, route.getCurrentPoint().getY());
-				route.curveTo(info.getOpoBendPosition(),route.getCurrentPoint().getY(), info.getOpoBendPosition(),ann.getYpos(), info.getOpoBendPosition()+curveSize/2, ann.getYpos());
+				route.curveTo(info.getOpoBendPosition()+curveSize/2,route.getCurrentPoint().getY(), info.getOpoBendPosition()-curveSize/2,ann.getYpos(), info.getOpoBendPosition()+curveSize/2, ann.getYpos());
 				route.lineTo(leftAnnotationBorder,ann.getYpos());
 			}
 			else
