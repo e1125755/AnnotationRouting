@@ -54,7 +54,7 @@ To easily reference important concepts, some additional terminology will be intr
 
 \begin{itemize}
  \item \textbf{Graph:} A Set of Vertices and Edges (see below), often used to represent routing problems. Can be further classified depending on its properties.
- \item \textbf{Edge:} A path connecting two vertices, usually represented as a line. Can be directional, limiting its usage, or have a cost (``Weight'') associated with its use.
+ \item \textbf{Edge:} A connection between two vertices, usually represented as a line. Can be directional, limiting its usage, or have a cost (``Weight'') associated with its use.
  \item \textbf{Vertex:} A featureless object that can be connected to any number other vertices via edges. Usually depicted as a point or small shape. Commonly also referred to as \textbf{``Node''}, as will be the the case in this paper.
  \item \textbf{Label:} Additional information, usually represented as a box containing the additional information. Will also be referred to as \textbf{``Annotation''} in this paper.
  \item \textbf{Site:} The point, object or word that is labeled - without it, there wouldn't be any labeling necessary.
@@ -66,33 +66,37 @@ To easily reference important concepts, some additional terminology will be intr
   \end{itemize}
     For example, the leader from Fig.~\ref{fig:term} would be classified as an opo-Leader.
  \item \textbf{Port:} The location where the leader connects to the label. It may be restricted pre-determined locations, like only at the corners.
+  \item \textbf{Monotonous/Monotonicity:} Describes a steady progression towards a direction or goal. Will be used in this paper to indicate that there's no loss of progress made from the site to the label, effectively restricting the direction a leader can go at each bend.
 \end{itemize}
-%Mehr Graphenterminologie? (zb: Path)
+%Mehr Graphenterminologie? (zb: Path) +Polylinien Vertex/Node für Knoten in Polylinien bzw. Graphen -->Eindeutig!
 
 \section{The program}
 
-In our program, %my program?
-the focus was put on keeping the text as readable as possible. This means that leaders are only allowed in the space between words or lines, which can make certain locations for sites unavailable, as there might already too many leaders routed through that area to insert yet another for the new site. 
+In our program, the focus was put on keeping the text as readable as possible. This means that leaders are only allowed in the space between words or lines, which can make certain locations for sites unavailable, as there might already too many leaders routed through that area to insert yet another for the new site. 
 We also wanted the leaders to be monotonous, which means that they will be one of the shortest possible connection between port and site locations.
 Our final priority was to efficiently use the space for the labels, which meant that each label should initially be placed as close to the available area's border as possible.
-While this allows for more space in which labels can be placed, it also means that the distance between Label and site often increases, which leads to longer leaders, and often more curves as well.%''Final Priority'' klingt komisch -> Ersatz finden!
+While this allows for more space in which labels can be placed, it also means that the distance between Label and site often increases, which leads to longer leaders.%''Final Priority'' klingt komisch -> Ersatz finden!
 
+%Algorithmus(Ansatz) und Implementierung(noch immer abstrakt) trennen! Probleme, Details, ... gegen Ende!
+\subsection{Algorithm}%''Underlying Algorithm''?
+To easily create paths that exclusively use the space between words and lines, we decided to use a graph similar to the one Loose \cite{Loose2015} used, placing nodes above and below each word's beginning and end, and connecting them with their horizontally and vertically adjacent neighbours.%Umformulieren?
+For the sites, we inserted an additional node above the center of the word, which will serve as the leader's starting point. We also decided to give the graph's edges a capacity of 1, which means that each leader will always use edges which haven't already be taken by other leaders. While this causes some sites to become un-routable due to another leader passing right through their starting node, it makes visualizing the leaders much easier. Our first approach was going through the labels in the order they appear in the text and placing each as far up as possible, to maximize the remaining space other labels could use.
+
+Since putting the labels right next to the text would result in the labels' positions being restricted by the text's line spacing,we decided to leave a buffer zone in between the two areas, which allows the leaders to adjust between the position forced by the line spacing and the label's final position. As this allowed us to place the labels more freely, we adjusted the label's positions after all labels were placed to reduce the distance that needed to be covered in the buffer area.
 
 \subsection{Implementation}
-The program was written in Java, using only JGraphT %Source & How do I link to this?
-as additional Library.
-Similar to Loose's Approach\cite{Loose2015}, we used a Graph to model the available routing space for the algorithm. As a result of this approach, it is important to know exactly where each word is placed. While Java offers a function that automatically places text in lines of given width, it does so in a way that doesn't allow the content of each line to be read as a String afterwards, which makes it unusable for our purposes. Therefore each word must be placed manually, and to since it isn't the main focus of the program, each series of characters between a space is considered one word that has to be fully placed within one line.
+The program was written in Java, using only JGraphT\cite{JGraphT} as additional library. Since we only want to create leaders that don't intersect with the text, the graph was created alongside the placement of the words on the canvas, as it was easy to extract measurements at this point. Due to some problems with Java's various methods of calculating linebreaks, this process was done completely by hand. Since the Graph's nodes represent fixed locations on the canvas, they each have coordinates associated with them, with the nodes representing the sites containing extra information, such as references to the corresponding annotation and to the leader connecting the two (if existent).
+%TODO: Code genauer durchlesen und erweitern!
 
-Using the dimensions of each word, we create the graph by creating and connecting nodes in the space between lines at the start and end of each word, and at the end of the text area. We also create special nodes for each annotated word, they are located above the word in a central position. Each node also is located at set co-ordinates, which allows the routing algorithms to easily fulfill the monotonicity constraint.
-We left some space in between the text area and the label area %Name=?
-to allow the labels to be placed more freely. While the routing graph only reaches up to the border of the text area, the connection between the graph and the label is done with an OPO-Leader. As there is the possibility of intersecting with other leaders, this means some extra adjustments have to be done. For demonstration purposes, we also included another algorithm that uses S-Leaders for this section.
 
-%Vorgehensweise erläutern
+%Similar to Loose's Approach\cite{Loose2015}, we used a Graph to model the available routing space for the algorithm. As a result of this approach, it is important to know exactly where each word is placed. While Java offers a function that automatically places text in lines of given width, it does so in a way that doesn't allow the content of each line to be read as a String afterwards, which makes it unusable for our purposes. Therefore each word must be placed manually, and to since it isn't the main focus of the program, each series of characters between a space is considered one word that has to be fully placed within one line.
+
+%Using the dimensions of each word, we create the graph by creating and connecting nodes in the space between lines at the start and end of each word, and at the end of the text area. We also create special nodes for each annotated word, they are located above the word in a central position. Each node also is located at set co-ordinates, which allows the routing algorithms to easily fulfill the monotonicity constraint.
+%We left some space in between the text area and the label area %Name=?(Lass dir was einfallen)
+%to allow the labels to be placed more freely. While the routing graph only reaches up to the border of the text area, the connection between the graph and the label is done with an OPO-Leader. As there is the possibility of intersecting with other leaders, this means some extra adjustments have to be done. For demonstration purposes, we also included another algorithm that uses S-Leaders for this section.
+
 %(Potential) Problems/Issues, solutions
 
-
-
-%TODO: Was genau wollen wir erreichen?
 
 
 %Section Ideas: The Program/Framework (Modellerklärung), The Algorithm(s), Implementation, Evaluation, Conclusion

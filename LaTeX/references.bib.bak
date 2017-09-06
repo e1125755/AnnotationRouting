@@ -36,11 +36,17 @@ keywords = "Straight-line leaders",
 keywords = "Rectilinear leaders"
 }
 
-@MastersThesis{,
+@MastersThesis{Loose2015,
   author = {Amrei Loose},
   title  = {Annotation von Texten unter Berücksichtigung von Textzwischenräumen},
   school = {Karlsruhe Institute of Technology},
   year   = {2015},
+}
+
+@Misc{JgraphT,
+  title     = {JGraphT - a free Java Graph Library},
+  timestamp = {2017-03-01},
+  url       = {http://jgrapht.org/},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}

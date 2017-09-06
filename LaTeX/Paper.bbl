@@ -1,5 +1,8 @@
 \begin{thebibliography}{1}
 
+\bibitem{JGraphT}
+Jgrapht - a free java graph library.
+
 \bibitem{Bekos2007}
 Michael~A. Bekos, Michael Kaufmann, Antonios Symvonis, and Alexander Wolff.
 \newblock Boundary labeling: Models and efficient algorithms for rectangular

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  23 AUG 2017 13:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  6 SEP 2017 11:55
 entering extended mode
 **C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
 (C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
@@ -594,13 +594,13 @@ Package pdftex.def Info: IPE_TerminologyDrawing.pdf used on input line 50.
 erminologyDrawing.pdf>] (Paper.bbl) [3]
 (Paper.aux) ) 
 Here is how much of TeX's memory you used:
- 3459 strings out of 493634
- 52803 string characters out of 3135239
+ 3460 strings out of 493634
+ 52812 string characters out of 3135239
  117558 words of memory out of 3000000
- 6831 multiletter control sequences out of 15000+200000
+ 6832 multiletter control sequences out of 15000+200000
  6613 words of font info for 24 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 36i,6n,39p,724b,291s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,6n,39p,775b,291s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\Jakob\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen
 \ec\dpi600\tcrm1095.pk><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/
 type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKT
@@ -611,7 +611,7 @@ ers/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr1
 7.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsf
 onts/cm/cmti10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type
 1/public/amsfonts/cm/cmtt12.pfb>
-Output written on Paper.pdf (3 pages, 116902 bytes).
+Output written on Paper.pdf (3 pages, 118974 bytes).
 PDF statistics:
  57 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
