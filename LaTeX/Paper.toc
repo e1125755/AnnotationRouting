@@ -1,0 +1,11 @@
+\select@language {naustrian}
+\select@language {english}
+\select@language {naustrian}
+\select@language {english}
+\contentsline {chapter}{Contents}{v}
+\contentsline {section}{\numberline {0.1}Introduction}{1}
+\contentsline {section}{\numberline {0.2}Terminology and Fundamentals}{1}
+\contentsline {section}{\numberline {0.3}The program}{3}
+\contentsline {subsection}{Algorithm}{3}
+\contentsline {subsection}{Implementation}{3}
+\contentsline {chapter}{Bibliography}{5}

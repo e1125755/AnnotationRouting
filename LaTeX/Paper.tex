@@ -1,28 +1,62 @@
-\documentclass[11pt,a4paper]{article}
-\usepackage{termpaper}
+\documentclass[11pt,a4paper]{vutinfth}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{caption}
+\usepackage{mathtools}
+\usepackage{amssymb}
 %\usepackage{wrapfig}
 
-%opening
-\title{Boundary Labeling for annotated documents}%Vielleicht genauerer Titel?
-\author{
- \authorname{Jakob Klinger} \\
- \studentnumber{1125755} \\
- \curriculum{033 534} \\
- \email{e1125755@student.tuwien.ac.at}
-}
+
+
+%TODO: CHANGE!
+\setauthor{}{Jakob Klinger}{}{male}
+\setadvisor{Pretitle}{Forename Surname}{Posttitle}{male}
+
+\setaddress{TODO: ADDRESS!}%TODO
+\setregnumber{1125755}
+\setdate{25}{09}{2017}
+
+\settitle{TestTitle}{TestTitel}
+\setsubtitle{TestSubtitle}{TestSubtitel}
+
+\setthesis{bachelor}
+\setcurriculum{EnglischerCurrName}{DeutscherCurrName} %TODO!
 
 \begin{document}
 
-\maketitle
+\frontmatter
+%\addtitlepage{naustrian}
+\addtitlepage{english}
+\addstatementpage
+
+%\begin{danksagung*}
+%\todo{Ihr Text hier.}
+%\end{danksagung*}
+
+%\begin{acknowledgements*}
+%\todo{Enter your text here.}
+%\end{acknowledgements*}
+
+%\begin{kurzfassung}
+%\todo{Ihr Text hier.}
+%\end{kurzfassung}
+
+%\begin{abstract}
+%\todo{Enter your text here.}
+%\end{abstract}
+
+\selectlanguage{english}
+
+\tableofcontents
+
+\mainmatter
+
 
 %TODO: Abstract: \begin{abstract}...\end{abstract}
 
 \section{Introduction}%Wort ``Path'' durch nicht-definierte Terminologie ersetzen?
-Annotating a document is usually solved by adding footnotes or figures in an appropriate position and adding a simple reference in the text, leaving the reader to find the referenced content by themselves. Sometimes however, if a more obvious connection between the text and the referenced content is required, the reference is visibly connected to the text by drawing a straight line or a more complex path between them.
+Annotating a document is usually solved by adding footnotes or figures in an appropriate position and adding a simple reference in the text, leaving the reader to find the referenced content by themselves. If a more obvious connection between the text and the referenced content is required, the reference is visibly connected to the text by drawing a straight line or a more complex path between them.
 
 In this paper, we will look at ways to use Boundary Labeling, which means that all annotations will be placed outside of the text they are referencing and will be visually connected to the feature they are referencing. (See also \cite{Bekos2007}) 
 
@@ -54,8 +88,10 @@ To easily reference important concepts, some additional terminology will be intr
  \label{fig:term}
 \end{figure}
 
+A \emph{Graph} $G=\langle V, E \rangle$ is a tuple of \emph{Vertices} (V) and \emph{Edges} (E).Vertices are... % Each edge $e_i~\in~E \, (i~\in~\mathbb{N})$ is 
+
 \begin{itemize}
- \item \textbf{Graph:} A Set of Vertices and Edges (see below), often used to represent routing problems. Can be further classified depending on its properties.
+ \item \textbf{Graph:} A Tuple of Vertices and Edges (see below), often used to represent routing problems. Can be further classified depending on its properties.
  \item \textbf{Edge:} A connection between two vertices, usually represented as a line. Can be directional, limiting its usage, or have a cost (``Weight'') associated with its use.
  \item \textbf{Vertex:} A featureless object that can be connected to any number other vertices via edges. Usually depicted as a point or small shape. Also referred to as \textbf{``Node''}.%Remove second sentence and re-define node?
  \item \textbf{Path:} An ordered series of either edges that share one vertex each with the edges listed before and after them, or an ordered series of vertices that have an edge connecting each vertex to the subsequent one. Also known as \textbf{``Graph Walk''}.
@@ -109,6 +145,8 @@ As the Graph's vertices represent fixed locations on the canvas, they each have 
 
 %Section Ideas: The Program/Framework (Modellerklärung), The Algorithm(s), Implementation, Evaluation, Conclusion
 
+
+\backmatter %TODO: Es gibt mehr nützliche Kommandos in VUTINFTH für zb Listen von Bildern, etc.!
 
 \bibliographystyle{plain}
 \bibliography{references}
