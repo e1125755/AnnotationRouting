@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  27 SEP 2017 15:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  28 SEP 2017 14:58
 entering extended mode
 **C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
 (C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
@@ -1381,7 +1381,8 @@ File: IPE_TerminologyDrawing.pdf Graphic file (type pdf)
 Package pdftex.def Info: IPE_TerminologyDrawing.pdf used on input line 86.
 (pdftex.def)             Requested size: 185.78815pt x 64.64133pt.
  [1 <./IPE_TerminologyDrawing.pdf>]
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 94.
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 101.
+
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\ts1lmr.fd"
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -1399,31 +1400,35 @@ bibitemlist
 Here is how much of TeX's memory you used:
  10978 strings out of 493634
  165417 string characters out of 3135239
- 275195 words of memory out of 3000000
+ 275261 words of memory out of 3000000
  14143 multiletter control sequences out of 15000+200000
  99856 words of font info for 83 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  55i,17n,92p,1137b,468s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips
 /lm/lm-ts1.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvip
-s/lm/lm-mathsy.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/
+s/lm/lm-mathit.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/
 dvips/lm/lm-rm.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/
-dvips/lm/lm-mathit.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/
+dvips/lm/lm-mathsy.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/
 enc/dvips/lm/lm-ec.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/
 enc/dvips/fontname/8r.enc}<C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fon
 ts/type1/public/lm/lmbx10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9
 /fonts/type1/public/lm/lmbx12.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX
  2.9/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/Jakob/AppData/Local/Programs/M
 iKTeX 2.9/fonts/type1/public/lm/lmmi10.pfb><C:/Users/Jakob/AppData/Local/Progra
-ms/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Users/Jakob/AppData/Local/Pro
-grams/MiKTeX 2.9/fonts/type1/public/lm/lmri10.pfb><C:/Users/Jakob/AppData/Local
-/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmss12.pfb><C:/Users/Jakob/AppData/L
-ocal/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Users/Jakob/AppDa
-ta/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/Jako
-b/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on Paper.pdf (11 pages, 209681 bytes).
+ms/MiKTeX 2.9/fonts/type1/public/lm/lmmi8.pfb><C:/Users/Jakob/AppData/Local/Pro
+grams/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Users/Jakob/AppData/Local/
+Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr8.pfb><C:/Users/Jakob/AppData/Loca
+l/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmri10.pfb><C:/Users/Jakob/AppData/
+Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmss12.pfb><C:/Users/Jakob/AppD
+ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Users/Jakob/
+AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pf
+b><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uh
+vb8a.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helv
+etic/uhvr8a.pfb>
+Output written on Paper.pdf (11 pages, 242114 bytes).
 PDF statistics:
- 112 PDF objects out of 1000 (max. 8388607)
+ 124 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

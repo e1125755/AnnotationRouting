@@ -17,7 +17,7 @@
 \setregnumber{1125755}
 \setdate{25}{09}{2017}
 
-\settitle{TestTitle}{TestTitel}
+\settitle{Boundary Labeling for annotated documents}{Boundary Labeling in annotierten Dokumenten}
 \setsubtitle{TestSubtitle}{TestSubtitel}
 
 \setthesis{bachelor}
@@ -66,7 +66,7 @@ While there are many papers discussing Boundary Labeling in general, only very f
 However, the papers that do discuss boundary labeling in text offer interesting contributions.
 
 For example, the paper about the Luatodonotes-Package\cite{Kindermann2014} illustrates some of the different styles of drawing these connecting paths, and came to the conclusion that paths without bends are easier to follow. %Bild einfügen?
-However, most solutions proposed in that paper don't care whether a path overlapped with text or not, which results in a decrease in readability.
+However, most solutions proposed in that paper do not consider whether a path overlapped with text or not, which results in a decrease in readability.
 
 The paper by Loose\cite{Loose2015} on the other hand is based around only using the free space between lines and words, which produces longer paths, and forces curves, but doesn't obscure any part of the text.
 %Siehe auhc andere Papers - Motivation! (Warum will ich mir dieses Thema ansehen)
@@ -88,13 +88,15 @@ To easily reference important concepts, some additional terminology will be intr
  \label{fig:term}
 \end{figure}
 
-A \emph{Graph} $G=\langle V, E \rangle$ is a tuple of \emph{Vertices} (V) and \emph{Edges} (E).Vertices are... % Each edge $e_i~\in~E \, (i~\in~\mathbb{N})$ is 
+A \emph{Graph} $G=\langle V, E \rangle$ is a tuple of \emph{Vertices} $(V=\{v_1, v_2, ..., v_n\})$ and \emph{Edges} $(E=\{e_1, e_2, ..., e_m\})$. A Vertex $v_i (i~\in~\mathbb{N})$ is a featureless object. %Wie  sage ich, dass die Umsetzung der Vertices sehr flexibel ist?
+ Each edge $e_i \, (i~\in~\mathbb{N})$ is a relation between two vertices (Therefore: $E:V\rightarrow  V\times V$). The vertices forming the edge are considered \em{adjacent} to each other. Edges can also be directional, or have a weight, which affects how they are treated by algorithms.
+ A \em{Path} $(P=v_1, ..., v_h)$ is an ordered series of vertices, where each vertex must have an edge connecting it to the subesquent one.
 
 \begin{itemize}
- \item \textbf{Graph:} A Tuple of Vertices and Edges (see below), often used to represent routing problems. Can be further classified depending on its properties.
- \item \textbf{Edge:} A connection between two vertices, usually represented as a line. Can be directional, limiting its usage, or have a cost (``Weight'') associated with its use.
- \item \textbf{Vertex:} A featureless object that can be connected to any number other vertices via edges. Usually depicted as a point or small shape. Also referred to as \textbf{``Node''}.%Remove second sentence and re-define node?
- \item \textbf{Path:} An ordered series of either edges that share one vertex each with the edges listed before and after them, or an ordered series of vertices that have an edge connecting each vertex to the subsequent one. Also known as \textbf{``Graph Walk''}.
+% \item \textbf{Graph:} A Tuple of Vertices and Edges (see below), often used to represent routing problems. Can be further classified depending on its properties.
+% \item \textbf{Edge:} A connection between two vertices, usually represented as a line. Can be directional, limiting its usage, or have a cost (``Weight'') associated with its use.
+% \item \textbf{Vertex:} A featureless object that can be connected to any number other vertices via edges. Usually depicted as a point or small shape.
+% \item \textbf{Path:} An ordered series of either edges that share one vertex each with the edges listed before and after them, or an ordered series of vertices that have an edge connecting each vertex to the subsequent one. Also known as \textbf{``Graph Walk''}.
  
  \item \textbf{Polyline:} A connected series of straight lines.%Ist mehr Information notwendig?
  
