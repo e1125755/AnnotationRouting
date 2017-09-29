@@ -60,13 +60,13 @@ Annotating a document is usually solved by adding footnotes or figures in an app
 
 In this paper, we will look at ways to use Boundary Labeling, which means that all annotations will be placed outside of the text they are referencing and will be visually connected to the feature they are referencing. (See also \cite{Bekos2007}) 
 
-The guidelines on how to create an optimal labeling are as follows: the connections should be as direct as possible, no important information should be obscured, and it should be easily discernable which Label belongs to which site. These three easily come into conflict with one another, especially when labeling documents, as the text usually is very dense and leaves little space for lines in between, yet one shouldn't allow them to pass through the text, as this makes the text harder to read. 
+The guidelines on how to create an optimal labeling are as follows: the connections should be as direct as possible, no important information should be obscured, and it should be easily discernable which Label belongs to which site. These three easily come into conflict with one another,  as the text usually is very dense and leaves little space for lines in between, yet one shouldn't allow them to pass through the text, as this makes the text harder to read. 
 
 While there are many papers discussing Boundary Labeling in general, only very few exist that apply this concept to written text. Generally, this approach isn't used very often, and tends to use simplistic algorithms which produce mediocre results. %Beispiele von suboptimalen Lösungen einfügen? (Bilder)
 However, the papers that do discuss boundary labeling in text offer interesting contributions.
 
-For example, the paper about the Luatodonotes-Package\cite{Kindermann2014} illustrates some of the different styles of drawing these connecting paths, and came to the conclusion that paths without bends are easier to follow. %Bild einfügen?
-However, most solutions proposed in that paper do not consider whether a path overlapped with text or not, which results in a decrease in readability.
+In the paper about the Luatodonotes-Package\cite{Kindermann2014} illustrates some of the different styles of drawing these connecting paths, and came to the conclusion that paths without bends are easier to follow. %Bild einfügen?
+However, most solutions proposed in that paper do not consider whether a path overlaps with text or not, which results in a decrease in readability.
 
 The paper by Loose\cite{Loose2015} on the other hand is based around only using the free space between lines and words, which produces longer paths, and forces curves, but doesn't obscure any part of the text.
 %Siehe auhc andere Papers - Motivation! (Warum will ich mir dieses Thema ansehen)
@@ -88,9 +88,16 @@ To easily reference important concepts, some additional terminology will be intr
  \label{fig:term}
 \end{figure}
 
-A \emph{Graph} $G=\langle V, E \rangle$ is a tuple of \emph{Vertices} $(V=\{v_1, v_2, ..., v_n\})$ and \emph{Edges} $(E=\{e_1, e_2, ..., e_m\})$. A Vertex $v_i (i~\in~\mathbb{N})$ is a featureless object. %Wie  sage ich, dass die Umsetzung der Vertices sehr flexibel ist?
- Each edge $e_i \, (i~\in~\mathbb{N})$ is a relation between two vertices (Therefore: $E:V\rightarrow  V\times V$). The vertices forming the edge are considered \em{adjacent} to each other. Edges can also be directional, or have a weight, which affects how they are treated by algorithms.
- A \em{Path} $(P=v_1, ..., v_h)$ is an ordered series of vertices, where each vertex must have an edge connecting it to the subesquent one.
+A \emph{Graph} $G=\langle V, E \rangle$ is a tuple of \emph{Vertices} $(V=\{v_1, v_2, ..., v_n\})$ and \emph{Edges} $(E=\{e_1, e_2, ..., e_m\})$. A vertex $v_i (i~\in~\mathbb{N})$ is a featureless object. %Wie  sage ich, dass die Umsetzung der Vertices sehr flexibel ist?
+ Each edge $e_i \, (i~\in~\mathbb{N})$ is a relation between two vertices $(E:V\rightarrow  V\times V)$. The vertices forming the edge are considered \emph{adjacent} to each other. Edges can also be directional, or have a weight, which affects how they are treated by algorithms.
+ A \emph{Path} $(P=v_1, ..., v_h)$ is an ordered series of vertices, where each vertex must have an edge connecting it to the subesquent one.
+
+\emph{Polylines} are a connected series of \emph{Line segments}. Line segments are straight lines that contain each point between their starting and end point. %Open vs. closed line segments?
+\emph{Labels} hold additional information and are represented as boxes containing this information. They are usually placed in the \emph{Label area} which is an area designated to hold labels and is located off to a side so the labels don't obscure anything.
+The point or object that this information refers to is called a \emph{Site}. The site and the label are connected via a \emph{Leader}, a polyline that can be further classified by looking at the orientation of its segments: \emph{O-Segments} run orthogonally to the border of the label area. \emph{P-Segments} run parallel to the border of the label area, and as such must be combined with other segments for the leader to reach its destination. \emph{S-Segments} are not required to have any particular orientation, and simply connect their start and einding points in a straight line.
+The leader's name is created by combining the name of the segments - for example, the leader from Fig~\ref{fig:term} would be classified as an OPO-Leader.
+The location where a leader connects to the label is called the \emph{Port}. It can either be located freely along the label's edge, or restricted to pre-defined positions.
+
 
 \begin{itemize}
 % \item \textbf{Graph:} A Tuple of Vertices and Edges (see below), often used to represent routing problems. Can be further classified depending on its properties.
@@ -98,18 +105,18 @@ A \emph{Graph} $G=\langle V, E \rangle$ is a tuple of \emph{Vertices} $(V=\{v_1,
 % \item \textbf{Vertex:} A featureless object that can be connected to any number other vertices via edges. Usually depicted as a point or small shape.
 % \item \textbf{Path:} An ordered series of either edges that share one vertex each with the edges listed before and after them, or an ordered series of vertices that have an edge connecting each vertex to the subsequent one. Also known as \textbf{``Graph Walk''}.
  
- \item \textbf{Polyline:} A connected series of straight lines.%Ist mehr Information notwendig?
+ %\item \textbf{Polyline:} A connected series of straight lines.%Ist mehr Information notwendig?
  
- \item \textbf{Label:} Additional information, usually represented as a box containing the additional information. Will also be referred to as \textbf{``Annotation''} in this paper.
- \item \textbf{Site:} The point, object or word that is labeled - without it, there wouldn't be any labeling necessary.
- \item \textbf{Leader:} The line or polyline connecting the site to the label - depending on its shape, it can be described further using several subgroups which can be freely combined to form new leader types:
-  \begin{itemize}
-   \item \textit{S-Leader:} This Leader connects site and label in a straight line.
-   \item \textit{O-Leader:} This leader runs orthogonally to the border between text and label area.
-   \item \textit{P-Leader:} This Leader runs parallel to the border between text and label area. It must be combined with other leader styles, as it won't reach the label area otherwise.
-  \end{itemize}
-    For example, the leader from Fig.~\ref{fig:term} would be classified as an opo-Leader.
- \item \textbf{Port:} The location where the leader connects to the label. It may be restricted to pre-determined locations, like only at the corners.
+% \item \textbf{Label:} Additional information, usually represented as a box containing the additional information. Will also be referred to as \textbf{``Annotation''} in this paper.
+% \item \textbf{Site:} The point, object or word that is labeled - without it, there wouldn't be any labeling necessary.
+% \item \textbf{Leader:} The line or polyline connecting the site to the label - depending on its shape, it can be described further using several subgroups which can be freely combined to form new leader types:
+%  \begin{itemize}
+ %  \item \textit{S-Leader:} This Leader connects site and label in a straight line.
+  % \item \textit{O-Leader:} This leader runs orthogonally to the border between text and label area.
+  % \item \textit{P-Leader:} This Leader runs parallel to the border between text and label area. It must be combined with other leader styles, as it won't reach the label area otherwise.
+  %\end{itemize}
+   % For example, the leader from Fig.~\ref{fig:term} would be classified as an opo-Leader.
+% \item \textbf{Port:} The location where the leader connects to the label. It may be restricted to pre-determined locations, like only at the corners.
   \item \textbf{Monotonous/Monotonicity:} Describes a steady progression towards a direction or goal. Will be used in this paper to indicate that there's no loss of progress made from the site to the label, effectively restricting the direction a leader can go at each bend.
   \item \textbf{Depth-first search:} A searching algorithm that continues along a set of rules as far as possible until either the goal is found, or backtracking is required. A common example is navigating a maze by turning the same way whenever possible.
 \end{itemize}
