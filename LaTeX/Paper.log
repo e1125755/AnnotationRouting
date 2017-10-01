@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  29 SEP 2017 14:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  1 OCT 2017 20:00
 entering extended mode
 **C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
 (C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
@@ -1153,26 +1153,26 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 )) (Paper.aux)
 \openout1 = `Paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 26.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 26.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 28.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 28.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 26.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 28.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -1261,104 +1261,104 @@ Package caption Info: End \AtBeginDocument code.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Try loading font information for T1+lmss on input line 30.
+LaTeX Font Info:    Try loading font information for T1+lmss on input line 32.
  ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\t1lmss.fd"
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for T1+phv on input line 30.
+LaTeX Font Info:    Try loading font information for T1+phv on input line 32.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\t1phv.fd"
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 10.40245pt on input line 30.
+(Font)              scaled to size 10.40245pt on input line 32.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 28.49991pt on input line 30.
+(Font)              scaled to size 28.49991pt on input line 32.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <30> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 30.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 32.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 28.49991pt on input line 30.
+(Font)              scaled to size 28.49991pt on input line 32.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 18.99994pt on input line 30.
+(Font)              scaled to size 18.99994pt on input line 32.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <20> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 30.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 32.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 18.99994pt on input line 30.
+(Font)              scaled to size 18.99994pt on input line 32.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 16.14995pt on input line 30.
+(Font)              scaled to size 16.14995pt on input line 32.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 11.39996pt on input line 30.
+(Font)              scaled to size 11.39996pt on input line 32.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <17> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 30.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 32.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 16.14995pt on input line 30.
+(Font)              scaled to size 16.14995pt on input line 32.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 13.29996pt on input line 30.
+(Font)              scaled to size 13.29996pt on input line 32.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 30.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 32.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 13.29996pt on input line 30.
+(Font)              scaled to size 13.29996pt on input line 32.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 10.44997pt on input line 30.
-LaTeX Font Info:    Calculating math sizes for size <11> on input line 30.
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 30.
+(Font)              scaled to size 10.44997pt on input line 32.
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 32.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 32.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 30.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 32.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\omllmm.fd"
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 30.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 32.
 
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\omslmsy.fd"
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 30.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 32.
 
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\omxlmex.fd"
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <11> on input line 30.
+(Font)              <11> on input line 32.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7.69997> on input line 30.
+(Font)              <7.69997> on input line 32.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5.5> on input line 30.
-LaTeX Font Info:    Try loading font information for U+msa on input line 30.
+(Font)              <5.5> on input line 32.
+LaTeX Font Info:    Try loading font information for U+msa on input line 32.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 30.
+LaTeX Font Info:    Try loading font information for U+msb on input line 32.
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.31494pt on input line 30.
+(Font)              scaled to size 7.31494pt on input line 32.
 <graphics/TU_INF_header.pdf, id=1, 512.91624pt x 47.17625pt>
 File: graphics/TU_INF_header.pdf Graphic file (type pdf)
 
 <use graphics/TU_INF_header.pdf>
-Package pdftex.def Info: graphics/TU_INF_header.pdf used on input line 30.
+Package pdftex.def Info: graphics/TU_INF_header.pdf used on input line 32.
 (pdftex.def)             Requested size: 512.915pt x 47.17612pt.
 
 <graphics/TU_INF_Logo_gray.pdf, id=2, 171.64125pt x 46.1725pt>
 File: graphics/TU_INF_Logo_gray.pdf Graphic file (type pdf)
 
 <use graphics/TU_INF_Logo_gray.pdf>
-Package pdftex.def Info: graphics/TU_INF_Logo_gray.pdf used on input line 30.
+Package pdftex.def Info: graphics/TU_INF_Logo_gray.pdf used on input line 32.
 (pdftex.def)             Requested size: 171.64081pt x 46.17236pt.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 30.
+(Font)              <10.95> on input line 32.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 30.
+(Font)              <8> on input line 32.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 30.
+(Font)              <6> on input line 32.
  [1
 
 
@@ -1374,24 +1374,24 @@ TU_INF_header.pdf> <./graphics/TU_INF_Logo_gray.pdf>] [2
 ] (Paper.toc) [5] [6
 
 ]
-<IPE_TerminologyDrawing.pdf, id=38, 371.57721pt x 129.283pt>
+Underfull \vbox (badness 4242) has occurred while \output is active []
+
+ [1
+
+]
+<IPE_TerminologyDrawing.pdf, id=43, 371.57721pt x 129.283pt>
 File: IPE_TerminologyDrawing.pdf Graphic file (type pdf)
 
 <use IPE_TerminologyDrawing.pdf>
-Package pdftex.def Info: IPE_TerminologyDrawing.pdf used on input line 86.
+Package pdftex.def Info: IPE_TerminologyDrawing.pdf used on input line 88.
 (pdftex.def)             Requested size: 185.78815pt x 64.64133pt.
- [1 <./IPE_TerminologyDrawing.pdf>]
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 120.
+ [2 <./IPE_TerminologyDrawing.pdf>] [3
 
-
-("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\ts1lmr.fd"
-File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-[2] [3] [4
-
-] (Paper.bbl
+]
+[4] (Paper.bbl
 bibitemlist
 ) [5
+
 
 ]
 \tf@toc=\write4
@@ -1399,37 +1399,37 @@ bibitemlist
 
  (Paper.aux) ) 
 Here is how much of TeX's memory you used:
- 10978 strings out of 493634
- 165417 string characters out of 3135239
- 275261 words of memory out of 3000000
- 14143 multiletter control sequences out of 15000+200000
- 99856 words of font info for 83 fonts, out of 3000000 for 9000
+ 10943 strings out of 493634
+ 164524 string characters out of 3135239
+ 273275 words of memory out of 3000000
+ 14113 multiletter control sequences out of 15000+200000
+ 95412 words of font info for 80 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  55i,17n,92p,1137b,468s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips
-/lm/lm-ts1.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvip
-s/lm/lm-mathit.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/
-dvips/lm/lm-rm.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/
-dvips/lm/lm-mathsy.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/
-enc/dvips/lm/lm-ec.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/
-enc/dvips/fontname/8r.enc}<C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fon
-ts/type1/public/lm/lmbx10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9
-/fonts/type1/public/lm/lmbx12.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX
- 2.9/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/Jakob/AppData/Local/Programs/M
-iKTeX 2.9/fonts/type1/public/lm/lmmi10.pfb><C:/Users/Jakob/AppData/Local/Progra
-ms/MiKTeX 2.9/fonts/type1/public/lm/lmmi8.pfb><C:/Users/Jakob/AppData/Local/Pro
-grams/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Users/Jakob/AppData/Local/
-Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr8.pfb><C:/Users/Jakob/AppData/Loca
-l/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmri10.pfb><C:/Users/Jakob/AppData/
-Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmss12.pfb><C:/Users/Jakob/AppD
-ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Users/Jakob/
-AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pf
-b><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uh
-vb8a.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helv
-etic/uhvr8a.pfb>
-Output written on Paper.pdf (11 pages, 239353 bytes).
+/lm/lm-mathit.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/d
+vips/lm/lm-rm.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/d
+vips/lm/lm-mathsy.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/e
+nc/dvips/lm/lm-ec.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/e
+nc/dvips/fontname/8r.enc}<C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/font
+s/type1/public/lm/lmbx10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/
+fonts/type1/public/lm/lmbx12.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 
+2.9/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/Jakob/AppData/Local/Programs/Mi
+KTeX 2.9/fonts/type1/public/lm/lmmi10.pfb><C:/Users/Jakob/AppData/Local/Program
+s/MiKTeX 2.9/fonts/type1/public/lm/lmmi8.pfb><C:/Users/Jakob/AppData/Local/Prog
+rams/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Users/Jakob/AppData/Local/P
+rograms/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb><C:/Users/Jakob/AppData/Loca
+l/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr8.pfb><C:/Users/Jakob/AppData/Lo
+cal/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmri10.pfb><C:/Users/Jakob/AppDat
+a/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmss12.pfb><C:/Users/Jakob/Ap
+pData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Users/Jako
+b/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.
+pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/
+uhvb8a.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/he
+lvetic/uhvr8a.pfb>
+Output written on Paper.pdf (11 pages, 268597 bytes).
 PDF statistics:
- 124 PDF objects out of 1000 (max. 8388607)
+ 125 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

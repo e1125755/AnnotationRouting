@@ -3,9 +3,8 @@
 \select@language {naustrian}
 \select@language {english}
 \contentsline {chapter}{Contents}{v}
-\contentsline {section}{\numberline {0.1}Introduction}{1}
-\contentsline {section}{\numberline {0.2}Terminology and Fundamentals}{1}
-\contentsline {section}{\numberline {0.3}The program}{2}
-\contentsline {subsection}{Algorithm}{3}
-\contentsline {subsection}{Implementation}{3}
+\contentsline {chapter}{\chapternumberline {1}Introduction}{1}
+\contentsline {section}{\numberline {1.1}Terminology and Fundamentals}{2}
+\contentsline {chapter}{\chapternumberline {2}The Algorithm}{3}
+\contentsline {section}{\numberline {2.1}Implementation}{4}
 \contentsline {chapter}{Bibliography}{5}
