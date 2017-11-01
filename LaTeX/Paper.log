@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  28 OCT 2017 15:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  1 NOV 2017 13:42
 entering extended mode
 **C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
 (C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
@@ -1385,10 +1385,17 @@ File: IPE_TerminologyDrawing.pdf Graphic file (type pdf)
 <use IPE_TerminologyDrawing.pdf>
 Package pdftex.def Info: IPE_TerminologyDrawing.pdf used on input line 88.
 (pdftex.def)             Requested size: 185.78815pt x 64.64133pt.
- [2 <./IPE_TerminologyDrawing.pdf>] [3
+ [2 <./IPE_TerminologyDrawing.pdf>]
+<RoutingGraphPartial_NoBorders.png, id=65, 150.5625pt x 52.69687pt>
+File: RoutingGraphPartial_NoBorders.png Graphic file (type png)
 
-]
-[4] (Paper.bbl
+<use RoutingGraphPartial_NoBorders.png>
+Package pdftex.def Info: RoutingGraphPartial_NoBorders.png used on input line 1
+19.
+(pdftex.def)             Requested size: 150.56212pt x 52.69673pt.
+ [3
+
+ <./RoutingGraphPartial_NoBorders.png>] [4] (Paper.bbl
 bibitemlist
 ) [5
 
@@ -1399,10 +1406,10 @@ bibitemlist
 
  (Paper.aux) ) 
 Here is how much of TeX's memory you used:
- 10943 strings out of 493634
- 164524 string characters out of 3135239
- 273275 words of memory out of 3000000
- 14113 multiletter control sequences out of 15000+200000
+ 10949 strings out of 493634
+ 164720 string characters out of 3135239
+ 273382 words of memory out of 3000000
+ 14118 multiletter control sequences out of 15000+200000
  95412 words of font info for 80 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  55i,17n,92p,1137b,468s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1426,9 +1433,9 @@ pData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Users/Jako
 b/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Use
 rs/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8a.pfb>
 
-Output written on Paper.pdf (11 pages, 265070 bytes).
+Output written on Paper.pdf (11 pages, 272897 bytes).
 PDF statistics:
- 121 PDF objects out of 1000 (max. 8388607)
+ 124 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
