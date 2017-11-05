@@ -44,6 +44,7 @@ public class GraphCreatorPanel extends JComponent {
 	//DEBUG VALUES
 	private boolean showWordBoundaries=false;//draws rectangles around detected word boundaries in main text, if set to true
 	private boolean showGraphGrid=false;//Draws the whole routing Graph 
+	private boolean hideLeaders=false; //Hides the leaders and unsuccessfully routed nodes, if some other feature needs to be inspected visually 
 	//DEBUG VALUES END
 
 	private int width=600;
@@ -361,17 +362,20 @@ public class GraphCreatorPanel extends JComponent {
 		//Calculate all Routes via Router.findRoutes();
 
 		List<RouteInfo> results=router.findRoutes(graph, annotatedTuples);
-		Iterator<RouteInfo> it=results.iterator();
-		while(it.hasNext())
+		if(!hideLeaders)
 		{
-			drawRouteInfo(g,graph,it.next());
+			Iterator<RouteInfo> it=results.iterator();
+			while(it.hasNext())
+			{
+				drawRouteInfo(g,graph,it.next());
+			}
 		}
 
 	}
 
 	/**
-	 * Helper/Debug method - draws a simple visualization of the supplied graph
-	 * NOTE: The current implementation will draw all nodes multiple times, once for each of their edges.
+	 * Helper/Debug method - draws a simple visualization of the generated graph
+	 * NOTE: This implementation will draw all nodes multiple times, once for each of their edges.
 	 * @param graph the graph
 	 * @param g the Graphics object of the visualization's basis
 	 * @param col the color that will be used to draw the graph - the previously used color will be restored afterwards. 
