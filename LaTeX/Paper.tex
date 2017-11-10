@@ -5,13 +5,16 @@
 \usepackage{caption}
 \usepackage{mathtools}
 \usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 %\usepackage{wrapfig}
 
 
 
 %TODO: CHANGE!
 \setauthor{}{Jakob Klinger}{}{male}
-\setadvisor{}{}{}{}%{Pretitle}{Forename Surname}{Posttitle}{male}
+\setadvisor{Ass.Prof. Dipl.-Inform. Dr.rer.nat}{Martin N\''{o}llenburg}{}{male}%{Pretitle}{Forename Surname}{Posttitle}{male}
+\setfirstassistant{University Assistant, M.Sc., B.Sc. }{Fabian Klute}{}{male}
 %Ass.Prof. Dipl.-Inform. Dr.rer.nat. Martin Nöllenburg
 % University Assistant, M.Sc., B.Sc. Fabian Klute
 
@@ -135,6 +138,29 @@ The program was written in Java 1.8.0u40, using JGraphT1.0.1\cite{JGraphT} as gr
 %The additional information stored in the vertices is used for both routing and drawing the leaders: The routing was done via a depth-first search algorithm that prioritized vertices located further up if possible, and vertices to the right otherwise. After the algorithm terminates, it returns  a vertex-based graph walk describing the route from the site to the border of the text area alongside information about where to draw the OPO-segment in the buffer zone if successful, or a walk containing only the starting vertex, if no valid path was found. Using this information alongside the positional data stored in the vertices, the polyline representing the leader can be drawn.
 %TODO: Schönheitsfeatures, etc.
 %TODO: Code genauer durchlesen und erweitern!
+
+%\begin{algorithm}
+%\caption{My algorithm}\label{euclid}
+%\begin{algorithmic}[1]
+%\Procedure{MyProcedure}{}
+%\State $\textit{stringlen} \gets \text{length of }\textit{string}$
+%\State $i \gets \textit{patlen}$
+%\BState \emph{top}:
+%\If {$i > \textit{stringlen}$} \Return false
+%\EndIf
+%\State $j \gets \textit{patlen}$
+%\BState \emph{loop}:
+%\If {$\textit{string}(i) = \textit{path}(j)$}
+%\State $j \gets j-1$.
+%\State $i \gets i-1$.
+%\State \textbf{goto} \emph{loop}.
+%\State \textbf{close};
+%\EndIf
+%\State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
+%\State \textbf{goto} \emph{top}.
+%\EndProcedure
+%\end{algorithmic}
+%\end{algorithm}
 
 
 

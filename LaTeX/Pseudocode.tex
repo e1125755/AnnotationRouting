@@ -1,0 +1,111 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+%\makeatletter
+%\def\BState{\State\hskip-\ALG@thistlm}
+%\makeatother
+
+\begin{document}
+\begin{algorithm}
+\caption{Graph Creation}\label{euclid}
+\begin{algorithmic}[1]
+\Procedure{createGraph}{}
+ \State $i \gets 0, x \gets 0, y \gets 0$
+ \State $w \gets width(words[i],font), h \gets height(font)$
+ \item[]
+ 
+ \While{$i<$\textit{length}(words[])}
+  \If{$words[i] = $''$\backslash annotation\{$''}
+   \State $vert \gets createVertex(x-width(words[i-1],font)/2,y)$
+   \State $ann \gets parseAnnotation(words,i)$ \Comment Also points i to next word
+   \State $setAnnotation(vert,ann)$ 
+   \State $addtoGraph(vert)$ 
+   \State $addToList(verticesAbove,vertex)$\Comment Ordered by vertices' x-value
+   \item[] 
+   
+  \Else
+   \State $v1 \gets createVertex(x,y)$ \Comment Creating vertices at corners
+   \State $v2 \gets createVertex(x+w,y)$
+   \State $v3 \gets createVertex(x,y+h)$
+   \State $v4 \gets createVertex(x+w,y+h)$
+   \item[]
+   
+   \State $addAllToGraph(v1,v2,v3,v4)$
+   \State $createEdgeBetween(v1,v3)$
+   \State $createEdgeBetween(v2,v4)$
+   \State $addToList(verticesAbove,v1,v2)$
+   \State $addToList(verticesBelow,v3,v4)$
+   \item[]
+   
+  \EndIf
+  \State $i \gets i+1$
+  \State $x \gets x+w$
+  \State $w \gets width(words[i],font)$
+  \item[]
+  
+  \If{$(x+w)>rightTextBorder$} \Comment Start new line
+    \State $x \gets 0$
+    \State $y \gets y+h$
+    \item[]
+    
+    \State $createEdgesBetweenNeighboursIn(verticesAbove)$ \Comment Order:list
+    \State $emptyList(verticesAbove)$
+    \State $addContentsToList(verticesBelow, verticesAbove)$ 
+    \State $emptyList(verticesBelow)$
+  \EndIf
+ \EndWhile
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+\caption{Routing Algorithm}
+\begin{algorithmic}[1]
+\Procedure{routing}{}
+\State $curr \gets source$
+\item[]
+
+\While{$xvalOf(curr)<rightTextBorder$}
+ \State $new \gets null$
+ \item[]
+ 
+ \If{$backtrack=false$}
+  \State $new \gets getAboveNeighbour(curr)$
+ \EndIf
+ \item[]
+ 
+ \If{$(new = null) \parallel (isToTopLeftOf(new,previousSource))$}
+  \State $new \gets getRightNeighbour(curr)$
+  \State $backtrack \gets false$
+ \EndIf
+ \item[]
+ 
+ \If{$new \neq null$}\Comment New vertex found
+  \State $addToPath(new)$
+  \State $curr \gets new$
+  \item[]
+  
+ \Else \Comment Initiate backtracking
+  \State $backtrack \gets true$
+  \If{$curr \neq source$}
+   \Repeat
+   \State $new \gets getPreviousPathVertex(curr)$
+   \State $deleteFromPath(curr)$
+   \State $old \gets curr$
+   \State $curr \gets new$   
+   \Until{$(curr=source) \lor (isAboveOf(old,new))$}
+  \EndIf
+  \item[]
+  
+  \If{$(curr=source)\land(getAboveNeighbour(curr)=null)$}
+  \State \textbf{goto} End \Comment No more options available
+  \EndIf
+ \EndIf \Comment Initiate backtracking end
+\EndWhile
+\EndProcedure \Comment Label: End
+\end{algorithmic}
+\end{algorithm}
+\end{document} 
