@@ -1,7 +1,7 @@
 \documentclass{article}
 \usepackage{amsmath}
 \usepackage{algorithm}
-\usepackage{algpseudocode}
+\usepackage[noend]{algpseudocode}
 
 %\makeatletter
 %\def\BState{\State\hskip-\ALG@thistlm}
@@ -13,11 +13,11 @@
 \begin{algorithmic}[1]
 \Procedure{createGraph}{}
  \State $i \gets 0, x \gets 0, y \gets 0$
- \State $w \gets width(words[i],font), h \gets height(font)$
+ \State $w \gets width($words[i],font$), h \gets height($font$)$
  \item[]
  
  \While{$i<$\textit{length}(words[])}
-  \If{$words[i] = $''$\backslash annotation\{$''}
+  \If{$isAnnotation($words[i]$)$}
    \State $vert \gets createVertex(x-width(words[i-1],font)/2,y)$
    \State $ann \gets parseAnnotation(words,i)$ \Comment Also points i to next word
    \State $setAnnotation(vert,ann)$ 

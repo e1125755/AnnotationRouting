@@ -1,0 +1,130 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  18 NOV 2017 18:41
+entering extended mode
+**C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/algorithm2eTest.
+tex
+
+(C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/algorithm2eTest.t
+ex
+LaTeX2e <2015/10/01> patch level 2
+Babel <3.9n> and hyphenation patterns for 69 languages loaded.
+("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\article.cls"
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\size10.clo"
+File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\algorithm2e\algori
+thm2e.sty"
+Package: algorithm2e 2017/07/18 v5.2 algorithms environments
+\c@AlgoLine=\count87
+
+("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\ifthen.sty"
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\algocf@hangindent=\skip43
+
+("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ifoddpage\ifoddpag
+e.sty"
+Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
+\c@checkoddpage=\count88
+)
+("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tools\xspace.sty"
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+)
+("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ltxmisc\relsize.st
+y"
+Package: relsize 2003/07/04 ver 3.1
+)
+\skiptotal=\skip44
+\skiplinenumber=\skip45
+\skiprule=\skip46
+\skiphlne=\skip47
+\skiptext=\skip48
+\skiplength=\skip49
+\algomargin=\skip50
+\skipalgocfslide=\skip51
+\algowidth=\dimen103
+\inoutsize=\dimen104
+\inoutindent=\dimen105
+\interspacetitleruled=\dimen106
+\interspacealgoruled=\dimen107
+\interspacetitleboxruled=\dimen108
+\algocf@ruledwidth=\skip52
+\algocf@inoutbox=\box26
+\algocf@inputbox=\box27
+\AlCapSkip=\skip53
+\AlCapHSkip=\skip54
+\algoskipindent=\skip55
+\algocf@nlbox=\box28
+\algocf@hangingbox=\box29
+\algocf@untilbox=\box30
+\algocf@skipuntil=\skip56
+\algocf@capbox=\box31
+\algocf@lcaptionbox=\skip57
+\algoheightruledefault=\skip58
+\algoheightrule=\skip59
+\algotitleheightruledefault=\skip60
+\algotitleheightrule=\skip61
+\c@algocfline=\count89
+\c@algocfproc=\count90
+\c@algocf=\count91
+\algocf@algoframe=\box32
+\algocf@algobox=\box33
+) (algorithm2eTest.aux)
+\openout1 = `algorithm2eTest.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 61.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 61.
+ [1
+
+{C:/Users/Jakob/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2] (algori
+thm2eTest.aux) ) 
+Here is how much of TeX's memory you used:
+ 1274 strings out of 493634
+ 19096 string characters out of 3135239
+ 87697 words of memory out of 3000000
+ 4720 multiletter control sequences out of 15000+200000
+ 5077 words of font info for 19 fonts, out of 3000000 for 9000
+ 1025 hyphenation exceptions out of 8191
+ 37i,17n,34p,357b,543s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
+ublic/amsfonts/cm/cmbx10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/
+fonts/type1/public/amsfonts/cm/cmbx7.pfb><C:/Users/Jakob/AppData/Local/Programs
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Jakob/AppData/L
+ocal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Jak
+ob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss10.pfb>
+<C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/c
+m/cmsy10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmti10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on algorithm2eTest.pdf (2 pages, 100985 bytes).
+PDF statistics:
+ 41 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

@@ -5,8 +5,7 @@
 \usepackage{caption}
 \usepackage{mathtools}
 \usepackage{amssymb}
-\usepackage{algorithm}
-\usepackage{algpseudocode}
+\usepackage[boxed,linesnumbered]{algorithm2e}
 %\usepackage{wrapfig}
 
 
@@ -115,20 +114,115 @@ The leaders should also be kept as short as possible, so we restricted them to a
 We also wanted to use the space available in the labeling area as efficiently as possible, so labels are placed as far up as possible in order to maximize the space available to future labels at the cost of increased leader length.
 
 
-\begin{figure}%{r}{0.35\textwidth}
- \captionsetup{justification=centering, margin=0.75cm}
- \centering
-  \includegraphics[scale=1.0]{RoutingGraphPartial_NoBorders.png}
-  \caption{Visual representation of the routing graph. The highlighted nodes represent leader sources.}
- \label{fig:RGraph}
-\end{figure}
+\begin{algorithm}%{r}{0.35\textwidth}
+\DontPrintSemicolon
+\SetKwData{Words}{words}
+\SetKwData{PrevW}{previousWord}
+\SetKwData{G}{Graph}
+\SetKwData{W}{w} \SetKwData{V}{v}\SetKwData{Va}{v1} \SetKwData{Vb}{v2} \SetKwData{Vc}{v3} \SetKwData{Vd}{v4}
+\SetKwData{Up}{UpperVerticesList}
+\SetKwData{Low}{LowerVerticesList}
+
+\SetKwFunction{setAnn}{setAnnotation}
+\SetKwFunction{NewVert}{new Vertex}
+\SetKwFunction{AddVert}{addVertex}
+\SetKwFunction{AddAll}{addAll}
+\SetKwFunction{CEdge}{createEdgeBetween}
+\SetKwFunction{PosConn}{connectBasedOnPosition}
+\SetKwFunction{ClrList}{emptyList}
+\SetKwFunction{getC}{getCenter}
+\SetKwFunction{tLeft}{getTopLeft}
+\SetKwFunction{tRight}{getTopRight}
+\SetKwFunction{bLeft}{getBottomLeft}
+\SetKwFunction{bRight}{getBottomRight}
+\SetKwFunction{Newline}{startNewLine}
+
+\KwData{A text with annotations,stored as a String-Array}
+\KwResult{A Graph (as described above)}
+
+ initialization\;
+ 
+ \ForEach{\W in \Words}{
+  \eIf{\W is annotation}{
+   \V$\gets$\NewVert{\PrevW.\getC{}}\;
+   \V.\setAnn{w}\;
+   \G.\AddVert{\V}\;
+   \Up.\AddVert{\V}\;
+  }{
+   \If{\W is too big for the line}{
+    \Newline{}\;
+    \PosConn{\Up}\;
+    \Up$\gets$\Low\;
+    \ClrList{\Low}\;
+   }
+   \Va $\gets$\NewVert{\W.\tLeft{}}\;
+   \Vb $\gets$\NewVert{\W.\tRight{}}\;
+   \Vc $\gets$\NewVert{\W.\bLeft{}}\;
+   \Vd $\gets$\NewVert{\W.\bRight{}}\;
+   \;
+   \G.\AddAll{\Va,\Vb,\Vc,\Vd}\;
+   \Up.\AddAll{\Va,\Vb}\;
+   \Low.\AddAll{\Vc,\Vd}\;
+   \G.\CEdge{\Va,\Vc}\;
+   \G.\CEdge{\Vb,\Vd}\;
+  }
+ } 
+\caption{Representation of the Graph-creation algorithm in pseudocode}
+\label{alg:GraphCreation}
+\end{algorithm}
 To create leaders that exclusively use the space not taken up by a word's bounding rectangle, we decided to use a graph similar to the one Loose \cite{Loose2015} used.
 As each vertex represents a physical location, they will have co-ordinates associated with them, and the vertices representing the sites will hold additional information regarding its leader and label. 
 The graph is constructed by placing vertices between the lines, located next to each corner of a word's bounding rectangle, with two consecutive words in a line sharing the two vertices associated with their adjacent corners. %Insert picture
-For the sites, we inserted an additional vertex above the center of the word, which will serve as the leader's starting point. After placing all vertices, we created edges between each vertex and the closest horizontal neighbour to both sides, and between nodes that are located exactly above or below each other, and exactly one line apart. (For a visual representation, see Fig.~\ref{fig:RGraph})
+For the sites, we inserted an additional vertex above the center of the word, which will serve as the leader's starting point. After placing all vertices, we created edges between each vertex and the closest horizontal neighbour to both sides, and between nodes that are located exactly above or below each other, and exactly one line apart. (For a representation in Pseudocode, see Alg.~\ref{alg:GraphCreation})
 
 In our labeling algorithm, we decided to work through the labels in the order they appear in the text, placing each as far up as possible, and skipping any label that would've required us place the label below its leader's source node. We also opted to use fixed ports located in the top left corner of each label, as this allowed us to unabiguously place annotations by only knowing their port location, which is equal to their leader's ending point. To not restrict the label's placement by the line spacing, we left a buffer zone between the text area and the label area, which allows us to place labels even further above to optimally use the available space.
-The algorithm's input consists of the Graph $G$ and a set of sites $V_{ann} \subset V$ which will be routed using a depth-first search algorithm, restricted to only selecting vertices located above or to the right of the current vertex, prioritizing moving up whenever possible. After the algorithm terminates, it returns a set with routing information for each vertex, which contains a Path $P=\{v_1, \cdots, v_n\}$, leading from the site to the text area's border, along with some additional information on how to draw the OPO-Segment that connects to the Label's port. If the routing for any given site failed, the path consists of a single vertex - the site.
+The algorithm's input consists of the Graph $G$ and a set of sites $V_{ann} \subset V$ which will be routed using a depth-first search algorithm, restricted to only selecting vertices located above or to the right of the current vertex, prioritizing moving up whenever possible.  After the algorithm terminates, it returns a set with routing information for each vertex, which contains a Path $P=\{v_1, \cdots, v_n\}$, leading from the site to the text area's border, along with some additional information on how to draw the OPO-Segment that connects to the Label's port. If the routing for any given site failed, the path consists of a single vertex - the site. (For an illustration in Pseudocode see Alg.~\ref{alg:DFS}.)
+
+\begin{algorithm}
+
+\KwData{A single annotation's source and its Graph}
+\KwResult{A List of vertices describing the Leader's Path}
+
+\SetKwData{G}{Graph}
+\SetKwData{Path}{Path}
+\SetKwData{Src}{Source}
+\SetKwData{Curr}{currentVertex}
+\SetKwData{Old}{oldVertex}
+\SetKwData{Back}{backtracking}
+
+\SetKwFunction{Top}{getTopNeighbourOf}
+\SetKwFunction{Right}{getRightNeighbourOf}
+\SetKwFunction{AddVert}{addVertex}
+\SetKwFunction{RemVert}{RemoveVertex}
+\SetKwFunction{Last}{getLastEntry}
+\SetKwFunction{Below}{isBelow}
+\SetKwFunction{Break}{break}
+
+initialization\;
+\While{\Curr not at right text border}{
+ 
+ \uIf{$($\G.\Top{\Curr}$\neq null)\land \neg$\Back}{
+  \Path.\AddVert{\Curr}\;
+  \Curr $\gets$ \G.\Top{\Curr}\;\;
+ }
+ \uElseIf{\G.\Right{\Curr}$\neq null$}{
+ \Path.\AddVert{\Curr}\;
+  \Curr $\gets$ \G.\Top{\Curr}\;
+  \Back $\gets$ False\;
+ }
+ \Else{
+  \Back $\gets$ True\;
+  \Repeat{\Curr's Position is below \Old or\; ~~~\Path is Empty}{
+   \Old $\gets$ \Curr\;
+   \Curr $\gets$ \Path.\Last{}\;
+   \Path.\RemVert{\Curr}\;
+  }
+  \If(//No path found){\Curr not below \Old}{\Break}
+ }
+}
+\caption{The Depth-First-Search algorithm used in the program.}
+\label{alg:DFS}
+\end{algorithm}
 
 \section{Implementation}
 The program was written in Java 1.8.0u40, using JGraphT1.0.1\cite{JGraphT} as graph library. Since we only want to create leaders that don't intersect with the text, the graph was created alongside the placement of the words on the canvas.%, as it was easy to extract measurements at this point. Due to some problems with Java's various methods of calculating linebreaks, this process was done completely by hand.
@@ -137,29 +231,6 @@ The program was written in Java 1.8.0u40, using JGraphT1.0.1\cite{JGraphT} as gr
 %The additional information stored in the vertices is used for both routing and drawing the leaders: The routing was done via a depth-first search algorithm that prioritized vertices located further up if possible, and vertices to the right otherwise. After the algorithm terminates, it returns  a vertex-based graph walk describing the route from the site to the border of the text area alongside information about where to draw the OPO-segment in the buffer zone if successful, or a walk containing only the starting vertex, if no valid path was found. Using this information alongside the positional data stored in the vertices, the polyline representing the leader can be drawn.
 %TODO: Schönheitsfeatures, etc.
 %TODO: Code genauer durchlesen und erweitern!
-
-%\begin{algorithm}
-%\caption{My algorithm}\label{euclid}
-%\begin{algorithmic}[1]
-%\Procedure{MyProcedure}{}
-%\State $\textit{stringlen} \gets \text{length of }\textit{string}$
-%\State $i \gets \textit{patlen}$
-%\BState \emph{top}:
-%\If {$i > \textit{stringlen}$} \Return false
-%\EndIf
-%\State $j \gets \textit{patlen}$
-%\BState \emph{loop}:
-%\If {$\textit{string}(i) = \textit{path}(j)$}
-%\State $j \gets j-1$.
-%\State $i \gets i-1$.
-%\State \textbf{goto} \emph{loop}.
-%\State \textbf{close};
-%\EndIf
-%\State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
-%\State \textbf{goto} \emph{top}.
-%\EndProcedure
-%\end{algorithmic}
-%\end{algorithm}
 
 
 

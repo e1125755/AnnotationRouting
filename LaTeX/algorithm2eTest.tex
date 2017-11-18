@@ -1,0 +1,110 @@
+\documentclass{article}
+
+\usepackage[linesnumbered,boxed]{algorithm2e}
+
+\begin{document}
+
+
+\begin{algorithm}
+\DontPrintSemicolon
+\SetKwData{Words}{words}
+\SetKwData{PrevW}{previousWord}
+\SetKwData{G}{Graph}
+\SetKwData{W}{w} \SetKwData{V}{v}\SetKwData{Va}{v1} \SetKwData{Vb}{v2} \SetKwData{Vc}{v3} \SetKwData{Vd}{v4}
+\SetKwData{Up}{UpperVerticesList}
+\SetKwData{Low}{LowerVerticesList}
+
+\SetKwFunction{setAnn}{setAnnotation}
+\SetKwFunction{NewVert}{new Vertex}
+\SetKwFunction{AddVert}{addVertex}
+\SetKwFunction{AddAll}{addAll}
+\SetKwFunction{CEdge}{createEdgeBetween}
+\SetKwFunction{PosConn}{connectBasedOnPosition}
+\SetKwFunction{ClrList}{emptyList}
+\SetKwFunction{getC}{getCenter}
+\SetKwFunction{tLeft}{getTopLeft}
+\SetKwFunction{tRight}{getTopRight}
+\SetKwFunction{bLeft}{getBottomLeft}
+\SetKwFunction{bRight}{getBottomRight}
+\SetKwFunction{Newline}{startNewLine}
+
+\KwData{A text with annotations,stored as a String-Array}
+\KwResult{A Graph (as described above)}
+
+ initialization\;
+ 
+ \ForEach{\W in \Words}{
+  \eIf{\W is annotation}{
+   \V$\gets$\NewVert{\PrevW.\getC{}}\;
+   \V.\setAnn{w}\;
+   \G.\AddVert{\V}\;
+   \Up.\AddVert{\V}\;
+  }{
+   \If{\W is too big for the line}{
+    \Newline{}\;
+    \PosConn{\Up}\;
+    \Up$\gets$\Low\;
+    \ClrList{\Low}\;
+   }
+   \Va $\gets$\NewVert{\W.\tLeft{}}\;
+   \Vb $\gets$\NewVert{\W.\tRight{}}\;
+   \Vc $\gets$\NewVert{\W.\bLeft{}}\;
+   \Vd $\gets$\NewVert{\W.\bRight{}}\;
+   \;
+   \G.\AddAll{\Va,\Vb,\Vc,\Vd}\;
+   \Up.\AddAll{\Va,\Vb}\;
+   \Low.\AddAll{\Vc,\Vd}\;
+   \G.\CEdge{\Va,\Vc}\;
+   \G.\CEdge{\Vb,\Vd}\;
+  }
+ }
+\caption{TODO}
+\end{algorithm}
+\DontPrintSemicolon
+\begin{algorithm}
+
+\KwData{A single annotation's source and its Graph}
+\KwResult{A List of vertices describing the Leader's Path}
+
+\SetKwData{G}{Graph}
+\SetKwData{Path}{Path}
+\SetKwData{Src}{Source}
+\SetKwData{Curr}{currentVertex}
+\SetKwData{Old}{oldVertex}
+\SetKwData{Back}{backtracking}
+
+\SetKwFunction{Top}{getTopNeighbourOf}
+\SetKwFunction{Right}{getRightNeighbourOf}
+\SetKwFunction{AddVert}{addVertex}
+\SetKwFunction{RemVert}{RemoveVertex}
+\SetKwFunction{Last}{getLastEntry}
+\SetKwFunction{Below}{isBelow}
+\SetKwFunction{Break}{break}
+
+initialization\;
+\While{\Curr not at right text border}{
+ 
+ \uIf{$($\G.\Top{\Curr}$\neq null)\land \neg$\Back}{
+  \Path.\AddVert{\Curr}\;
+  \Curr $\gets$ \G.\Top{\Curr}\;\;
+ }
+ \uElseIf{\G.\Right{\Curr}$\neq null$}{
+ \Path.\AddVert{\Curr}\;
+  \Curr $\gets$ \G.\Top{\Curr}\;
+  \Back $\gets$ False\;
+ }
+ \Else{
+  \Back $\gets$ True\;
+  \Repeat{\Curr's Position is below \Old or\; ~~~\Path is Empty}{
+   \Old $\gets$ \Curr\;
+   \Curr $\gets$ \Path.\Last{}\;
+   \Path.\RemVert{\Curr}\;
+  }
+  \If(//No path found){\Curr not below \Old}{\Break}
+ }
+}
+\caption{TODO}
+\label{alg:DFS}
+
+\end{algorithm}
+\end{document}

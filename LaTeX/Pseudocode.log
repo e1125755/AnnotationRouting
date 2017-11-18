@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  10 NOV 2017 16:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  18 NOV 2017 16:23
 entering extended mode
 **C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Pseudocode.tex
 (C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Pseudocode.tex
@@ -145,11 +145,11 @@ udocode.aux) )
 Here is how much of TeX's memory you used:
  1456 strings out of 493634
  18913 string characters out of 3135239
- 84667 words of memory out of 3000000
+ 84722 words of memory out of 3000000
  4886 multiletter control sequences out of 15000+200000
  5348 words of font info for 20 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 27i,4n,20p,318b,299s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 27i,4n,20p,318b,297s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
 lic/amsfonts/cm/cmbx10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fo
 nts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/Jakob/AppData/Local/Programs
@@ -159,7 +159,7 @@ ob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C
 :/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
 cmsy10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public
 /amsfonts/cm/cmti10.pfb>
-Output written on Pseudocode.pdf (2 pages, 92043 bytes).
+Output written on Pseudocode.pdf (2 pages, 91555 bytes).
 PDF statistics:
  37 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
