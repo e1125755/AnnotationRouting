@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  18 NOV 2017 18:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  3 DEC 2017 17:29
 entering extended mode
 **C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
 (C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
@@ -1428,35 +1428,33 @@ TU_INF_header.pdf> <./graphics/TU_INF_Logo_gray.pdf>] [2
 
 ] (Paper.toc) [5] [6
 
-]
-Underfull \vbox (badness 4242) has occurred while \output is active []
-
- [1
+] [1
 
 ]
 <GraphTerminologyExtended.png, id=43, 385.44pt x 173.14688pt>
 File: GraphTerminologyExtended.png Graphic file (type png)
 
 <use GraphTerminologyExtended.png>
-Package pdftex.def Info: GraphTerminologyExtended.png used on input line 90.
+Package pdftex.def Info: GraphTerminologyExtended.png used on input line 91.
 (pdftex.def)             Requested size: 346.89279pt x 155.83075pt.
  [2 <./GraphTerminologyExtended.png>]
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 170.
+[3] [4
+
+]
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 171.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\t1pcr.fd"
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-[3
-
-]
+[5]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [4]
-[5] [6
+ [6]
+[7] [8
 
 ] (Paper.bbl
 bibitemlist
-) [7
+) [9
 
 ]
 \tf@toc=\write4
@@ -1494,9 +1492,9 @@ rs/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><
 C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8
 a.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helveti
 c/uhvr8a.pfb>
-Output written on Paper.pdf (13 pages, 338560 bytes).
+Output written on Paper.pdf (15 pages, 340381 bytes).
 PDF statistics:
- 131 PDF objects out of 1000 (max. 8388607)
+ 137 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
