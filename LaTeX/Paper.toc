@@ -6,5 +6,12 @@
 \contentsline {chapter}{\chapternumberline {1}Introduction}{1}
 \contentsline {section}{\numberline {1.1}Terminology and Fundamentals}{2}
 \contentsline {chapter}{\chapternumberline {2}The Algorithm}{5}
-\contentsline {section}{\numberline {2.1}Implementation}{7}
-\contentsline {chapter}{Bibliography}{9}
+\contentsline {chapter}{\chapternumberline {3}Implementation}{9}
+\contentsline {section}{\numberline {3.1}Challenges}{9}
+\contentsline {chapter}{\chapternumberline {4}Evaluation and Testing}{11}
+\contentsline {section}{\numberline {4.1}Data generation}{11}
+\contentsline {section}{\numberline {4.2}Testing methods}{11}
+\contentsline {section}{\numberline {4.3}Results}{11}
+\contentsline {chapter}{\chapternumberline {5}Conclusion}{13}
+\contentsline {section}{\numberline {5.1}Further notes}{13}
+\contentsline {chapter}{Bibliography}{15}

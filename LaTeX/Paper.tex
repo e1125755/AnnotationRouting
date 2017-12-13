@@ -6,6 +6,8 @@
 \usepackage{mathtools}
 \usepackage{amssymb}
 \usepackage[boxed,linesnumbered]{algorithm2e}
+\usepackage{color}
+%\usepackage[]{luatodonotes}
 %\usepackage{wrapfig}
 
 
@@ -26,6 +28,10 @@
 
 \setthesis{bachelor}
 \setcurriculum{Bachelor's programme Software \& Information Engineering}{Bachelorstudium Software \& Information Engineering} %TODO!
+
+
+
+\newcommand{\change}[1]{\textcolor{red}{#1}}
 
 \begin{document}
 
@@ -77,13 +83,10 @@ The thesis by Loose\cite{Loose2015} on the other hand is based around only using
 %Siehe auhc andere Papers - Motivation! (Warum will ich mir dieses Thema ansehen)
 
 
-%TODO: Bezug auf Programm & Ergebnisse nehmen!
-
 \section{Terminology and Fundamentals} %Evtl in Introduction eingliedern?
 While Boundary Labeling (or an equivalent concept) can be applied to a space with different geometry or more dimensions, this paper will only concern itself with two-dimensonal, Euclidean space.
-To easily reference important concepts, some additional terminology will be introduced as well. (See Fig.~\ref{fig:term} for a visual explanation)%Add references to all terminology pictures!
+To easily reference important concepts, some additional terminology will be introduced as well. (See Fig.~\ref{fig:term} for a visual explanation)
 
-%Add figure for graph terminology.
 
 \begin{figure}%{r}{0.35\textwidth}
  \captionsetup{justification=centering, margin=0.75cm}
@@ -102,7 +105,7 @@ We call two vertices $u,v \in V$ \emph{adjacent}, if the edge $e=(u,v) \in E$.
 
 \emph{Polylines} are a connected series of \emph{line segments}. Line segments are straight lines that contain each point between their starting and end point. 
 \emph{Labels} hold additional information and are represented as boxes containing this information. They are usually placed in the \emph{Label area} which is a rectangular area designated to hold labels. It is located next to of the bigger \emph{text area}, which contains the document's text and all \emph{sites}, the points or objects that a label's information refers to. The site and the label are connected via a \emph{leader}, a polyline that can be further classified by looking at the orientation of its segments: \emph{O-Segments} run orthogonally to the border of the label area. \emph{P-Segments} run parallel to the border of the label area, and as such must be combined with other segments for the leader to reach its destination. \emph{S-Segments} are not required to have any particular orientation, and simply connect their start and ending points in a straight line.
-The leader's name is created by combining the name of the segments - for example, the blue leader from Fig~\ref{fig:term} would be classified as an OPOPO-Leader.%Re-write once picture is updated
+The leader's name is created by combining the name of the segments - for example, the blue leader from Fig~\ref{fig:term} would be classified as an OPOPO-Leader. \change{(Farben angepasst, hoffentlich ist es jetzt in Schwarz-Weiß besser zu erkennen)}
 The location where a leader connects to the label is called the \emph{port}. It can be restricted to pre-defined positions. %TODO: Re-insert monotonicity
 
 % \textbf{Monotonous/Monotonicity:} Describes a steady progression towards a direction or goal. Will be used in this paper to indicate that there's no loss of progress made from the site to the label, effectively restricting the direction a leader can go at each bend.
@@ -173,7 +176,7 @@ We also wanted to use the space available in the labeling area as efficiently as
 \end{algorithm}
 To create leaders that exclusively use the space not taken up by a word's bounding rectangle, we decided to use a graph similar to the one Loose \cite{Loose2015} used.
 As each vertex represents a physical location, they will have co-ordinates associated with them, and the vertices representing the sites will hold additional information regarding its leader and label. 
-The graph is constructed by placing vertices between the lines, located next to each corner of a word's bounding rectangle, with two consecutive words in a line sharing the two vertices associated with their adjacent corners. %Insert picture
+The graph is constructed by placing vertices between the lines, located next to each corner of a word's bounding rectangle, with two consecutive words in a line sharing the two vertices associated with their adjacent corners. 
 For the sites, we inserted an additional vertex above the center of the word, which will serve as the leader's starting point. After placing all vertices, we created edges between each vertex and the closest horizontal neighbour to both sides, and between nodes that are located exactly above or below each other, and exactly one line apart. (For a representation in Pseudocode, see Alg.~\ref{alg:GraphCreation})
 
 In our labeling algorithm, we decided to work through the labels in the order they appear in the text, placing each as far up as possible, and skipping any label that would've required us place the label below its leader's source node. We also opted to use fixed ports located in the top left corner of each label, as this allowed us to unabiguously place annotations by only knowing their port location, which is equal to their leader's ending point. To not restrict the label's placement by the line spacing, we left a buffer zone between the text area and the label area, which allows us to place labels even further above to optimally use the available space.
@@ -181,6 +184,7 @@ The algorithm's input consists of the Graph $G$ and a set of sites $V_{ann} \sub
 
 \begin{algorithm}
 
+\DontPrintSemicolon
 \KwData{A single annotation's source and its Graph}
 \KwResult{A List of vertices describing the Leader's Path}
 
@@ -213,11 +217,12 @@ initialization\;
  }
  \Else{
   \Back $\gets$ True\;
-  \Repeat{\Curr's Position is below \Old or\; ~~~\Path is Empty}{
+  \Repeat{\Curr's Position is below \Old or \Path is Empty}{
    \Old $\gets$ \Curr\;
    \Curr $\gets$ \Path.\Last{}\;
    \Path.\RemVert{\Curr}\;
   }
+  \;
   \If(//No path found){\Curr not below \Old}{\Break}
  }
 }
@@ -225,11 +230,14 @@ initialization\;
 \label{alg:DFS}
 \end{algorithm}
 
-\section{Implementation}
+\chapter{Implementation}
 The program was written in Java 1.8.0u40, using JGraphT1.0.1\cite{JGraphT} as graph library. Since we only want to create leaders that don't intersect with the text, the graph was created alongside the placement of the words on the canvas.%, as it was easy to extract measurements at this point. Due to some problems with Java's various methods of calculating linebreaks, this process was done completely by hand.
+\section{Challenges}
 
 %As the Graph's vertices represent fixed locations on the canvas, they each have coordinates associated with them, with the vertices representing the sites containing extra information, such as references to the corresponding annotation and to the leader connecting the two (if existent).
 %The additional information stored in the vertices is used for both routing and drawing the leaders: The routing was done via a depth-first search algorithm that prioritized vertices located further up if possible, and vertices to the right otherwise. After the algorithm terminates, it returns  a vertex-based graph walk describing the route from the site to the border of the text area alongside information about where to draw the OPO-segment in the buffer zone if successful, or a walk containing only the starting vertex, if no valid path was found. Using this information alongside the positional data stored in the vertices, the polyline representing the leader can be drawn.
+
+
 %TODO: Schönheitsfeatures, etc.
 %TODO: Code genauer durchlesen und erweitern!
 
@@ -237,7 +245,17 @@ The program was written in Java 1.8.0u40, using JGraphT1.0.1\cite{JGraphT} as gr
 
 % For demonstration purposes, we also included another algorithm that uses S-Leaders for this section.
 
-%(Potential) Problems/Issues, solutions
+\chapter{Evaluation and Testing}
+
+\section{Data generation} \change{(Bin mit dem Titel unzufrieden, aber hier soll beschrieben werden, wie ich die einzelnen Testfälle erstellt habe.)}
+
+\section{Testing methods}
+
+\section{Results}
+
+\chapter{Conclusion}
+
+\section{Further notes}
 
 
 
