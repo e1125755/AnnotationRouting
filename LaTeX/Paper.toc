@@ -4,7 +4,8 @@
 \select@language {english}
 \contentsline {chapter}{Contents}{v}
 \contentsline {chapter}{\chapternumberline {1}Introduction}{1}
-\contentsline {section}{\numberline {1.1}Terminology and Fundamentals}{2}
+\contentsline {section}{\numberline {1.1}Terminology and Fundamentals}{1}
+\contentsline {section}{\numberline {1.2}Related Work}{3}
 \contentsline {chapter}{\chapternumberline {2}The Algorithm}{5}
 \contentsline {chapter}{\chapternumberline {3}Implementation}{9}
 \contentsline {section}{\numberline {3.1}Challenges}{9}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  13 DEC 2017 12:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  27 DEC 2017 12:29
 entering extended mode
 **C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
 (C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
@@ -1445,13 +1445,15 @@ TU_INF_header.pdf> <./graphics/TU_INF_Logo_gray.pdf>] [2
 File: GraphTerminologyExtended.png Graphic file (type png)
 
 <use GraphTerminologyExtended.png>
-Package pdftex.def Info: GraphTerminologyExtended.png used on input line 94.
+Package pdftex.def Info: GraphTerminologyExtended.png used on input line 84.
 (pdftex.def)             Requested size: 346.89279pt x 155.83075pt.
- [2 <./GraphTerminologyExtended.png>]
-[3] [4
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [2 <./GraphTerminologyExtended.png>] [3] [4
 
 ]
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 174.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 177.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\t1pcr.fd"
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
@@ -1476,7 +1478,7 @@ bibitemlist
 Here is how much of TeX's memory you used:
  12028 strings out of 493634
  181828 string characters out of 3135239
- 307066 words of memory out of 3000000
+ 307081 words of memory out of 3000000
  15175 multiletter control sequences out of 15000+200000
  99028 words of font info for 83 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
@@ -1504,7 +1506,7 @@ rs/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><
 C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8
 a.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helveti
 c/uhvr8a.pfb>
-Output written on Paper.pdf (21 pages, 348088 bytes).
+Output written on Paper.pdf (21 pages, 348451 bytes).
 PDF statistics:
  156 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
