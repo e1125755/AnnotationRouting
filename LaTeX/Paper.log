@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  27 DEC 2017 12:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  29 DEC 2017 15:07
 entering extended mode
 **C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
 (C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
@@ -1453,7 +1453,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [2 <./GraphTerminologyExtended.png>] [3] [4
 
 ]
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 177.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 181.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\t1pcr.fd"
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
@@ -1476,10 +1476,10 @@ bibitemlist
 
  (Paper.aux) ) 
 Here is how much of TeX's memory you used:
- 12028 strings out of 493634
- 181828 string characters out of 3135239
- 307081 words of memory out of 3000000
- 15175 multiletter control sequences out of 15000+200000
+ 12030 strings out of 493634
+ 181848 string characters out of 3135239
+ 306089 words of memory out of 3000000
+ 15177 multiletter control sequences out of 15000+200000
  99028 words of font info for 83 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  55i,18n,92p,1137b,621s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1506,7 +1506,7 @@ rs/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><
 C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8
 a.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helveti
 c/uhvr8a.pfb>
-Output written on Paper.pdf (21 pages, 348451 bytes).
+Output written on Paper.pdf (21 pages, 351534 bytes).
 PDF statistics:
  156 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
