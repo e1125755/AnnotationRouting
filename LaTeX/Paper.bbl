@@ -8,11 +8,17 @@ Lukas Barth, Andreas Gemsa, Benjamin Niedermann, and Martin N{\"o}llenburg.
 \newblock {\em On the Readability of Boundary Labeling}, pages 515--527.
 \newblock Springer International Publishing, Cham, 2015.
 
-\bibitem{Bekos2007}
+\bibitem{Bekos2005}
 Michael~A. Bekos, Michael Kaufmann, Antonios Symvonis, and Alexander Wolff.
-\newblock Boundary labeling: Models and efficient algorithms for rectangular
-  maps.
-\newblock {\em Computational Geometry}, 36(3):215 -- 236, 2007.
+\newblock {\em Boundary Labeling: Models and Efficient Algorithms for
+  Rectangular Maps}, pages 49--59.
+\newblock Springer Berlin Heidelberg, Berlin, Heidelberg, 2005.
+
+\bibitem{Goetzelmann2006}
+Timo G{\"o}tzelmann, Knut Hartmann, and Thomas Strothotte.
+\newblock {\em Agent-Based Annotation of Interactive 3D Visualizations}, pages
+  24--35.
+\newblock Springer Berlin Heidelberg, Berlin, Heidelberg, 2006.
 
 \bibitem{Kindermann2014}
 Philipp Kindermann, Fabian Lipp, and Alexander Wolff.

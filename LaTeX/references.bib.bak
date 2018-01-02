@@ -64,4 +64,31 @@ keywords = "Rectilinear leaders"
   url       = {https://doi.org/10.1007/978-3-319-27261-0_42},
 }
 
+@InProceedings{Lin2009,
+  author    = {C. C. Lin and H. Y. Wu and H. C. Yen},
+  title     = {Boundary Labeling in Text Annotation},
+  booktitle = {2009 13th International Conference Information Visualisation},
+  year      = {2009},
+  pages     = {110-115},
+  month     = jul,
+  doi       = {10.1109/IV.2009.84},
+  issn      = {1550-6037},
+  keywords  = {computational complexity;data visualisation;genetic algorithms;text analysis;user interfaces;word processing;NP-complete problem;document editing;genetic algorithm;polygonal line;polynomial time algorithm;text annotation system;text comment label;two-side boundary labeling;visualization interface;word processor software;Bibliographies;Computational geometry;Computer science;Genetic algorithms;Geographic Information Systems;Labeling;Polynomials;Routing;Technical drawing;Visualization},
+}
+
+@InBook{Goetzelmann2006,
+  pages     = {24--35},
+  title     = {Agent-Based Annotation of Interactive 3D Visualizations},
+  publisher = {Springer Berlin Heidelberg},
+  year      = {2006},
+  author    = {G{\"o}tzelmann, Timo and Hartmann, Knut and Strothotte, Thomas},
+  editor    = {Butz, Andreas and Fisher, Brian and Kr{\"u}ger, Antonio and Olivier, Patrick},
+  address   = {Berlin, Heidelberg},
+  isbn      = {978-3-540-36295-1},
+  abstract  = {This paper presents a novel real-time algorithm to integrate internal and external labels of arbitrary size into 3D visualizations. Moreover, comprehensive dynamic content can be displayed in annotation boxes. Our system employs multiple metrics in order to achieve an effective and aesthetic label layout with adjustable weights. The layout algorithm employs several heuristics to reduce the search space of a complex layout task. Initial layouts are refined by label agents, i.e., local strategies to optimize the layout and to minimize the flow of layout elements in subsequent frames.},
+  booktitle = {Smart Graphics: 6th International Symposium, SG 2006, Vancouver, Canada, July 23-25, 2006. Proceedings},
+  doi       = {10.1007/11795018_3},
+  url       = {https://doi.org/10.1007/11795018_3},
+}
+
 @Comment{jabref-meta: databaseType:bibtex;}
