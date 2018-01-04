@@ -38,4 +38,11 @@ Amrei Loose.
   textzwischenräumen.
 \newblock Master's thesis, Karlsruhe Institute of Technology, 2015.
 
+\bibitem{Nollenburg2010}
+Martin N\"{o}llenburg, Valentin Polishchuk, and Mikko Sysikaski.
+\newblock Dynamic one-sided boundary labeling.
+\newblock In {\em Proceedings of the 18th SIGSPATIAL International Conference
+  on Advances in Geographic Information Systems}, GIS '10, pages 310--319, New
+  York, NY, USA, 2010. ACM.
+
 \end{thebibliography}
