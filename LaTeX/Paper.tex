@@ -122,11 +122,22 @@ Lin et al.\cite{Lin2009} use only OPO-Leaders that have their P-Segment located 
 
 
 \chapter{The Algorithm}
+%Evtl 1 Zeile Einleitung hier einfügen
+\section{Problem Specification}
+In our algorithm, the focus was put on keeping the text as readable as possible. This means that leaders aren't allowed to pass through words - they can only use the space between words and in between lines.
+Additionally, we wanted to maximize the usage of the label area's space, even if we have to move labels further from their sites than needed. 
+Finally, we wanted to keep the leader's length low for any given combination of labels and site placements, so every segment of a leader has to decrease the remaining distance between the site and its label's port.
 
-In our algorithm, the focus was put on keeping the text as readable as possible. This means that leaders aren't allowed to pass through words, which was implemented by enclosing each word in a bounding rectangle that leaders aren't allowed to pass through.
-The leaders should also be kept as short as possible, so we restricted them to always be moving toward the label, even if the direct route is unavailable.%Wie drücke ich das als Formel aus?
-We also wanted to use the space available in the labeling area as efficiently as possible, so labels are placed as far up as possible in order to maximize the space available to future labels at the cost of increased leader length.
+These properties were modelled by creating a rectangle around each word that no leaders may pass through. If this is done for all words in a paragraph, the remaining available space for routing resembles a grid of perfectly parallel streets. \change{NOTE: Insert example image for this and graph.} Since the layout encourages the usage of P- and O-segments, we decided to represent the possible routes by creating a graph which has its vertices located whenever multiple directions are available - in between lines, above or below whitespace characters. The graph's edges represent the different possible segments of a leader and connect each vertex with the closest vertices directly above, below or to the sides, given that no text is blocking the connection. \change{The resulting graph looks similar to the one in Fig.~<TODO>} 
 
+For ease of visualisation, we limited the number of leaders per edge to one, and forbid the leaders to cross one another, as this could be mistaken for two curves touching each other at the corners. We also decided to place the annotations in the order in which they appear in the text, and always place their port above the leader's source, which means that crossings are inevitable if a leader is located above and to the left of an earlier leader. To ensure this never happens, leaders aren't allowed to enter the top left quadrant of a source vertex, unless no routing could be found for that vertex, which means there won't be any leaders to collide with. Additionally, to keep the leader's length minimal, each leader is only allowed to move towards the source, which places a hard limit on how far up a leader is allowed to go, and restricts the possible choices at each node to edges that allow the leader to move in that direction.
+To maximize the space available to subsequent annotations, each label is placed as far up as possible. This also means that if there's no placement available that is above its leader's source, the annotation cannot be placed, as we previously restricted the leader's movement. 
+
+%This was implemented by enclosing each word in a bounding rectangle that leaders aren't allowed to pass through.
+%The leaders should also be kept as short as possible, so we restricted them to always be moving toward the label, even if the direct route is unavailable.%Wie drücke ich das als Formel aus?
+%We also wanted to use the space available in the labeling area as efficiently as possible, so labels are placed as far up as possible in order to maximize the space available to future labels at the cost of increased leader length.
+
+\section{Description}
 
 \begin{algorithm}%{r}{0.35\textwidth}
 \DontPrintSemicolon
@@ -159,7 +170,7 @@ We also wanted to use the space available in the labeling area as efficiently as
  \ForEach{\W in \Words}{
   \eIf{\W is annotation}{
    \V$\gets$\NewVert{\PrevW.\getC{}}\;
-   \V.\setAnn{w}\;
+   \V.\setAnn{\W}\;
    \G.\AddVert{\V}\;
    \Up.\AddVert{\V}\;
   }{

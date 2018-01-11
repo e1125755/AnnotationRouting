@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  4 JAN 2018 13:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  11 JAN 2018 17:40
 entering extended mode
 **C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
 (C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
@@ -1450,15 +1450,15 @@ Package pdftex.def Info: GraphTerminologyExtended.png used on input line 84.
  [2 <./GraphTerminologyExtended.png>]
 [3] [4
 
-]
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 184.
+] [5]
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 195.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\t1pcr.fd"
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-[5] [6] [7] [8
+[6] [7] [8] [9
 
-] [9] [10
+] [10
 
 ] [11] [12
 
@@ -1476,11 +1476,11 @@ bibitemlist
 Here is how much of TeX's memory you used:
  12032 strings out of 493634
  181881 string characters out of 3135239
- 306097 words of memory out of 3000000
+ 303093 words of memory out of 3000000
  15179 multiletter control sequences out of 15000+200000
  99028 words of font info for 83 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 55i,18n,92p,1361b,621s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 55i,18n,92p,1361b,623s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips
 /fontname/8r.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dv
 ips/lm/lm-ec.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dv
@@ -1504,7 +1504,7 @@ rs/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><
 C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8
 a.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helveti
 c/uhvr8a.pfb>
-Output written on Paper.pdf (21 pages, 354883 bytes).
+Output written on Paper.pdf (21 pages, 357799 bytes).
 PDF statistics:
  156 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

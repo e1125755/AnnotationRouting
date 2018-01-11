@@ -7,6 +7,8 @@
 \contentsline {section}{\numberline {1.1}Terminology and Fundamentals}{1}
 \contentsline {section}{\numberline {1.2}Related Work}{3}
 \contentsline {chapter}{\chapternumberline {2}The Algorithm}{5}
+\contentsline {section}{\numberline {2.1}Problem Specification}{5}
+\contentsline {section}{\numberline {2.2}Description}{6}
 \contentsline {chapter}{\chapternumberline {3}Implementation}{9}
 \contentsline {section}{\numberline {3.1}Challenges}{9}
 \contentsline {chapter}{\chapternumberline {4}Evaluation and Testing}{11}
