@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  11 JAN 2018 17:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  12 JAN 2018 15:50
 entering extended mode
 **C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
 (C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
@@ -1450,8 +1450,19 @@ Package pdftex.def Info: GraphTerminologyExtended.png used on input line 84.
  [2 <./GraphTerminologyExtended.png>]
 [3] [4
 
-] [5]
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 195.
+] <FromTextToGraph.png, id=62, 613.54219pt x 218.31563pt>
+File: FromTextToGraph.png Graphic file (type png)
+
+<use FromTextToGraph.png>
+Package pdftex.def Info: FromTextToGraph.png used on input line 134.
+(pdftex.def)             Requested size: 521.51332pt x 185.56914pt.
+
+Overfull \hbox (103.25964pt too wide) in paragraph at lines 134--135
+ [][] 
+ []
+
+[5 <./FromTextToGraph.png>]
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 205.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\t1pcr.fd"
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
@@ -1474,10 +1485,10 @@ bibitemlist
 
  (Paper.aux) ) 
 Here is how much of TeX's memory you used:
- 12032 strings out of 493634
- 181881 string characters out of 3135239
- 303093 words of memory out of 3000000
- 15179 multiletter control sequences out of 15000+200000
+ 12038 strings out of 493634
+ 182004 string characters out of 3135239
+ 307183 words of memory out of 3000000
+ 15184 multiletter control sequences out of 15000+200000
  99028 words of font info for 83 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  55i,18n,92p,1361b,623s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1504,9 +1515,9 @@ rs/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><
 C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8
 a.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helveti
 c/uhvr8a.pfb>
-Output written on Paper.pdf (21 pages, 357799 bytes).
+Output written on Paper.pdf (21 pages, 371895 bytes).
 PDF statistics:
- 156 PDF objects out of 1000 (max. 8388607)
+ 158 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
