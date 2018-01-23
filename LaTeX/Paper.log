@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  20 JAN 2018 16:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  23 JAN 2018 16:55
 entering extended mode
 **C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
 (C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
@@ -1469,23 +1469,18 @@ File: RoutingGraph_edited.png Graphic file (type png)
 <use RoutingGraph_edited.png>
 Package pdftex.def Info: RoutingGraph_edited.png used on input line 144.
 (pdftex.def)             Requested size: 301.12425pt x 134.7531pt.
+ [5]
 LaTeX Font Info:    Try loading font information for T1+pcr on input line 232.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\t1pcr.fd"
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-Underfull \vbox (badness 1424) has occurred while \output is active []
-
- [5]
-[6 <./WordBoundaries.png> <./RoutingGraph_edited.png>]
-Underfull \vbox (badness 1072) has occurred while \output is active []
-
- [7]
-[8] [9
+[6 <./WordBoundaries.png> <./RoutingGraph_edited.png>] [7] [8] [9
 
 ] [10
 
-] [11] [12
+]
+[11] [12
 
 ] [13] [14
 
@@ -1501,7 +1496,7 @@ bibitemlist
 Here is how much of TeX's memory you used:
  12102 strings out of 493634
  183157 string characters out of 3135239
- 309454 words of memory out of 3000000
+ 306454 words of memory out of 3000000
  15245 multiletter control sequences out of 15000+200000
  102018 words of font info for 84 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
@@ -1509,9 +1504,9 @@ Here is how much of TeX's memory you used:
 {C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips
 /fontname/8r.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dv
 ips/lm/lm-ec.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dv
-ips/lm/lm-mathit.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/en
-c/dvips/lm/lm-rm.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/en
-c/dvips/lm/lm-mathsy.enc}<C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/font
+ips/lm/lm-mathsy.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/en
+c/dvips/lm/lm-mathit.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/font
+s/enc/dvips/lm/lm-rm.enc}<C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/font
 s/type1/public/lm/lmbx10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/
 fonts/type1/public/lm/lmbx12.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 
 2.9/fonts/type1/public/lm/lmbx8.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKT
@@ -1525,13 +1520,14 @@ ocal/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr8.pfb><C:/Users/Jakob/AppData
 Data/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmss10.pfb><C:/Users/Jakob
 /AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmss12.pfb><C:/Users/J
 akob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Use
-rs/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><
-C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8
-a.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helveti
-c/uhvr8a.pfb>
-Output written on Paper.pdf (21 pages, 369555 bytes).
+rs/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmsy8.pfb><C:/
+Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pf
+b><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uh
+vb8a.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helv
+etic/uhvr8a.pfb>
+Output written on Paper.pdf (21 pages, 374984 bytes).
 PDF statistics:
- 160 PDF objects out of 1000 (max. 8388607)
+ 164 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
