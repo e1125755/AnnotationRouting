@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  5 FEB 2018 16:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  7 FEB 2018 17:17
 entering extended mode
 **C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
 (C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
@@ -1460,29 +1460,28 @@ Underfull \vbox (badness 2970) has occurred while \output is active []
 <WordBoundaries.png, id=62, 301.125pt x 131.74219pt>
 File: WordBoundaries.png Graphic file (type png)
  <use WordBoundaries.png>
-Package pdftex.def Info: WordBoundaries.png used on input line 137.
+Package pdftex.def Info: WordBoundaries.png used on input line 136.
 (pdftex.def)             Requested size: 301.12425pt x 131.74185pt.
 
 <RoutingGraph_edited.png, id=63, 301.125pt x 134.75343pt>
 File: RoutingGraph_edited.png Graphic file (type png)
 
 <use RoutingGraph_edited.png>
-Package pdftex.def Info: RoutingGraph_edited.png used on input line 144.
+Package pdftex.def Info: RoutingGraph_edited.png used on input line 143.
 (pdftex.def)             Requested size: 301.12425pt x 134.7531pt.
  [5
 
-]
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 232.
+] [6 <./WordBoundaries.png> <./RoutingGraph_edited.png>]
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 227.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\t1pcr.fd"
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-[6 <./WordBoundaries.png> <./RoutingGraph_edited.png>] [7] [8] [9
+[7] [8] [9
 
 ] [10
 
-]
-[11] [12
+] [11] [12
 
 ] [13] [14
 
@@ -1498,15 +1497,15 @@ bibitemlist
 Here is how much of TeX's memory you used:
  12102 strings out of 493634
  183157 string characters out of 3135239
- 306454 words of memory out of 3000000
+ 310454 words of memory out of 3000000
  15245 multiletter control sequences out of 15000+200000
  102018 words of font info for 84 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 55i,18n,92p,1462b,627s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 55i,18n,92p,1462b,625s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips
-/fontname/8r.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dv
-ips/lm/lm-ec.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dv
-ips/lm/lm-mathsy.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/en
+/lm/lm-mathsy.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/d
+vips/fontname/8r.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/en
+c/dvips/lm/lm-ec.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/en
 c/dvips/lm/lm-mathit.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/font
 s/enc/dvips/lm/lm-rm.enc}<C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/font
 s/type1/public/lm/lmbx10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/
@@ -1527,7 +1526,7 @@ Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pf
 b><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uh
 vb8a.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helv
 etic/uhvr8a.pfb>
-Output written on Paper.pdf (21 pages, 380556 bytes).
+Output written on Paper.pdf (21 pages, 379738 bytes).
 PDF statistics:
  164 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

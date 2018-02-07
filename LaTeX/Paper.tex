@@ -127,8 +127,7 @@ Lin et al.\cite{Lin2009} use only OPO-Leaders that have their P-Segment located 
 \section{Problem Specification}
 We limited the leaders to use exclusively O- and P-Segments, and banned them from passing through words. We also place labels as far up as possible to maximize the space remaining for  remaining placements. Additionally, a leader isn't allowed to be any longer as is necessary to connect a given Site with its label's port.
 
-These restrictions are implemented as follows: We divided the text $T$ into separate lines $L=\{W,H\}$ which are in turn made up of words $W$ and whitespace $H$. The remaining space between lines shall be defined as $S(l_1, l_2)$%improve on this!
-with $l_1,l_2 \in L$ and will have no restrictions regarding leader placement. For each word $w \in W$, we define $R(w)$  as its bounding rectangle, which marks the space leaders aren't allowed to cross. For a graphical representation see Fig.~\ref{fig:wbound}.
+These restrictions are implemented as follows: We divided the text $T$ into separate lines $L=\{W,H\}$ which are in turn made up of words $W$ and whitespace $H$. The remaining space between lines is called $S=\{s_1, ... s_{n+1}\}$, with $n$ being the number of lines in $L$. For each $l_i \in L$,  $s_i$ is the space directly above that line. All $s \in S$ are the same height and width, even $s_1$ and $s_{n+1}$, which only have lines on one of their sides. For each word $w \in W$, we define $R(w)$  as its bounding rectangle, which marks the space leaders aren't allowed to cross. For a graphical representation see Fig.~\ref{fig:wbound}.
 
 \begin{figure}
  \centering
@@ -148,9 +147,9 @@ with $l_1,l_2 \in L$ and will have no restrictions regarding leader placement. F
 \end{figure}
 
 Since we only allowed the Usage of O- and P-Segments in leaders, the only way for a leader to cross through a line of text is with a P-Segment through whitespace, whereas O-Segments are only usable between lines. Therefore, we can create a routing graph $G=\langle V,E\rangle$ whose Edges $E$ reflect the legal paths a leader can take within $T$.
-For each whitespace character $h \in H$ in a given line $l_i \in L$, one vertex is placed in $S(l_{i-1},l_i)$ and $S(l_i,l_{i+1})$ each, located above or below the whitespace character, and with a maximum distance from each of its neighbouring lines. The start and end of each line also recieve a pair of vertices each. Sites will be represented by the insertion of additional vertices in $S(l_i, l_{i-1})$ on a similar height as those next to whitespace of the same line and located directly above the center point of its words $w_j$ bounding rectangle $R(w_j)$. Should either $l_{i-1}$ or $l_{i+1}$ not exist, the vertices' vertical placement will be similar to that of the previous or following line. The edges between the vertices are all perfectly horizontal or vertical, and do neither intersect with any bounding rectangle, nor any vertices other than their starting and ending vertex. The resulting graph looks similar to Fig.~\ref{fig:rgraph}.
+\change{For each line $l_i \in L$ and each whitespace character $h \in l_i$, one vertex is placed in $s_i$ and $s_{i+1}$ each, located above or below the whitespace character, and with a maximum distance from each of its neighbouring lines. The start and end of each line are also assigned a pair of vertices each.} Sites will be represented by the insertion of additional vertices in $S_i$ on a similar height as those next to whitespace of the same line and located directly above the center point of its words $w_j$ bounding rectangle $R(w_j)$. The edges between the vertices are all perfectly horizontal or vertical, and do neither intersect with any bounding rectangle, nor any vertices other than their starting and ending vertex. The resulting graph looks similar to Fig.~\ref{fig:rgraph}.
 
-Each edge has a capacity of 1, meaning that no more than one leader is allowed to pass through it. Leaders also aren't allowed to cross one another, as it is hard to discern between intersections and two leaders curving away from each other. This is realized by forcing leaders to incorporate as many P-Segments as early as possible while still following all previous restrictions, and forbidding leaders from entering the space to the top left of already successfully routed leader's sites.
+Each edge has a capacity of 1, meaning that no more than one leader is allowed to pass through it. Leaders also aren't allowed to cross one another, as it is hard to discern between intersections and two leaders curving away from each other. \change{They are also monotonically increasing, and go as far up as possible, limited only by the previous label's placement.} %This is realized by forcing leaders to incorporate as many P-Segments as early as possible while still following all previous restrictions, and forbidding leaders from entering the space to the top left of already successfully routed leader's sites.
 %In our algorithm, the focus was put on keeping the text as readable as possible. This means that leaders aren't allowed to pass through words - they can only use the space between words and in between lines.
 %Additionally, we wanted to maximize the usage of the label area's space, even if we have to move labels further from their sites than needed. 
 %Finally, we wanted to keep the leader's length low for any given combination of labels and site placements, so every segment of a leader has to decrease the remaining distance between the site and its label's port.
@@ -175,6 +174,63 @@ Each edge has a capacity of 1, meaning that no more than one leader is allowed t
 %We also wanted to use the space available in the labeling area as efficiently as possible, so labels are placed as far up as possible in order to maximize the space available to future labels at the cost of increased leader length.
 
 \section{Description}
+
+The routing part of the algorithm, works through the annotations $a \in A$ in the order they appear in the text, placing each as far up as possible, skipping any annotation that cannot be placed in a reachable position that is also above its leader's source. We will also use fixed ports located in the top left corner of each label. 
+The routing area will be used to bridge the gap between the highest currently reachable point within the routing graph and the highest possible label placement by connecting the two via an OPO-leader. \change{We will call the combination of this connecting leader and the leader generated within the routing graph a \emph{Source-Port-Path} or \emph{SP-Path}.}%Kann man das so sagen?
+
+The routing algorithm itself uses a depth-first-search algorithm, with the Graph $G$ and the set of sites $V_{ann} \subset V$ as input. The path within $G$ will be monotonically increasing. The Algorithm terminates either when reaching the right text border or if all possible paths failed to reach the text border. The SP-Path generated by the algorithm is split into two parts: The path within the graph $(P \subset V)$, which contains all vertices travelled through on the way to the text area's border, and the OPO-Leader that connects to the Label's port. If the routing for any given site failed, the SP-path only consists of a single vertex - the site. (For an illustration in Pseudocode see Alg.~\ref{alg:DFS}.)
+
+\begin{algorithm}
+
+\DontPrintSemicolon
+\KwData{A single annotation's source and its Graph}
+\KwResult{A List of vertices describing the leader's path}
+
+\SetKwData{G}{Graph}
+\SetKwData{Path}{Path}
+\SetKwData{Src}{Source}
+\SetKwData{Curr}{currentVertex}
+\SetKwData{Old}{oldVertex}
+\SetKwData{Back}{backtracking}
+
+\SetKwFunction{Top}{getTopNeighbourOf}
+\SetKwFunction{Right}{getRightNeighbourOf}
+\SetKwFunction{AddVert}{addVertex}
+\SetKwFunction{RemVert}{RemoveVertex}
+\SetKwFunction{Last}{getLastEntry}
+\SetKwFunction{Below}{isBelow}
+\SetKwFunction{Break}{break}
+
+initialization\;
+\While{\Curr not at right text border}{
+ 
+ \uIf{$($\G.\Top{\Curr}$\neq null)\land \neg$\Back}{
+  \Path.\AddVert{\Curr}\;
+  \Curr $\gets$ \G.\Top{\Curr}\;\;
+ }
+ \uElseIf{\G.\Right{\Curr}$\neq null$}{
+ \Path.\AddVert{\Curr}\;
+  \Curr $\gets$ \G.\Top{\Curr}\;
+  \Back $\gets$ False\;
+ }
+ \Else{
+  \Back $\gets$ True\;
+  \Repeat{\Curr's Position is below \Old or \Path is Empty}{
+   \Old $\gets$ \Curr\;
+   \Curr $\gets$ \Path.\Last{}\;
+   \Path.\RemVert{\Curr}\;
+  }
+  \;
+  \If(//No path found){\Curr not below \Old}{\Break}
+ }
+}
+\caption{The Depth-First-Search algorithm used in the program.}
+\label{alg:DFS}
+\end{algorithm}
+
+
+
+\section{Analysis and Proof}
 
 \begin{algorithm}%{r}{0.35\textwidth}
 \DontPrintSemicolon
@@ -233,65 +289,15 @@ Each edge has a capacity of 1, meaning that no more than one leader is allowed t
 \label{alg:GraphCreation}
 \end{algorithm}
 
-First, we create the graph that will be used for the routing part of the algorithm. To achieve this, we go through the annotated text word by word in reading order, and measure the length $le(w_i)$ of each word $w_i$ that is not part of an annotation to determine its placement in the text.  At this point, we can also assign a line $l_j$ to it. Afterwards, we create new vertices above and below the whitespace characters $h_k, h_{k+1}$ preceding and succeeding $w_i$. These vertices are located in the space $S(l_{j-1},l_j), S(l_j,l_{j+1})$ between the word's line and its surrounding lines $l_{j-1}$ and $l_{j+1}$, as described in the previous section. Whenever an annotation is encountered, a single vertex is added above the last non-annotation word in $S(l_{j-1},l_j)$ at $pos(h_k)+le(w_i)/2$.
+%TODO: Re-Write!
+
+First, we create the graph that will be used for the routing part of the algorithm. To achieve this, we go through the annotated text word by word in reading order, and measure the length $le(w_i)$ of each word $w_i$ that is not part of an annotation to determine its placement in the text.  At this point, we can also assign a line $l_j$ to it. Afterwards, we create new vertices above and below the whitespace characters $h_k, h_{k+1}$ preceding and succeeding $w_i$. These vertices are located in the space $s_j, s_{j+1}$ between the word's line and its surrounding lines $l_{j-1}$ and $l_{j+1}$, as described in the previous section. Whenever an annotation is encountered, a single vertex is added above the last non-annotation word in $s_j$ at $pos(h_k)+le(w_i)/2$.
 For a representation of this process in pseudocode, see Alg.~\ref{alg:GraphCreation}.
 %To create leaders that exclusively use the space not taken up by a word's bounding rectangle, we decided to use a graph similar to the one Loose \cite{Loose2015} used.
 %As each vertex represents a physical location, they will have co-ordinates associated with them, and the vertices representing the sites will hold additional information regarding its leader and label. 
 %The graph is constructed by placing vertices between the lines, located next to each corner of a word's bounding rectangle, with two consecutive words in a line sharing the two vertices associated with their adjacent corners. 
 %For the sites, we inserted an additional vertex above the center of the word, which will serve as the leader's starting point. After placing all vertices, we created edges between each vertex and the closest horizontal neighbour to both sides, and between nodes that are located exactly above or below each other, and exactly one line apart. (For a representation in Pseudocode, see Alg.~\ref{alg:GraphCreation})
 
-For the routing part of the algorithm, we work through the annotations $a \in A$ in the order they appear in the text, placing each as far up as possible, skipping any annotation that cannot be placed in a reachable position above its leader's source. We will also use fixed ports located in the top left corner of each label. %This allows us to place annotations by only knowing their port location, which can be inferred from their leader's ending point.
-The routing area, which is located between the text and label areas, will be used to bridge the gap between the highest currently reachable point within the routing graph and the highest possible label placement by connecting the two via an OPO-leader.%Kann man das so sagen?
-
-The routing algorithm itself uses only the Graph $G$ and the set of sites $V_{ann} \subset V$ which will be routed using a depth-first search algorithm, using only vertices located above or to the right of the current vertex $v_{curr}$, prioritizing moving up whenever possible. It will terminate upon reaching the right text border or if all possible paths failed to reach the text border. At this point, it will return a set with routing information for each vertex, which contains a Path $P=\{v_1, \cdots, v_n\}$, leading from the site to the text area's border, along with information on how to draw the OPO-Segment that connects to the Label's port. If the routing for any given site failed, the path consists of a single vertex - the site. (For an illustration in Pseudocode see Alg.~\ref{alg:DFS}.)
-
-\begin{algorithm}
-
-\DontPrintSemicolon
-\KwData{A single annotation's source and its Graph}
-\KwResult{A List of vertices describing the leader's path}
-
-\SetKwData{G}{Graph}
-\SetKwData{Path}{Path}
-\SetKwData{Src}{Source}
-\SetKwData{Curr}{currentVertex}
-\SetKwData{Old}{oldVertex}
-\SetKwData{Back}{backtracking}
-
-\SetKwFunction{Top}{getTopNeighbourOf}
-\SetKwFunction{Right}{getRightNeighbourOf}
-\SetKwFunction{AddVert}{addVertex}
-\SetKwFunction{RemVert}{RemoveVertex}
-\SetKwFunction{Last}{getLastEntry}
-\SetKwFunction{Below}{isBelow}
-\SetKwFunction{Break}{break}
-
-initialization\;
-\While{\Curr not at right text border}{
- 
- \uIf{$($\G.\Top{\Curr}$\neq null)\land \neg$\Back}{
-  \Path.\AddVert{\Curr}\;
-  \Curr $\gets$ \G.\Top{\Curr}\;\;
- }
- \uElseIf{\G.\Right{\Curr}$\neq null$}{
- \Path.\AddVert{\Curr}\;
-  \Curr $\gets$ \G.\Top{\Curr}\;
-  \Back $\gets$ False\;
- }
- \Else{
-  \Back $\gets$ True\;
-  \Repeat{\Curr's Position is below \Old or \Path is Empty}{
-   \Old $\gets$ \Curr\;
-   \Curr $\gets$ \Path.\Last{}\;
-   \Path.\RemVert{\Curr}\;
-  }
-  \;
-  \If(//No path found){\Curr not below \Old}{\Break}
- }
-}
-\caption{The Depth-First-Search algorithm used in the program.}
-\label{alg:DFS}
-\end{algorithm}
 
 \chapter{Implementation}
 The program was written in Java 1.8.0u40, using JGraphT1.0.1\cite{JGraphT} as graph library. Since we only want to create leaders that don't intersect with the text, the graph was created alongside the placement of the words on the canvas.%, as it was easy to extract measurements at this point. Due to some problems with Java's various methods of calculating linebreaks, this process was done completely by hand.
