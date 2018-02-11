@@ -175,10 +175,12 @@ Each edge has a capacity of 1, meaning that no more than one leader is allowed t
 
 \section{Description}
 
-The routing part of the algorithm works through the annotations $a \in A$ in the order they appear in the text, placing each as far up as possible, skipping any annotation that cannot be placed in a reachable position that is also above its leader's source. It will use fixed ports located in the top left corner of each label. 
-The routing area will be used to bridge the gap between the highest currently reachable point within the routing graph and the highest possible label placement by connecting the two via an OPO-leader. \change{We will call the combination of this connecting leader and the leader generated within the routing graph a \emph{Source-Port-Path} or \emph{SP-Path}.}%Kann man das so sagen?
+The routing algorithm works through the annotations $a \in A$ in the order they appear in the text, placing each as far up as possible, skipping any annotation that cannot be placed above its leader's source or is impossible to route. It will use fixed ports located in the top left corner of each label. 
+The routing area will be used to bridge the gap between the highest currently reachable point within the routing graph and the highest possible label placement by connecting the two via an OPO-leader. \change{We will call the combination of this connecting leader and the path generated within the routing graph a \emph{Source-Port-Path} or \emph{SP-path}.}%Kann man das so sagen?
 
-\change{The routing algorithm itself uses a depth-first-search algorithm, with the Graph $G$ and the set of sites $V_{ann} \subset V$ as input. The Algorithm terminates either when reaching the right text border or if all possible paths failed to reach the text border, and the resulting SP-Path will be monotonically increasing. This path is split into two parts: The path within the graph $(P \subset V)$, leading from the source to the text area's border, and the OPO-Leader that connects the text area's border with the Label's port. The former is realized as a list of vertices $V_{Path} \subset V$ the leader travels through, whereas the latter is determined by the rightmost vertex of $V_{Path}$, the Port, and the location of the P-Segment. If the routing for any given site failed, the SP-path only consists of a single vertex - the site.} (For an illustration in Pseudocode see Alg.~\ref{alg:DFS}.)
+\change{The routing algorithm itself uses a depth-first-search algorithm, with the Graph $G$ and the set of sites $V_{ann} \subset V$ as input. The Algorithm terminates either when reaching the right text border or if all possible paths failed to reach the text border, and the resulting SP-path will be monotonically increasing. This path is split into two parts: The path within the graph $(P \subset V)$, leading from the source to the text area's border, and the OPO-Leader that connects the text area's border with the Label's port. The former is implemented as a list of vertices $V_{Path} \subset V$ the leader travels through, whereas the latter is determined by the rightmost vertex of $V_{Path}$, the Port, and the location of the P-Segment. If the routing for any given site failed, the SP-path only consists of a single vertex - the site.} (For an illustration in Pseudocode see Alg.~\ref{alg:DFS}.)
+
+\change{Each SP-path's P-Segment in the Routing Area is only placed after all SP-Paths have been generated, and will be placed with equal spacing between the borders of the Routing Area and each P-segment, to ensure readability of the resulting leaders.}
 
 \begin{algorithm}
 
@@ -232,67 +234,83 @@ initialization\;
 
 \section{Analysis and Proof}
 
-\begin{algorithm}%{r}{0.35\textwidth}
-\DontPrintSemicolon
-\SetKwData{Words}{words}
-\SetKwData{PrevW}{previousWord}
-\SetKwData{G}{Graph}
-\SetKwData{W}{w} \SetKwData{V}{v}\SetKwData{Va}{v1} \SetKwData{Vb}{v2} \SetKwData{Vc}{v3} \SetKwData{Vd}{v4}
-\SetKwData{Up}{UpperVerticesList}
-\SetKwData{Low}{LowerVerticesList}
+In this section we will analyze the following:
 
-\SetKwFunction{setAnn}{setAnnotation}
-\SetKwFunction{NewVert}{new Vertex}
-\SetKwFunction{AddVert}{addVertex}
-\SetKwFunction{AddAll}{addAll}
-\SetKwFunction{CEdge}{createEdgeBetween}
-\SetKwFunction{PosConn}{connectBasedOnPosition}
-\SetKwFunction{ClrList}{emptyList}
-\SetKwFunction{getC}{getCenter}
-\SetKwFunction{tLeft}{getTopLeft}
-\SetKwFunction{tRight}{getTopRight}
-\SetKwFunction{bLeft}{getBottomLeft}
-\SetKwFunction{bRight}{getBottomRight}
-\SetKwFunction{Newline}{startNewLine}
+\begin{itemize}
+ \item Computation time of graph-creation
+ \item Computation time of the routing algorithm for single leaders
+ \item Overall computation time of the routing algorithm
+\end{itemize}
+~\\
+Furthermore, we will prove that:
+\begin{itemize}
+\item The algorithm always returns a shortest path
+\item The algorithm generates only crossing-free routings
+\item The algorithm places as many annotations as possible
+\item The algorithm keeps the annnotations in reading order
+\end{itemize}
 
-\KwData{A text with annotations,stored as a String-Array}
-\KwResult{A Graph (as described above)}
-
- initialization\;
- 
- \ForEach{\W in \Words}{
-  \eIf{\W is annotation}{
-   \V$\gets$\NewVert{\PrevW.\getC{}}\;
-   \V.\setAnn{\W}\;
-   \G.\AddVert{\V}\;
-   \Up.\AddVert{\V}\;
-  }{
-   \If{\W is too big for the line}{
-    \Newline{}\;
-    \PosConn{\Up}\;
-    \Up$\gets$\Low\;
-    \ClrList{\Low}\;
-   }
-   \Va $\gets$\NewVert{\W.\tLeft{}}\;
-   \Vb $\gets$\NewVert{\W.\tRight{}}\;
-   \Vc $\gets$\NewVert{\W.\bLeft{}}\;
-   \Vd $\gets$\NewVert{\W.\bRight{}}\;
-   \;
-   \G.\AddAll{\Va,\Vb,\Vc,\Vd}\;
-   \Up.\AddAll{\Va,\Vb}\;
-   \Low.\AddAll{\Vc,\Vd}\;
-   \G.\CEdge{\Va,\Vc}\;
-   \G.\CEdge{\Vb,\Vd}\;
-  }
- } 
-\caption{Representation of the Graph-creation algorithm in pseudocode}
-\label{alg:GraphCreation}
-\end{algorithm}
+%\begin{algorithm}%{r}{0.35\textwidth}
+%\DontPrintSemicolon
+%\SetKwData{Words}{words}
+%\SetKwData{PrevW}{previousWord}
+%\SetKwData{G}{Graph}
+%\SetKwData{W}{w} \SetKwData{V}{v}\SetKwData{Va}{v1} \SetKwData{Vb}{v2} \SetKwData{Vc}{v3} \SetKwData{Vd}{v4}
+%\SetKwData{Up}{UpperVerticesList}
+%\SetKwData{Low}{LowerVerticesList}
+%
+%\SetKwFunction{setAnn}{setAnnotation}
+%\SetKwFunction{NewVert}{new Vertex}
+%\SetKwFunction{AddVert}{addVertex}
+%\SetKwFunction{AddAll}{addAll}
+%\SetKwFunction{CEdge}{createEdgeBetween}
+%\SetKwFunction{PosConn}{connectBasedOnPosition}
+%\SetKwFunction{ClrList}{emptyList}
+%\SetKwFunction{getC}{getCenter}
+%\SetKwFunction{tLeft}{getTopLeft}
+%\SetKwFunction{tRight}{getTopRight}
+%\SetKwFunction{bLeft}{getBottomLeft}
+%\SetKwFunction{bRight}{getBottomRight}
+%\SetKwFunction{Newline}{startNewLine}
+%
+%\KwData{A text with annotations,stored as a String-Array}
+%\KwResult{A Graph (as described above)}
+%
+% initialization\;
+% 
+% \ForEach{\W in \Words}{
+%  \eIf{\W is annotation}{
+%   \V$\gets$\NewVert{\PrevW.\getC{}}\;
+%   \V.\setAnn{\W}\;
+%   \G.\AddVert{\V}\;
+%   \Up.\AddVert{\V}\;
+%  }{
+%   \If{\W is too big for the line}{
+%    \Newline{}\;
+%    \PosConn{\Up}\;
+%    \Up$\gets$\Low\;
+%    \ClrList{\Low}\;
+%   }
+%   \Va $\gets$\NewVert{\W.\tLeft{}}\;
+%   \Vb $\gets$\NewVert{\W.\tRight{}}\;
+%   \Vc $\gets$\NewVert{\W.\bLeft{}}\;
+%   \Vd $\gets$\NewVert{\W.\bRight{}}\;
+%   \;
+%   \G.\AddAll{\Va,\Vb,\Vc,\Vd}\;
+%   \Up.\AddAll{\Va,\Vb}\;
+%   \Low.\AddAll{\Vc,\Vd}\;
+%   \G.\CEdge{\Va,\Vc}\;
+%   \G.\CEdge{\Vb,\Vd}\;
+%  }
+% } 
+%\caption{Representation of the Graph-creation algorithm in pseudocode}
+%\label{alg:GraphCreation}
+%\end{algorithm}
 
 %TODO: Re-Write!
 
-First, we create the graph that will be used for the routing part of the algorithm. To achieve this, we go through the annotated text word by word in reading order, and measure the length $le(w_i)$ of each word $w_i$ that is not part of an annotation to determine its placement in the text.  At this point, we can also assign a line $l_j$ to it. Afterwards, we create new vertices above and below the whitespace characters $h_k, h_{k+1}$ preceding and succeeding $w_i$. These vertices are located in the space $s_j, s_{j+1}$ between the word's line and its surrounding lines $l_{j-1}$ and $l_{j+1}$, as described in the previous section. Whenever an annotation is encountered, a single vertex is added above the last non-annotation word in $s_j$ at $pos(h_k)+le(w_i)/2$.
-For a representation of this process in pseudocode, see Alg.~\ref{alg:GraphCreation}.
+%First, we create the graph that will be used for the routing part of the algorithm. To achieve this, we go through the annotated text word by word in reading order, and measure the length $le(w_i)$ of each word $w_i$ that is not part of an annotation to determine its placement in the text.  At this point, we can also assign a line $l_j$ to it. Afterwards, we create new vertices above and below the whitespace characters $h_k, h_{k+1}$ preceding and succeeding $w_i$. These vertices are located in the space $s_j, s_{j+1}$ between the word's line and its surrounding lines $l_{j-1}$ and $l_{j+1}$, as described in the previous section. Whenever an annotation is encountered, a single vertex is added above the last non-annotation word in $s_j$ at $pos(h_k)+le(w_i)/2$.
+%For a representation of this process in pseudocode, see Alg.~\ref{alg:GraphCreation}.
 %To create leaders that exclusively use the space not taken up by a word's bounding rectangle, we decided to use a graph similar to the one Loose \cite{Loose2015} used.
 %As each vertex represents a physical location, they will have co-ordinates associated with them, and the vertices representing the sites will hold additional information regarding its leader and label. 
 %The graph is constructed by placing vertices between the lines, located next to each corner of a word's bounding rectangle, with two consecutive words in a line sharing the two vertices associated with their adjacent corners. 
