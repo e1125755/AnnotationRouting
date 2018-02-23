@@ -123,6 +123,7 @@ Lin et al.\cite{Lin2009} use only OPO-Leaders that have their P-Segment located 
 \chapter{The Algorithm}
 %1 Zeile Einleitung hier einfügen - zb: Kapitelübersicht
 \section{Problem Specification}
+\label{sec:ProbSpec}
 We limited the leaders to use exclusively O- and P-Segments, and banned them from passing through words. We also place labels as far up as possible to maximize the space remaining for  remaining placements. Additionally, a leader isn't allowed to be any longer as is necessary to connect a given Site with its label's port.
 
 These restrictions are implemented as follows: We divided the text $T$ into separate lines $L=\{W,H\}$ which are in turn made up of words $W$ and whitespace $H$. The remaining space between lines is called $S=\{s_1, ... s_{n+1}\}$, with $n$ being the number of lines in $L$. For each $l_i \in L$,  $s_i$ is the space directly above that line. All $s \in S$ are the same height and width, even $s_1$ and $s_{n+1}$, which only have lines on one of their sides. For each word $w \in W$, we define $R(w)$  as its bounding rectangle, which marks the space leaders aren't allowed to cross. For a graphical representation see Fig.~\ref{fig:wbound}.
@@ -224,68 +225,78 @@ In this section we will analyze the following:
 ~\\
 Furthermore, we will prove that:
 \begin{itemize}
-\item The algorithm always returns a shortest path
 \item The algorithm generates only crossing-free routings
-\item The algorithm places as many annotations as possible
-\item The algorithm keeps the annnotations in reading order
+\item The algorithm always returns a highest (define!) legal path
+
+NOTE: The algorithm keeps the annnotations in reading order
 \end{itemize}
 
-%\begin{algorithm}%{r}{0.35\textwidth}
-%\DontPrintSemicolon
-%\SetKwData{Words}{words}
-%\SetKwData{PrevW}{previousWord}
-%\SetKwData{G}{Graph}
-%\SetKwData{W}{w} \SetKwData{V}{v}\SetKwData{Va}{v1} \SetKwData{Vb}{v2} \SetKwData{Vc}{v3} \SetKwData{Vd}{v4}
-%\SetKwData{Up}{UpperVerticesList}
-%\SetKwData{Low}{LowerVerticesList}
-%
-%\SetKwFunction{setAnn}{setAnnotation}
-%\SetKwFunction{NewVert}{new Vertex}
-%\SetKwFunction{AddVert}{addVertex}
-%\SetKwFunction{AddAll}{addAll}
-%\SetKwFunction{CEdge}{createEdgeBetween}
-%\SetKwFunction{PosConn}{connectBasedOnPosition}
-%\SetKwFunction{ClrList}{emptyList}
-%\SetKwFunction{getC}{getCenter}
-%\SetKwFunction{tLeft}{getTopLeft}
-%\SetKwFunction{tRight}{getTopRight}
-%\SetKwFunction{bLeft}{getBottomLeft}
-%\SetKwFunction{bRight}{getBottomRight}
-%\SetKwFunction{Newline}{startNewLine}
-%
-%\KwData{A text with annotations,stored as a String-Array}
-%\KwResult{A Graph (as described above)}
-%
-% initialization\;
-% 
-% \ForEach{\W in \Words}{
-%  \eIf{\W is annotation}{
-%   \V$\gets$\NewVert{\PrevW.\getC{}}\;
-%   \V.\setAnn{\W}\;
-%   \G.\AddVert{\V}\;
-%   \Up.\AddVert{\V}\;
-%  }{
-%   \If{\W is too big for the line}{
-%    \Newline{}\;
-%    \PosConn{\Up}\;
-%    \Up$\gets$\Low\;
-%    \ClrList{\Low}\;
-%   }
-%   \Va $\gets$\NewVert{\W.\tLeft{}}\;
-%   \Vb $\gets$\NewVert{\W.\tRight{}}\;
-%   \Vc $\gets$\NewVert{\W.\bLeft{}}\;
-%   \Vd $\gets$\NewVert{\W.\bRight{}}\;
-%   \;
-%   \G.\AddAll{\Va,\Vb,\Vc,\Vd}\;
-%   \Up.\AddAll{\Va,\Vb}\;
-%   \Low.\AddAll{\Vc,\Vd}\;
-%   \G.\CEdge{\Va,\Vc}\;
-%   \G.\CEdge{\Vb,\Vd}\;
-%  }
-% } 
-%\caption{Representation of the Graph-creation algorithm in pseudocode}
-%\label{alg:GraphCreation}
-%\end{algorithm}
+To determine the program's computation time, we will first take a look at the creation of the graph. As discussed in section~\ref{sec:ProbSpec}, we will be placing a pair of vertices per whitespace character, as well as one additional pair at both the start and end of each line, which amounts to $2\times|H|+4\times|L|$ vertices total. Together with the sites $I$, which are also represented as vertices, this results in the total number of vertices $|V|=|I|+2\times|H|+4\times|L|$. Additionally, each vertex in a pair is connected to its counterpart, which creates $(|V|-|I|)/2$ edges, representing all possible P-Segments. Finally, each edge placed in a space $s \in S$ above or below a line will be connected to each other, which is solved by connecting each vertex to the next unconnected vertex remaining in $s$. This leads to the creation of $|s|-1$ edges representing possible P-segments, which leads to a total of $|V|-|S|$ additional edges, making the total number of edges $|E|=(3\times|V|-2\times|S|-|I|)/2$.%Todo: look up fractions.
+If we assume that the creation of edges and vertices both take a similar amount of time, we are looking at roughly $5/2 \times |V|$ operations, which means that the algorithm scales linearly with the amount of vertices placed, which in turn is directly proportional to the number of words $|W|$ in the text.
+For a representation of the graph-generation algorithm in pseudocode, see Alg.~\ref{alg:GraphCreation}.
+
+\begin{algorithm}
+\DontPrintSemicolon
+\SetKwData{Words}{words}
+\SetKwData{PrevW}{previousWord}
+\SetKwData{G}{Graph}
+\SetKwData{W}{w} \SetKwData{V}{v}\SetKwData{Va}{v1} \SetKwData{Vb}{v2}
+\SetKwData{Up}{UpperVerticesList}
+\SetKwData{Low}{LowerVerticesList}
+
+\SetKwFunction{setAnn}{setAnnotation}
+\SetKwFunction{NewVert}{new Vertex}
+\SetKwFunction{AddVert}{addVertex}
+\SetKwFunction{AddAll}{addAll}
+\SetKwFunction{CEdge}{createEdgeBetween}
+\SetKwFunction{PosConn}{connectBasedOnPosition}
+\SetKwFunction{ClrList}{emptyList}
+\SetKwFunction{getC}{getCenter}
+\SetKwFunction{tLeft}{getTopLeft}
+\SetKwFunction{tRight}{getTopRight}
+\SetKwFunction{bLeft}{getBottomLeft}
+\SetKwFunction{bRight}{getBottomRight}
+\SetKwFunction{Newline}{startNewLine}
+
+\KwData{A text with annotations,stored as a String-Array}
+\KwResult{A Graph (as described above)}
+
+ initialization\;
+ 
+ \ForEach{\W in \Words}{
+  \eIf{\W is annotation}{
+   \V$\gets$\NewVert{\PrevW.\getC{}}\;
+   \V.\setAnn{\W}\;
+   \G.\AddVert{\V}\;
+   \Up.\AddVert{\V}\;
+  }{
+   \If{\W is too big for the line}{
+    //Create last pair of vertices in current line\;
+    \Va $\gets$\NewVert{\PrevW.\tRight{}}\;
+    \Vb $\gets$\NewVert{\PrevW.\bRight{}}\;
+    \G.\AddAll{\Va,\Vb}\;
+    \Up.\AddVert{\Va}\;
+    \Low.\AddVert{\Vb}\;
+    \G.\CEdge{\Va,\Vb}\;
+    \;
+    //Start new line\;
+    \Newline{}\;
+    \PosConn{\Up}\;
+    \Up$\gets$\Low\;
+    \ClrList{\Low}\;
+   }
+   \Va $\gets$\NewVert{\W.\tLeft{}}\;
+   \Vb $\gets$\NewVert{\W.\bLeft{}}\;
+   \;
+   \G.\AddAll{\Va,\Vb}\;
+   \Up.\AddVert{\Va}\;
+   \Low.\AddVert{\Vb}\;
+   \G.\CEdge{\Va,\Vb}\;
+  }
+ } 
+\caption{Representation of the Graph-creation algorithm in pseudocode}
+\label{alg:GraphCreation}
+\end{algorithm}
 
 %TODO: Re-Write!
 

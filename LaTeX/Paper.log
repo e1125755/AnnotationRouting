@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  21 FEB 2018 16:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  23 FEB 2018 17:53
 entering extended mode
 **C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
 (C:/Users/Jakob/TU_Wien/Aufgaben/Bacc/AnnotationRouting/LaTeX/Paper.tex
@@ -1460,19 +1460,19 @@ Underfull \vbox (badness 2970) has occurred while \output is active []
 <WordBoundaries.png, id=62, 301.125pt x 131.74219pt>
 File: WordBoundaries.png Graphic file (type png)
  <use WordBoundaries.png>
-Package pdftex.def Info: WordBoundaries.png used on input line 134.
+Package pdftex.def Info: WordBoundaries.png used on input line 135.
 (pdftex.def)             Requested size: 301.12425pt x 131.74185pt.
 
 <RoutingGraph_edited.png, id=63, 301.125pt x 134.75343pt>
 File: RoutingGraph_edited.png Graphic file (type png)
 
 <use RoutingGraph_edited.png>
-Package pdftex.def Info: RoutingGraph_edited.png used on input line 141.
+Package pdftex.def Info: RoutingGraph_edited.png used on input line 142.
 (pdftex.def)             Requested size: 301.12425pt x 134.7531pt.
  [5
 
 ] [6 <./WordBoundaries.png> <./RoutingGraph_edited.png>]
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 209.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 210.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\t1pcr.fd"
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
@@ -1480,23 +1480,23 @@ File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 Underfull \vbox (badness 2012) has occurred while \output is active []
 
  [7]
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 220.
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 221.
 
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\ts1lmr.fd"
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-[8] [9
-
-] [10
+[8] [9] [10
 
 ] [11] [12
 
 ] [13] [14
 
+] [15] [16
+
 ] (Paper.bbl
 bibitemlist
-) [15
+) [17
 
 ]
 \tf@toc=\write4
@@ -1504,13 +1504,13 @@ bibitemlist
 
  (Paper.aux) ) 
 Here is how much of TeX's memory you used:
- 12092 strings out of 493634
- 183819 string characters out of 3135239
- 305454 words of memory out of 3000000
- 15231 multiletter control sequences out of 15000+200000
+ 12132 strings out of 493634
+ 184054 string characters out of 3135239
+ 307454 words of memory out of 3000000
+ 15271 multiletter control sequences out of 15000+200000
  102383 words of font info for 85 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 55i,18n,92p,1453b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 55i,18n,92p,1453b,637s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips
 /lm/lm-ts1.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvip
 s/fontname/8r.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/d
@@ -1535,9 +1535,9 @@ ers/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb>
 <C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb
 8a.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvet
 ic/uhvr8a.pfb>
-Output written on Paper.pdf (21 pages, 375331 bytes).
+Output written on Paper.pdf (23 pages, 382263 bytes).
 PDF statistics:
- 163 PDF objects out of 1000 (max. 8388607)
+ 169 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
