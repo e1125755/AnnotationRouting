@@ -35,6 +35,7 @@ public class GreedyTopRouting implements Routing{
 		GraphTuple currentNode=source;
 
 		ArrayList<GraphTuple> pathNodes=new ArrayList<GraphTuple>();
+		ArrayList<GraphTuple> visitedNodes=new ArrayList<GraphTuple>(); //Stores already visited nodes after backtracking, so we don't run into the same dead end twice.
 		pathNodes.add(index, currentNode);
 		index++;
 
@@ -61,11 +62,11 @@ public class GreedyTopRouting implements Routing{
 
 						if(temp.equals(currentNode)) temp=graph.getEdgeTarget(edge);
 
-						if((temp.getX()>currentNode.getX()))
+						if((!visitedNodes.contains(temp))&&(temp.getX()>currentNode.getX()))
 						{
 							horizontalCandidate=temp;
 						}
-						else if((!backtrack)&&(temp.getY()<currentNode.getY())&&(temp.getY()>nextAnnotationPos))
+						else if((!backtrack)&&(!visitedNodes.contains(temp))&&(temp.getY()<currentNode.getY())&&(temp.getY()>nextAnnotationPos))
 						{
 							if((currentNode.getX()>lastAnnotatedWord.getX())||(currentNode.getY()>lastAnnotatedWord.getY()))
 							{
@@ -96,6 +97,7 @@ public class GreedyTopRouting implements Routing{
 						while((tempNode.getY()==currentNode.getY())&&(currentNode!=pathNodes.get(0)))	
 						{
 							index--;
+							visitedNodes.add(pathNodes.get(index));
 							pathNodes.remove(index);
 							currentNode=pathNodes.get(index-1);
 						}
@@ -118,6 +120,7 @@ public class GreedyTopRouting implements Routing{
 							GraphTuple newTuple=iter.next();
 							DefaultWeightedEdge temp=graph.getEdge(oldTuple, newTuple);
 							if(temp!=null)graph.setEdgeWeight(temp, graph.getEdgeWeight(temp)-1);
+							
 							oldTuple=newTuple;
 						}
 					}
@@ -125,6 +128,7 @@ public class GreedyTopRouting implements Routing{
 			}//end while
 		}
 
+		visitedNodes.clear();
 		return new GraphWalk<GraphTuple,DefaultWeightedEdge>(graph, pathNodes,pathNodes.size());
 	}
 

@@ -235,6 +235,10 @@ To determine the program's computation time, we will first take a look at the cr
 If we assume that the creation of edges and vertices both take a similar amount of time, we are looking at roughly $5/2 \times |V|$ operations, which means that the algorithm scales linearly with the amount of vertices placed, which in turn is directly proportional to the number of words $|W|$ in the text.
 For a representation of the graph-generation algorithm in pseudocode, see Alg.~\ref{alg:GraphCreation}.
 
+Next, we shall look at the routing algorithm - since we use depth-first search, which is a well-known algorithm, the worst-case computation time is known to be $|V|+|E|$. To reach this time, we'd have to try and use every single edge in the graph, reaching each of the graph's vertices in the process. However, as our algorithm can't use any edges leading away from its target, our search space is reduced to only the vertices either in lower-numbered $s \in S$ (``above'') or those in the same $s$, but located between the source and the border vertices. If we also take into account that leaders aren't allowed to cross one another, this further limits our search space, removing all vertices above the previous leader's vertices.
+
+
+
 \begin{algorithm}
 \DontPrintSemicolon
 \SetKwData{Words}{words}
