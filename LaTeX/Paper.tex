@@ -147,7 +147,8 @@ These restrictions are implemented as follows: We divided the text $T$ into sepa
 
 Since we only allowed the Usage of O- and P-Segments in leaders, the only way for a leader to cross through a line of text is with a P-Segment through whitespace, whereas O-Segments are only usable between lines. Therefore, we can create a routing graph $G=\langle V,E\rangle$ whose Edges $E$ reflect the legal paths a leader can take within $T$.
 For each line $l_i \in L$ and each whitespace character $h \in l_i$, one vertex is placed in $s_i$ and $s_{i+1}$ each, located above or below the whitespace character, and with a maximum distance from each of its neighbouring lines. The start and end of each line are also assigned a pair of vertices each. Sites will be represented by the insertion of additional vertices in $S_i$ on a similar height as those next to whitespace of the same line and located directly above the center point of its words $w_j$ bounding rectangle $R(w_j)$. The edges between the vertices are all perfectly horizontal or vertical, and do neither intersect with any bounding rectangle, nor any vertices other than their starting and ending vertex. The resulting graph looks similar to Fig.~\ref{fig:rgraph}.
-\change{We wil call the vertices closest to the text area's border to the routing area \emph{Border Vertices} $B \subset V$. They serve as a goal for the depth-first search, and are located at the end of each line in our implementation.}
+\change{In the following, we define vertex $v_a \in s_i$ to be \emph{above} another vertex $v_b \in s_j$, if $i<j$. If $v_a$ and $v_b$ are adjacent to each other, $v_a$ is \emph{directly above} $v_b$. We will also define a vertex $v_b$ to be \emph{between} two vertices $v_a$ and $v_c$, if $v_a, v_b, v_c \in s$ $(s \in S)$ and it is impossible to create a path $P \subseteq s$ using only vertices from $s$ that leads from $v_a$ to $v_c$ without including $v_b$.
+Furthermore,we will call the vertices closest to the text area's border to the routing area \emph{Border Vertices} $B \subset V$. They serve as a goal for the depth-first search, and are located at the end of each line in our implementation.}
 
 Each edge has a capacity of 1, meaning that no more than one leader is allowed to pass through it. Leaders also aren't allowed to cross one another, as it is hard to discern between intersections and two leaders curving away from each other. Furthermore, they are monotonically increasing, and go as far up as possible, limited only by the previous label's placement.
 
@@ -156,10 +157,11 @@ Each edge has a capacity of 1, meaning that no more than one leader is allowed t
 %To maximize the space available to subsequent annotations, each label is placed as far up as possible. This also means that if there's no placement available that is above its leader's source, the annotation cannot be placed, as we previously restricted the leader's movement. 
 
 \section{Description}
+\label{sec:AlgDesc}
 
 The routing algorithm works through the annotations $a \in A$ in the order they appear in the text, placing each as far up as possible, skipping any annotation that cannot be placed above its leader's source or is impossible to route. It will use fixed ports located in the top left corner of each label.
 
-The routing algorithm itself uses a depth-first-search algorithm, with the Graph $G$ and the set of sites $V_{ann} \subset V$ as input. The Algorithm terminates either when reaching the right text border or if all possible paths failed to reach the text border, and the resulting SP-path will be monotonically increasing. This path is split into two parts: The path within the graph $(P \subset V)$, leading from the source to the text area's border, and the OPO-Leader that connects the text area's border with the Label's port. The former is implemented as a list of vertices $V_{Path} \subset V$ the leader travels through, whereas the latter is determined by the rightmost vertex of $V_{Path}$, the Port, and the location of the P-Segment. \change{If the routing for any given site failed, the algorithm returns $\bot$.} (For an illustration in Pseudocode see Alg.~\ref{alg:DFS}.)
+We use a depth-first-search algorithm with the Graph $G$ and the set of sites $V_{ann} \subset V$ as input. The Algorithm \change{prioritizes routing to not yet visited vertices located above the current vertex} and terminates either when reaching the right text border or if all possible paths failed to reach the text border, and the resulting SP-path will be monotonically increasing. \change{If the routing for any site $v_{ann} \in V_{ann}$ failed, the algorithm returns $\bot$ for that site. To ensure that routings remain crossing-free, leaders are forbidden to incorporate any vertices that are either located directly above any vertices of the last successfully routed leader, or not between that leader's site and the border vertices.} This path is split into two parts: The path within the graph $(P \subset V)$, leading from the source to the text area's border, and the OPO-Leader that connects the text area's border with the Label's port. The former is implemented as a list of vertices $V_{Path} \subset V$ the leader travels through, whereas the latter is determined by the rightmost vertex of $V_{Path}$, the Port, and the location of the P-Segment. (For an illustration in Pseudocode see Alg.~\ref{alg:DFS}.)
 
 Each SP-path's P-Segment in the Routing Area is only placed after all SP-Paths have been generated, and will be placed with equal spacing between the borders of the Routing Area and each P-segment, to ensure readability of the resulting leaders.
 
@@ -187,7 +189,7 @@ Each SP-path's P-Segment in the Routing Area is only placed after all SP-Paths h
 initialization\;
 \While{\Curr not at right text border}{
  
- \uIf{$($\G.\Top{\Curr}$\neq null)\land \neg$\Back}{
+ \uIf{$($\G.\Top{\Curr}$\neq null)\land \neg$\Back and previous Vertex not part of other leaders}{
   \Path.\AddVert{\Curr}\;
   \Curr $\gets$ \G.\Top{\Curr}\;\;
  }
@@ -235,7 +237,7 @@ To determine the program's computation time, we will first take a look at the cr
 If we assume that the creation of edges and vertices both take a similar amount of time, we are looking at roughly $5/2 \times |V|$ operations, which means that the algorithm scales linearly with the amount of vertices placed, which in turn is directly proportional to the number of words $|W|$ in the text.
 For a representation of the graph-generation algorithm in pseudocode, see Alg.~\ref{alg:GraphCreation}.
 
-Next, we shall look at the routing algorithm - since we use depth-first search, which is a well-known algorithm, the worst-case computation time is known to be $|V|+|E|$. To reach this time, we'd have to try and use every single edge in the graph, reaching each of the graph's vertices in the process. However, as our algorithm can't use any edges leading away from its target, our search space is reduced to only the vertices either in lower-numbered $s \in S$ (``above'') or those in the same $s$, but located between the source and the border vertices. If we also take into account that leaders aren't allowed to cross one another, this further limits our search space, removing all vertices above the previous leader's vertices.
+Next, we shall look at the routing algorithm - since we use depth-first search, which is a well-known algorithm, the worst-case computation time is known to be $|V|+|E|$. To reach this time, we'd have to try and use every single edge in the graph, reaching each of the graph's vertices in the process. However, as our algorithm can't use any edges leading away from its target, our search space is reduced to only the vertices either in lower-numbered $s \in S$ (those ``above'' the current position) or those in the same $s$, but located between the source and the border vertices. If we also take into account that leaders aren't allowed to cross one another, this further limits our search space, removing all vertices above the previous leader's vertices.
 
 
 
@@ -301,6 +303,20 @@ Next, we shall look at the routing algorithm - since we use depth-first search, 
 \caption{Representation of the Graph-creation algorithm in pseudocode}
 \label{alg:GraphCreation}
 \end{algorithm}
+
+
+To prove that the algorithm only creates crossing-free routings, we will examine the rules given in section~\ref{sec:AlgDesc}: All nodes that are either located directly above any nodes of the last successfully routed leader (whose path is represented by $P_{old}$) or not between the site $s_{old} \in P_{old}$ and the border vertices.
+For a crossing to occur, both the currently routed path $(P_{new})$ and $P_{old}$ must have one or several consecutive vertices in common, before which the nodes of one were below the other, and afterwardsthe opposite is true. This leaves us with two options:
+\begin{itemize}
+ \item $P_{new}$ crosses from below to above $P_{old}$: For this to happen, $P_{new}$ must at some point start to include vertices that were also used in $P_{old}$. While this is allowed, the routing algorithm was explicitely forbidden to use any vertices located directly above any vertices of $P_{old}$, which makes crossings impossible.
+ \item $P_{new}$ crosses from above to below $P_{old}$: While this type of crossing would be possible if $P_{new}$ managed to incorporate vertices that are above and not between $P_{old}$ and the border vertices, this requires the inclusion of nodes that are not between $s_{old}$ and the border vertices, as the currently routed leader's site $s_{new}$ is either located between $s_{old}$ and the border vertices, which wouldn't make this routing possible without violating the monotonicity constraint, or below $s_{old}$. Since the inclusion of these nodes was also explicitely forbidden, this type of crossing is impossible as well.
+\end{itemize}
+Therefore, the algorithm only produces crossing-free routings.
+\\~\\
+Finally, we want to prove that the algorithm only returns a highest legal path - a path that is both monotonically increasing and crossing-free, ends at the highest possible border vertex $b_{high} \in B$ reachable from a given source $s$, and contains no other border vertices than $b_{high}$. The path must also contain exactly one border vertex. The first two criteria are given, as the algorithm only returns monotonically increasing paths, and the existence of crossing was disproven above. To show that there are no reachable border vertices above $b_{high}$, we can assume there exists a vertex $b_{top} \in B$ that is located above $b_{high}$ and legally reachable via the path $P_{top}$. As the algorithm prioritizes routing to vertices directly above, the only way for the path to $b_{high}$ to reach higher vertices than $P_{top}$ would be that either $P_{top}$ would generate crossings with previously routed leaders or violate the the monotonicity constraint, which both render $P_{top}$ illegal. Since we also cannot include more than one border vertex in our path, we must conclude that $b_{top}$ cannot exist.
+
+
+
 
 %TODO: Re-Write!
 
