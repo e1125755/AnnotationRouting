@@ -9,7 +9,7 @@
 \contentsline {chapter}{\chapternumberline {2}The Algorithm}{5}
 \contentsline {section}{\numberline {2.1}Problem Specification}{5}
 \contentsline {section}{\numberline {2.2}Description}{7}
-\contentsline {section}{\numberline {2.3}Analysis and Proof}{7}
+\contentsline {section}{\numberline {2.3}Analysis and Proof}{8}
 \contentsline {chapter}{\chapternumberline {3}Implementation}{11}
 \contentsline {section}{\numberline {3.1}Challenges}{11}
 \contentsline {chapter}{\chapternumberline {4}Evaluation and Testing}{13}
