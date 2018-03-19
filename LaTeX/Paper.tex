@@ -226,21 +226,21 @@ initialization\;
 
 \section{Analysis and Proof}
 
-In this section we will analyze the following:
+In this section we will first analyze the computation time required to create the graph. Afterwards, we will prove the correctness of our routing algorithm, and finally we will determine the algorithm's runtime complexity.
 
-\begin{itemize}
- \item Computation time of graph-creation
- \item Computation time of the routing algorithm
-\end{itemize}
-~\\
-Furthermore, we will prove that:
-\begin{itemize}
-\item The algorithm generates only crossing-free routings
-\item The algorithm always returns a highest (define!) legal path
-
-NOTE: The algorithm keeps the annnotations in reading order
-\end{itemize}
-~\\
+%\begin{itemize}
+% \item Computation time of graph-creation
+% \item Computation time of the routing algorithm
+%\end{itemize}
+%~\\
+%Furthermore, we will prove that:
+%\begin{itemize}
+%\item The algorithm generates only crossing-free routings
+%\item The algorithm always returns a highest (define!) legal path
+%
+%NOTE: The algorithm keeps the annnotations in reading order
+%\end{itemize}
+%~\\
 \begin{lemma}
 	The creation of the routing graph is in O(n).
 	\label{lem:GraphCreat}
@@ -328,26 +328,22 @@ For a representation of the graph-generation algorithm in pseudocode, see Alg.~\
 	\label{lem:CrosFree}
 \end{lemma}
 \begin{proof}
-	As stated in section~\ref{sec:AlgDesc}, we are forbidden to use any vertices above any the vertices ($V_{last}$) of the last successfully routed leader $(P_{last})$, unless they are between any $v \in V_{last}$ and the border vertices. As this makes it impossible to construct a route that incorporates any vertex directly above any $v \in V_{last}$, those two leaders cannot possibly cross each other. However, as this is true for any two consecutive leaders, each leader also cannot cross any of the leaders routed before $P_{last}$, as those are located on the other side of $P_{last}$, which contains only forbidden vertices.
-	Therefore, our algorithm is crossing-free.
+	As stated in Section~\ref{sec:AlgDesc}, we are forbidden to use any vertices above \change{the polyline created by the last successfully routed leader $(P_{last})$ and the direct connection of $P_{last}$'s source and the left text area's border. As this makes it impossible to construct a route that incorporates any vertex above or to the left of $P_{last}$, those two leaders cannot possibly cross each other. This is true for any two consecutive leaders, therefore each leader also cannot cross any of the leaders routed before $P_{last}$, as those are located on the other side of $P_{last}$, which contains only forbidden vertices.
+	Therefore, our algorithm produces crossing-free routings.}
 \end{proof}
-%To prove that the algorithm only creates crossing-free routings, we will examine the rules given in section~\ref{sec:AlgDesc}: All nodes that are either located directly above any nodes of the last successfully routed leader (whose path is represented by $P_{old}$) or not between the site $s_{old} \in P_{old}$ and the border vertices.
-%For a crossing to occur, both the currently routed path $(P_{new})$ and $P_{old}$ must have one or several consecutive vertices in common, before which the nodes of one were below the other, and afterwardsthe opposite is true. This leaves us with two options:
-%\begin{itemize}
-% \item $P_{new}$ crosses from below to above $P_{old}$: For this to happen, $P_{new}$ must at some point start to include vertices that were also used in $P_{old}$. While this is allowed, the routing algorithm was explicitely forbidden to use any vertices located directly above any vertices of $P_{old}$, which makes crossings impossible.
-% \item $P_{new}$ crosses from above to below $P_{old}$: While this type of crossing would be possible if $P_{new}$ managed to incorporate vertices that are above and not between $P_{old}$ and the border vertices, this requires the inclusion of nodes that are not between $s_{old}$ and the border vertices, as the currently routed leader's site $s_{new}$ is either located between $s_{old}$ and the border vertices, which wouldn't make this routing possible without violating the monotonicity constraint, or below $s_{old}$. Since the inclusion of these nodes was also explicitely forbidden, this type of crossing is impossible as well.
-%\end{itemize}
-%Therefore, the algorithm only produces crossing-free routings.
+
+\change{For the next part, we first need to define what we consider a \emph{highest legal path}: A \emph{legal path} is one that satisfies both the constraints of monotonicity and being crossing-free, whereas a \emph{highest path} reaches the highest possible border vertex reachable from a given source.} 
+
 \begin{lemma}
-	Our algorithm only returns a highest legal path - that is a path that's both monotonically increasing and crossing-free, ends at the highest possible border vertex $b_{high} \in B$ reachable from a given source $s$.
+	Our algorithm only returns a highest legal path.
 	\label{lem:High}
 \end{lemma}
 \begin{proof}
-	The first two criteria are given, due to the algorithm only returns monotonically increasing paths, and Lemma~\ref{lem:CrosFree}. To show that there are no reachable border vertices above $b_{high}$, we will assume there exists a vertex $b_{top} \in B$ that is located above $b_{high}$ and legally reachable via the path $P_{top}$. As the algorithm prioritizes routing to vertices directly above, the only way for the path to $b_{high}$ to reach higher vertices than $P_{top}$ would be that either $P_{top}$ would generate crossings with previously routed leaders or violate the the monotonicity constraint, which both render $P_{top}$ illegal. Since we also cannot include more than one border vertex in our path, we conclude that $b_{top}$ cannot exist.
+	The legality of any generated path is given, due to the algorithm only returning monotonically increasing paths, and Lemma~\ref{lem:CrosFree}. To show that there are no reachable border vertices above the path's highest reachable border vertex $b_{high}$, we will assume there exists a vertex $b_{top} \in B$ that is located above $b_{high}$ and legally reachable via the path $P_{top}$. As the algorithm prioritizes routing to vertices directly above, the only way for the path to $b_{top}$ to reach higher vertices than $b_{high}$ would be that either $P_{top}$ would generate crossings with previously routed leaders or violate the the monotonicity constraint, which both render $P_{top}$ illegal. Since we also cannot include more than one border vertex in our path, we conclude that such a path cannot exist.
 \end{proof}
 
 \begin{theorem}
-	The routing problem  can be solved in $O(n^2)$ for all sources.
+	The routing problem can be solved with a worst-case time complexity of $O(n^2)$ for all sources.
 \end{theorem}
 \begin{proof}
 	As part of the proof for Lemma~\ref{lem:GraphCreat}, we have shown that the total number of vertices $|V|$ is in $O(n)$. Since $S \subset V$, $|S|$ must too be in $O(n)$. 
