@@ -353,19 +353,23 @@ For a representation of the graph-generation algorithm in pseudocode, see Alg.~\
 \end{proof}
 
 
-
-
-%First, we create the graph that will be used for the routing part of the algorithm. To achieve this, we go through the annotated text word by word in reading order, and measure the length $le(w_i)$ of each word $w_i$ that is not part of an annotation to determine its placement in the text.  At this point, we can also assign a line $l_j$ to it. Afterwards, we create new vertices above and below the whitespace characters $h_k, h_{k+1}$ preceding and succeeding $w_i$. These vertices are located in the space $s_j, s_{j+1}$ between the word's line and its surrounding lines $l_{j-1}$ and $l_{j+1}$, as described in the previous section. Whenever an annotation is encountered, a single vertex is added above the last non-annotation word in $s_j$ at $pos(h_k)+le(w_i)/2$.
-%For a representation of this process in pseudocode, see Alg.~\ref{alg:GraphCreation}.
-%To create leaders that exclusively use the space not taken up by a word's bounding rectangle, we decided to use a graph similar to the one Loose \cite{Loose2015} used.
-%As each vertex represents a physical location, they will have co-ordinates associated with them, and the vertices representing the sites will hold additional information regarding its leader and label. 
-%The graph is constructed by placing vertices between the lines, located next to each corner of a word's bounding rectangle, with two consecutive words in a line sharing the two vertices associated with their adjacent corners. 
-%For the sites, we inserted an additional vertex above the center of the word, which will serve as the leader's starting point. After placing all vertices, we created edges between each vertex and the closest horizontal neighbour to both sides, and between nodes that are located exactly above or below each other, and exactly one line apart. (For a representation in Pseudocode, see Alg.~\ref{alg:GraphCreation})
-
-
 \chapter{Implementation}
-The program was written in Java 1.8.0u40, using JGraphT1.0.1\cite{JGraphT} as graph library. Since we only want to create leaders that don't intersect with the text, the graph was created alongside the placement of the words on the canvas.%, as it was easy to extract measurements at this point. Due to some problems with Java's various methods of calculating linebreaks, this process was done completely by hand.
+The program was written in Java 1.8.0u40, using JGraphT 1.0.1\cite{JGraphT} as graph library. No other external libraries were used.
+The program itself can be found at~\cite{Program}.
+
+\section{Architecture}
+ Most of the calculations are done side-by-side with the visualization, as the position of each word is both used in the creation of the routing graph and when displaying the final result. The routing itself is done separately from this process in its own class, as the finished routing graph suffices here. This allows for different  routing algorithms to be implemented separately. %Since we only want to create leaders that don't intersect with the text, the graph was created alongside the placement of the words on the canvas.%, as it was easy to extract measurements at this point. Due to some problems with Java's various methods of calculating linebreaks, this process was done completely by hand.
+\section{GUI}
+
+%TODO: Screenshot nehmen und beschriften!
+
 \section{Challenges}
+
+Displaying the text on-screen without losing the position of the whitespace characters turned out to be harder than expected. While Java offers a class that divides any string of characters in separate lines, the resulting object doesn't allow for the line's text to be extracted again, which makes it unusable for our purposes. This problem was solved by placing each word manually on the screen. For simplicity's sake, we only allowed line breaks between words.
+
+Another issue was the visualization of the routing graph and the leaders. While JGraphT offers ways to display graphs, it wasn't possible to influence the placement of individual nodes. Our solution was forgoing these options and drawing the graph manually, assigning coordinates to each vertex when created. Vertices are represented by small rectangles, whereas edges are represented with straight lines. To avoid confusion between crossing leaders and leaders that incorporate the same vertex in their path, but curve away from each other, all leaders are drawn with rounded edges.
+
+\section{Workflow}%<--What do I put here?
 
 %As the Graph's vertices represent fixed locations on the canvas, they each have coordinates associated with them, with the vertices representing the sites containing extra information, such as references to the corresponding annotation and to the leader connecting the two (if existent).
 %The additional information stored in the vertices is used for both routing and drawing the leaders: The routing was done via a depth-first search algorithm that prioritized vertices located further up if possible, and vertices to the right otherwise. After the algorithm terminates, it returns  a vertex-based graph walk describing the route from the site to the border of the text area alongside information about where to draw the OPO-segment in the buffer zone if successful, or a walk containing only the starting vertex, if no valid path was found. Using this information alongside the positional data stored in the vertices, the polyline representing the leader can be drawn.
