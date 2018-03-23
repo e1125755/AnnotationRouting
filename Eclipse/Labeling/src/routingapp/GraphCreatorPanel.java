@@ -404,8 +404,9 @@ public class GraphCreatorPanel extends JComponent {
 	/**
 	 * Creates an instance of the requested routing type, if supported.
 	 * Currently recognized routing types are:
-	 * 		Greedy/Topmost			-		A greedy routing with backtracking, aiming to place the label as high up as possible. Can only place labels separately.
-	 * 		Greedy/Topmost (2-Pass)	-		Variation on the above, it will adjust all annotation's positions after finding a  place to move them closer to where the routing ends its path through the text. 
+	 * 		Greedy/Topmost				-		A greedy routing with backtracking, aiming to place the label as high up as possible. Can only place labels separately.
+	 * 		Greedy/Topmost (OPO-Leader)	-		Same as above, except it  will use OPO-Leaders to connect to the label instead of S-Leaders.  
+	 * 		Greedy/Topmost (2-Pass)		-		Variation on the above, it will adjust all annotation's positions after finding a  place to move them closer to where the routing ends its path through the text. 
 	 * @param routingType The parameter determining the type of routing that will be used.
 	 * @return
 	 * @throws
@@ -505,6 +506,9 @@ public class GraphCreatorPanel extends JComponent {
 			GraphTuple nextTuple=it.next();
 			GraphTuple currentTuple=nextTuple;
 			GraphTuple oldTuple=currentTuple;
+			
+			GraphTuple temp=info.getSource();
+			g.fillRect(temp.getX()-2,temp.getY()-2,4,4);
 			
 			GeneralPath route=new GeneralPath();
 			route.moveTo(nextTuple.getX(), nextTuple.getY());

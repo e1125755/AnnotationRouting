@@ -361,7 +361,18 @@ The program itself can be found at~\cite{Program}.
  Most of the calculations are done side-by-side with the visualization, as the position of each word is both used in the creation of the routing graph and when displaying the final result. The routing itself is done separately from this process in its own class, as the finished routing graph suffices here. This allows for different  routing algorithms to be implemented separately. %Since we only want to create leaders that don't intersect with the text, the graph was created alongside the placement of the words on the canvas.%, as it was easy to extract measurements at this point. Due to some problems with Java's various methods of calculating linebreaks, this process was done completely by hand.
 \section{GUI}
 
-%TODO: Screenshot nehmen und beschriften!
+The GUI of the program is very simplistic, as the main goal was to demonstrate the routing algorithm. As such, all customization options are located on the control panel above the drawing area, which contains the text, leaders and annotations. (See also Fig.~\ref{fig:ProgWindow})
+
+The control panel's first three options determine the font the program uses, whether it is bold or italicized and its size. The fourth and last option allows the selection of different routing algorithms. After changing any value, the program will automatically redraw the drawing area's contents, and re-do the routing.
+
+The drawing area itself can't be interacted with, it only serves to display the algorithm's results.
+\begin{figure}
+	\captionsetup{justification=centering, margin=0.75cm}
+	\centering
+	\includegraphics[scale=0.75]{ProgramWindowAnnotated.png}
+	\caption{<test>}
+	\label{fig:ProgWindow}
+\end{figure}
 
 \section{Challenges}
 

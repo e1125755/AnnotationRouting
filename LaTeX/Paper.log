@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  22 MAR 2018 18:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  23 MAR 2018 17:39
 entering extended mode
 **./Paper.tex
 (Paper.tex
@@ -1499,17 +1499,28 @@ File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [7 <./Ceiling.png>] [8] [9] [10] [11
+ [7 <./Ceiling.png>] [8] [9] [10]
+<ProgramWindowAnnotated.png, id=91, 557.08125pt x 465.23813pt>
+File: ProgramWindowAnnotated.png Graphic file (type png)
 
-] [12] [13
+<use ProgramWindowAnnotated.png>
+Package pdftex.def Info: ProgramWindowAnnotated.png used on input line 372.
+(pdftex.def)             Requested size: 417.80992pt x 348.92773pt.
 
-] [14
+Underfull \vbox (badness 1931) has occurred while \output is active []
+
+ [11
+
+]
+[12 <./ProgramWindowAnnotated.png>] [13] [14
 
 ] [15] [16
 
+] [17] [18
+
 ] (Paper.bbl
 bibitemlist
-) [17
+) [19
 
 ]
 \tf@toc=\write4
@@ -1517,10 +1528,10 @@ bibitemlist
 
  (Paper.aux) ) 
 Here is how much of TeX's memory you used:
- 12191 strings out of 493634
- 184144 string characters out of 3135239
- 310619 words of memory out of 3000000
- 15330 multiletter control sequences out of 15000+200000
+ 12197 strings out of 493634
+ 184309 string characters out of 3135239
+ 310642 words of memory out of 3000000
+ 15335 multiletter control sequences out of 15000+200000
  102018 words of font info for 84 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  55i,18n,92p,1394b,637s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1548,9 +1559,9 @@ Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pf
 b><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uh
 vb8a.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helv
 etic/uhvr8a.pfb>
-Output written on Paper.pdf (23 pages, 398578 bytes).
+Output written on Paper.pdf (25 pages, 465040 bytes).
 PDF statistics:
- 172 PDF objects out of 1000 (max. 8388607)
+ 181 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
