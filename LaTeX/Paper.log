@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  23 MAR 2018 17:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  24 MAR 2018 15:42
 entering extended mode
 **./Paper.tex
 (Paper.tex
@@ -1504,7 +1504,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: ProgramWindowAnnotated.png Graphic file (type png)
 
 <use ProgramWindowAnnotated.png>
-Package pdftex.def Info: ProgramWindowAnnotated.png used on input line 372.
+Package pdftex.def Info: ProgramWindowAnnotated.png used on input line 376.
 (pdftex.def)             Requested size: 417.80992pt x 348.92773pt.
 
 Underfull \vbox (badness 1931) has occurred while \output is active []
@@ -1528,10 +1528,10 @@ bibitemlist
 
  (Paper.aux) ) 
 Here is how much of TeX's memory you used:
- 12197 strings out of 493634
- 184309 string characters out of 3135239
- 310642 words of memory out of 3000000
- 15335 multiletter control sequences out of 15000+200000
+ 12198 strings out of 493634
+ 184318 string characters out of 3135239
+ 310685 words of memory out of 3000000
+ 15336 multiletter control sequences out of 15000+200000
  102018 words of font info for 84 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  55i,18n,92p,1394b,637s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1559,7 +1559,7 @@ Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pf
 b><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uh
 vb8a.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helv
 etic/uhvr8a.pfb>
-Output written on Paper.pdf (25 pages, 465040 bytes).
+Output written on Paper.pdf (25 pages, 466057 bytes).
 PDF statistics:
  181 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
