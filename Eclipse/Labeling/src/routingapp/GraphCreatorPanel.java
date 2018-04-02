@@ -24,8 +24,11 @@ import org.jgrapht.graph.ListenableUndirectedWeightedGraph;
 
 public class GraphCreatorPanel extends JComponent {
 
-	private String text=
-			"Dies ist ein Typoblindtext.\\note{This is an annotation} An ihm kann man sehen, ob alle Buchstaben da sind und wie sie aussehen. " +
+	private TextGenerator gen=new TextGenerator(0);//<--Change value to change the seed
+	private String text=gen.generateUniformText((short)10, /*(short)2,*/ 200);
+			
+			
+			/*"Dies ist ein Typoblindtext.\\note{This is an annotation} An ihm kann man sehen, ob alle Buchstaben da sind und wie sie aussehen. " +
 					"Manchmal benutzt man Worte wie Hamburgefonts, Rafgenduks\\note{This too} oder Handgloves, um\\note{This is an annotation with long words, like supercalifragilisticexpiralidocious} "+
 					"Schriften\\note{Source: http://www.blindtextgenerator.de/} zu testen. " +
 					"Manchmal Sätze, die alle Buchstaben des Alphabets enthalten - man nennt diese Sätze »Pangrams«. " +
