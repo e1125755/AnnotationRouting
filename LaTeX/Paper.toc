@@ -2,23 +2,25 @@
 \select@language {english}
 \select@language {naustrian}
 \select@language {english}
-\contentsline {chapter}{Contents}{v}
-\contentsline {chapter}{\chapternumberline {1}Introduction}{1}
-\contentsline {section}{\numberline {1.1}Terminology and Fundamentals}{1}
-\contentsline {section}{\numberline {1.2}Related Work}{3}
-\contentsline {chapter}{\chapternumberline {2}The Algorithm}{5}
-\contentsline {section}{\numberline {2.1}Problem Specification}{5}
-\contentsline {section}{\numberline {2.2}Description}{7}
-\contentsline {section}{\numberline {2.3}Analysis and Proof}{8}
-\contentsline {chapter}{\chapternumberline {3}Implementation}{11}
-\contentsline {section}{\numberline {3.1}Architecture}{11}
-\contentsline {section}{\numberline {3.2}GUI}{11}
-\contentsline {section}{\numberline {3.3}Challenges}{12}
-\contentsline {section}{\numberline {3.4}Workflow}{13}
-\contentsline {chapter}{\chapternumberline {4}Evaluation and Testing}{15}
-\contentsline {section}{\numberline {4.1}Data generation}{15}
-\contentsline {section}{\numberline {4.2}Testing methods}{15}
-\contentsline {section}{\numberline {4.3}Results}{15}
-\contentsline {chapter}{\chapternumberline {5}Conclusion}{17}
-\contentsline {section}{\numberline {5.1}Further notes}{17}
-\contentsline {chapter}{Bibliography}{19}
+\contentsline {chapter}{Contents}{v}{section*.2}
+\contentsline {chapter}{\chapternumberline {1}Introduction}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Terminology and Fundamentals}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Related Work}{3}{section.1.2}
+\contentsline {chapter}{\chapternumberline {2}The Algorithm}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}Problem Specification}{5}{section.2.1}
+\contentsline {section}{\numberline {2.2}Description}{7}{section.2.2}
+\contentsline {section}{\numberline {2.3}Analysis and Proof}{8}{section.2.3}
+\contentsline {chapter}{\chapternumberline {3}Implementation}{11}{chapter.3}
+\contentsline {section}{\numberline {3.1}Architecture}{11}{section.3.1}
+\contentsline {section}{\numberline {3.2}GUI}{11}{section.3.2}
+\contentsline {section}{\numberline {3.3}Drawing Area}{12}{section.3.3}
+\contentsline {section}{\numberline {3.4}Routing Algorithm}{12}{section.3.4}
+\contentsline {section}{\numberline {3.5}Challenges}{13}{section.3.5}
+\contentsline {section}{\numberline {3.6}Workflow}{13}{section.3.6}
+\contentsline {chapter}{\chapternumberline {4}Evaluation and Testing}{15}{chapter.4}
+\contentsline {section}{\numberline {4.1}Data generation}{15}{section.4.1}
+\contentsline {section}{\numberline {4.2}Testing methods}{15}{section.4.2}
+\contentsline {section}{\numberline {4.3}Results}{15}{section.4.3}
+\contentsline {chapter}{\chapternumberline {5}Conclusion}{17}{chapter.5}
+\contentsline {section}{\numberline {5.1}Further notes}{17}{section.5.1}
+\contentsline {chapter}{Bibliography}{19}{section*.10}

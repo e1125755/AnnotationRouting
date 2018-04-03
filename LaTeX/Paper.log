@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  24 MAR 2018 15:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  3 APR 2018 16:30
 entering extended mode
 **./Paper.tex
 (Paper.tex
@@ -1234,31 +1234,158 @@ Package: amsthm 2015/03/04 v2.20.2
 \thm@headsep=\skip292
 \dth@everypar=\toks40
 )
-\c@lemma=\count193
-\c@theorem=\count194
+("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\hyperref.
+sty"
+Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
+
+("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\hobsub-
+hyperref.sty"
+Package: hobsub-hyperref 2012/04/25 v1.12 Bundle oberdiek, subset hyperref (HO)
+
+
+("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\hobsub-
+generic.sty"
+Package: hobsub-generic 2012/04/25 v1.12 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2012/04/25 v1.12 Construct package bundles (HO)
+Package hobsub Info: Skipping package `infwarerr' (already loaded).
+Package hobsub Info: Skipping package `ltxcmds' (already loaded).
+Package hobsub Info: Skipping package `ifluatex' (already loaded).
+Package hobsub Info: Skipping package `ifvtex' (already loaded).
+Package: intcalc 2007/09/27 v1.1 Expandable calculations with integers (HO)
+Package hobsub Info: Skipping package `ifpdf' (already loaded).
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+Package: pdfescape 2011/11/25 v1.13 Implements pdfTeX's escape features (HO)
+Package: bigintcalc 2012/04/08 v1.3 Expandable calculations on big integers (HO
+)
+Package: bitset 2011/01/30 v1.1 Handle bit-vector datatype (HO)
+Package: uniquecounter 2011/01/30 v1.2 Provide unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2010/09/02 v1.4 Let assignment for LaTeX macros (HO)
+Package: hopatch 2011/06/24 v1.1 Wrapper for package hooks (HO)
+Package: xcolor-patch 2011/01/30 xcolor patch
+Package: atveryend 2011/06/30 v1.8 Hooks at the very end of document (HO)
+Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
+Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
+Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
+)
+("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\auxhook.s
+ty"
+Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
+)
+("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\kvoptions
+.sty"
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+)
+\@linkdim=\dimen189
+\Hy@linkcounter=\count193
+\Hy@pagecounter=\count194
+
+("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\pd1enc.de
+f"
+File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+\Hy@SavedSpaceFactor=\count266
+
+("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\00miktex\hyperref.
+cfg"
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Option `hyperfootnotes' set `false' on input line 4319.
+Package hyperref Info: Hyper figures OFF on input line 4443.
+Package hyperref Info: Link nesting OFF on input line 4448.
+Package hyperref Info: Hyper index ON on input line 4451.
+Package hyperref Info: Plain pages OFF on input line 4458.
+Package hyperref Info: Backreferencing OFF on input line 4463.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4688.
+\c@Hy@tempcnt=\count267
+ ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\url\url.sty"
+\Urlmuskip=\muskip11
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 5041.
+\XeTeXLinkMargin=\dimen190
+\Fld@menulength=\count268
+\Field@Width=\dimen191
+\Fld@charsize=\dimen192
+Package hyperref Info: Hyper figures OFF on input line 6295.
+Package hyperref Info: Link nesting OFF on input line 6300.
+Package hyperref Info: Hyper index ON on input line 6303.
+Package hyperref Info: backreferencing OFF on input line 6310.
+Package hyperref Info: Link coloring OFF on input line 6315.
+Package hyperref Info: Link coloring with OCG OFF on input line 6320.
+Package hyperref Info: PDF/A mode OFF on input line 6325.
+LaTeX Info: Redefining \ref on input line 6365.
+LaTeX Info: Redefining \pageref on input line 6369.
+\Hy@abspage=\count269
+\c@Item=\count270
+)
+("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\memoir\memhfixc.st
+y"
+Package: memhfixc 2013/05/30 v1.17 nameref/hyperref package fixes for memoir cl
+ass
+\c@memhycontfloat=\count271
+)
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+
+("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\hpdftex.d
+ef"
+File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
+\Fld@listcount=\count272
+\c@bookmark@seq@number=\count273
+
+("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\rerunfile
+check.sty"
+Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+82.
+)
+\Hy@SectionHShift=\skip293
+)
+\c@lemma=\count274
+\c@theorem=\count275
  (Paper.aux)
 \openout1 = `Paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 37.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 37.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 38.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 38.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 37.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 38.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -1301,20 +1428,44 @@ File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\supp-pdf.mk
 ii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count266
-\scratchdimen=\dimen189
+\scratchcounter=\count276
+\scratchdimen=\dimen193
 \scratchbox=\box39
-\nofMPsegments=\count267
-\nofMParguments=\count268
+\nofMPsegments=\count277
+\nofMParguments=\count278
 \everyMPshowfont=\toks41
-\MPscratchCnt=\count269
-\MPscratchDim=\dimen190
-\MPnumerator=\count270
-\makeMPintoPDFobject=\count271
+\MPscratchCnt=\count279
+\MPscratchDim=\dimen194
+\MPnumerator=\count280
+\makeMPintoPDFobject=\count281
 \everyMPtoPDFconversion=\toks42
 )
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
+\AtBeginShipoutBox=\box40
+Package hyperref Info: Link coloring OFF on input line 38.
+
+("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\nameref.s
+ty"
+Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
+
+("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\gettitl
+estring.sty"
+Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
+)
+\c@section@level=\count282
+)
+Redoing nameref's sectioning
+Redoing nameref's label
+LaTeX Info: Redefining \nameref on input line 38.
+LaTeX Info: Redefining \ref on input line 38.
+LaTeX Info: Redefining \pageref on input line 38.
+LaTeX Info: Redefining \nameref on input line 38.
+(Paper.out) (Paper.out)
+\@outlinefile=\write4
+\openout4 = `Paper.out'.
+
 *geometry* verbose mode - [ newgeometry ] result:
 * driver: pdftex
 * paper: a4paper
@@ -1347,104 +1498,105 @@ Package caption Info: End \AtBeginDocument code.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Try loading font information for T1+lmss on input line 41.
- ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\t1lmss.fd"
+LaTeX Font Info:    Try loading font information for T1+lmss on input line 42.
+
+("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\t1lmss.fd"
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for T1+phv on input line 41.
+LaTeX Font Info:    Try loading font information for T1+phv on input line 42.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\t1phv.fd"
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 10.40245pt on input line 41.
+(Font)              scaled to size 10.40245pt on input line 42.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 28.49991pt on input line 41.
+(Font)              scaled to size 28.49991pt on input line 42.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <30> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 41.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 42.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 28.49991pt on input line 41.
+(Font)              scaled to size 28.49991pt on input line 42.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 18.99994pt on input line 41.
+(Font)              scaled to size 18.99994pt on input line 42.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <20> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 41.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 42.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 18.99994pt on input line 41.
+(Font)              scaled to size 18.99994pt on input line 42.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 16.14995pt on input line 41.
+(Font)              scaled to size 16.14995pt on input line 42.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 11.39996pt on input line 41.
+(Font)              scaled to size 11.39996pt on input line 42.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <17> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 41.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 42.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 16.14995pt on input line 41.
+(Font)              scaled to size 16.14995pt on input line 42.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 13.29996pt on input line 41.
+(Font)              scaled to size 13.29996pt on input line 42.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 41.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 42.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 13.29996pt on input line 41.
+(Font)              scaled to size 13.29996pt on input line 42.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 10.44997pt on input line 41.
-LaTeX Font Info:    Calculating math sizes for size <11> on input line 41.
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 41.
+(Font)              scaled to size 10.44997pt on input line 42.
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 42.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 42.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 41.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 42.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\omllmm.fd"
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 41.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 42.
 
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\omslmsy.fd"
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 41.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 42.
 
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\omxlmex.fd"
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <11> on input line 41.
+(Font)              <11> on input line 42.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7.69997> on input line 41.
+(Font)              <7.69997> on input line 42.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5.5> on input line 41.
-LaTeX Font Info:    Try loading font information for U+msa on input line 41.
+(Font)              <5.5> on input line 42.
+LaTeX Font Info:    Try loading font information for U+msa on input line 42.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 41.
+LaTeX Font Info:    Try loading font information for U+msb on input line 42.
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.31494pt on input line 41.
-<graphics/TU_INF_header.pdf, id=1, 512.91624pt x 47.17625pt>
+(Font)              scaled to size 7.31494pt on input line 42.
+<graphics/TU_INF_header.pdf, id=91, 512.91624pt x 47.17625pt>
 File: graphics/TU_INF_header.pdf Graphic file (type pdf)
 
 <use graphics/TU_INF_header.pdf>
-Package pdftex.def Info: graphics/TU_INF_header.pdf used on input line 41.
+Package pdftex.def Info: graphics/TU_INF_header.pdf used on input line 42.
 (pdftex.def)             Requested size: 512.915pt x 47.17612pt.
 
-<graphics/TU_INF_Logo_gray.pdf, id=2, 171.64125pt x 46.1725pt>
+<graphics/TU_INF_Logo_gray.pdf, id=92, 171.64125pt x 46.1725pt>
 File: graphics/TU_INF_Logo_gray.pdf Graphic file (type pdf)
 
 <use graphics/TU_INF_Logo_gray.pdf>
-Package pdftex.def Info: graphics/TU_INF_Logo_gray.pdf used on input line 41.
+Package pdftex.def Info: graphics/TU_INF_Logo_gray.pdf used on input line 42.
 (pdftex.def)             Requested size: 171.64081pt x 46.17236pt.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 41.
+(Font)              <10.95> on input line 42.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 41.
+(Font)              <8> on input line 42.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 41.
+(Font)              <6> on input line 42.
  [1
 
 
@@ -1452,47 +1604,65 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 {C:/Users/Jakob/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./graphics/
 TU_INF_header.pdf> <./graphics/TU_INF_Logo_gray.pdf>] [2
 
-] [3
+]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 43.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 43.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 43.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 43.
+ [3
 
 
-] [4
+]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 43.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 43.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 43.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 43.
+ [4
 
 ] (Paper.toc) [5] [6
 
 ] [1
 
 ]
-<GraphTerminologyExtended.png, id=43, 410.2828pt x 165.61874pt>
+<GraphTerminologyExtended.png, id=165, 410.2828pt x 165.61874pt>
 File: GraphTerminologyExtended.png Graphic file (type png)
 
 <use GraphTerminologyExtended.png>
-Package pdftex.def Info: GraphTerminologyExtended.png used on input line 85.
+Package pdftex.def Info: GraphTerminologyExtended.png used on input line 86.
 (pdftex.def)             Requested size: 389.76645pt x 157.3369pt.
 
 Underfull \vbox (badness 1521) has occurred while \output is active []
 
  [2 <./GraphTerminologyExtended.png>] [3] [4]
-<WordBoundaries.png, id=62, 301.125pt x 131.74219pt>
+<WordBoundaries.png, id=203, 301.125pt x 131.74219pt>
 File: WordBoundaries.png Graphic file (type png)
  <use WordBoundaries.png>
-Package pdftex.def Info: WordBoundaries.png used on input line 138.
+Package pdftex.def Info: WordBoundaries.png used on input line 139.
 (pdftex.def)             Requested size: 301.12425pt x 131.74185pt.
 
-<RoutingGraph_edited.png, id=63, 301.125pt x 134.75343pt>
+<RoutingGraph_edited.png, id=204, 301.125pt x 134.75343pt>
 File: RoutingGraph_edited.png Graphic file (type png)
 
 <use RoutingGraph_edited.png>
-Package pdftex.def Info: RoutingGraph_edited.png used on input line 145.
+Package pdftex.def Info: RoutingGraph_edited.png used on input line 146.
 (pdftex.def)             Requested size: 301.12425pt x 134.7531pt.
  [5
 
-] [6 <./WordBoundaries.png> <./RoutingGraph_edited.png>] <Ceiling.png, id=73, 2
-63.48438pt x 112.92188pt>
+] [6 <./WordBoundaries.png> <./RoutingGraph_edited.png>] <Ceiling.png, id=217, 
+263.48438pt x 112.92188pt>
 File: Ceiling.png Graphic file (type png)
  <use Ceiling.png>
-Package pdftex.def Info: Ceiling.png used on input line 168.
+Package pdftex.def Info: Ceiling.png used on input line 169.
 (pdftex.def)             Requested size: 263.48372pt x 112.92159pt.
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 221.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 222.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\t1pcr.fd"
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
@@ -1500,19 +1670,21 @@ File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [7 <./Ceiling.png>] [8] [9] [10]
-<ProgramWindowAnnotated.png, id=91, 557.08125pt x 465.23813pt>
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 339.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 339.
+
+<ProgramWindowAnnotated.png, id=307, 557.08125pt x 465.23813pt>
 File: ProgramWindowAnnotated.png Graphic file (type png)
 
 <use ProgramWindowAnnotated.png>
-Package pdftex.def Info: ProgramWindowAnnotated.png used on input line 376.
+Package pdftex.def Info: ProgramWindowAnnotated.png used on input line 356.
 (pdftex.def)             Requested size: 417.80992pt x 348.92773pt.
-
-Underfull \vbox (badness 1931) has occurred while \output is active []
-
  [11
 
-]
-[12 <./ProgramWindowAnnotated.png>] [13] [14
+] [12 <./ProgramWindowAnnotated.png>]
+[13] [14
 
 ] [15] [16
 
@@ -1523,45 +1695,53 @@ bibitemlist
 ) [19
 
 ]
-\tf@toc=\write4
-\openout4 = `Paper.toc'.
+\tf@toc=\write5
+\openout5 = `Paper.toc'.
 
- (Paper.aux) ) 
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 420.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 420.
+ (Paper.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 420.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 420.
+Package rerunfilecheck Info: File `Paper.out' has not changed.
+(rerunfilecheck)             Checksum: 13318EB5D3DDB21B19BDF47E4CBF2AD9;1266.
+ ) 
 Here is how much of TeX's memory you used:
- 12198 strings out of 493634
- 184318 string characters out of 3135239
- 310685 words of memory out of 3000000
- 15336 multiletter control sequences out of 15000+200000
- 102018 words of font info for 84 fonts, out of 3000000 for 9000
+ 15968 strings out of 493634
+ 242903 string characters out of 3135239
+ 398172 words of memory out of 3000000
+ 18926 multiletter control sequences out of 15000+200000
+ 119629 words of font info for 99 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 55i,18n,92p,1394b,637s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips
-/fontname/8r.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dv
-ips/lm/lm-ec.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dv
-ips/lm/lm-mathsy.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/en
-c/dvips/lm/lm-mathit.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/font
-s/enc/dvips/lm/lm-rm.enc}<C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/font
-s/type1/public/lm/lmbx10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/
-fonts/type1/public/lm/lmbx12.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 
-2.9/fonts/type1/public/lm/lmbx8.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKT
-eX 2.9/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/Jakob/AppData/Local/Programs
-/MiKTeX 2.9/fonts/type1/public/lm/lmmi10.pfb><C:/Users/Jakob/AppData/Local/Prog
-rams/MiKTeX 2.9/fonts/type1/public/lm/lmmi8.pfb><C:/Users/Jakob/AppData/Local/P
-rograms/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Users/Jakob/AppData/Loca
-l/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb><C:/Users/Jakob/AppData/L
-ocal/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr8.pfb><C:/Users/Jakob/AppData
-/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmri10.pfb><C:/Users/Jakob/App
-Data/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmss10.pfb><C:/Users/Jakob
-/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmss12.pfb><C:/Users/J
-akob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Use
-rs/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmsy8.pfb><C:/
-Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pf
-b><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uh
-vb8a.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helv
-etic/uhvr8a.pfb>
-Output written on Paper.pdf (25 pages, 466057 bytes).
+ 55i,18n,92p,1394b,702s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.en
+c}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/fontname/8r
+.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ma
+thsy.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/l
+m-mathit.enc}{C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/
+lm/lm-rm.enc}<C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
+ic/lm/lmbx10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
+public/lm/lmbx12.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
+pe1/public/lm/lmbx8.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts
+/type1/public/lm/lmcsc10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/
+fonts/type1/public/lm/lmmi10.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKTeX 
+2.9/fonts/type1/public/lm/lmmi8.pfb><C:/Users/Jakob/AppData/Local/Programs/MiKT
+eX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Users/Jakob/AppData/Local/Programs/M
+iKTeX 2.9/fonts/type1/public/lm/lmr17.pfb><C:/Users/Jakob/AppData/Local/Program
+s/MiKTeX 2.9/fonts/type1/public/lm/lmr6.pfb><C:/Users/Jakob/AppData/Local/Progr
+ams/MiKTeX 2.9/fonts/type1/public/lm/lmr8.pfb><C:/Users/Jakob/AppData/Local/Pro
+grams/MiKTeX 2.9/fonts/type1/public/lm/lmri10.pfb><C:/Users/Jakob/AppData/Local
+/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmss10.pfb><C:/Users/Jakob/AppData/L
+ocal/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmss12.pfb><C:/Users/Jakob/AppDa
+ta/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Users/Jakob/A
+ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmsy8.pfb><C:/Users/Jako
+b/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/User
+s/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><
+C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8
+a.pfb>
+Output written on Paper.pdf (25 pages, 512327 bytes).
 PDF statistics:
- 181 PDF objects out of 1000 (max. 8388607)
- 0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 444 PDF objects out of 1000 (max. 8388607)
+ 126 named destinations out of 1000 (max. 500000)
+ 212 words of extra memory for PDF output out of 10000 (max. 10000000)
 
