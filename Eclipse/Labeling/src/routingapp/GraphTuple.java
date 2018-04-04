@@ -14,18 +14,18 @@ public class GraphTuple{
 	private Annotation annotation;
 	private RouteInfo routeinfo;
 	
-	public GraphTuple(int e1, int e2)
+	public GraphTuple(int xpos, int ypos)
 	{
-		x=e1;
-		y=e2;
+		x=xpos;
+		y=ypos;
 		name="Tuple";
 		annotation=null;
 		routeinfo=null;
 	}
-	public GraphTuple(String nm, int e1, int e2)
+	public GraphTuple(String name, int xpos, int ypos)
 	{
-		this(e1,e2);
-		name=nm;
+		this(xpos,ypos);
+		this.name=name;
 	}
 	
 	public void setAnnotation(Annotation ann)

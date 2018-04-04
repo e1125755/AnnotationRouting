@@ -23,12 +23,24 @@ import org.jgrapht.graph.GraphWalk;
 import org.jgrapht.graph.ListenableUndirectedWeightedGraph;
 
 public class GraphCreatorPanel extends JComponent {
+	
+	//DEBUG VALUES
+	private boolean testMode=true;//Toggles whether the program is in testing mode. If true, visualization is turned off, and multiple texts will be generated and routed. Overrides all other debug values.
+	private boolean showWordBoundaries=false;//Draws rectangles around detected word boundaries in main text, if set to true
+	private boolean showGraphGrid=false;//Draws the whole routing Graph 
+	private boolean hideLeaders=false; //Hides the leaders and unsuccessfully routed nodes, if some other feature needs to be inspected visually
+	private boolean hideText=false;//Disables drawing the text on-screen.
+	//DEBUG VALUES END
 
-	private TextGenerator gen=new TextGenerator(0);//<--Change value to change the seed
-	private String text=gen.generateUniformText((short)10, /*(short)2,*/ 200);
-			
-			
-			/*"Dies ist ein Typoblindtext.\\note{This is an annotation} An ihm kann man sehen, ob alle Buchstaben da sind und wie sie aussehen. " +
+	private TextGenerator gen=new TextGenerator(0);//<--Temporary value, will be changed before usage.
+	private int numberOfTests=100, textLength=200;
+	private int annMean=7, annSTDDevi=10; //Values for mean and standard deviation for normally distributed annotations. annMean is also used for uniformly distributed annotations.
+	private String textType="noramal"/**//*uniform"/**/;//Changes which type of text is used in the tests. Currently recognized values are "normal" and "uniform".
+	private String testResults;
+	
+	
+	private String text=
+					"Dies ist ein Typoblindtext.\\note{This is an annotation} An ihm kann man sehen, ob alle Buchstaben da sind und wie sie aussehen. " +
 					"Manchmal benutzt man Worte wie Hamburgefonts, Rafgenduks\\note{This too} oder Handgloves, um\\note{This is an annotation with long words, like supercalifragilisticexpiralidocious} "+
 					"Schriften\\note{Source: http://www.blindtextgenerator.de/} zu testen. " +
 					"Manchmal Sätze, die alle Buchstaben des Alphabets enthalten - man nennt diese Sätze »Pangrams«. " +
@@ -43,12 +55,6 @@ public class GraphCreatorPanel extends JComponent {
 					"Je nach Software und Voreinstellungen können eingebaute\\note{Annotations might be longer than the remaining text if its text is excessively long and there's not enough space to route upwards tough} " +
 					"Kapitälchen, Kerning oder Ligaturen (sehr pfiffig) nicht richtig dargestellt werden.\\note{test test}";/**/
 	//Source: http://www.blindtextgenerator.de/
-
-	//DEBUG VALUES
-	private boolean showWordBoundaries=false;//draws rectangles around detected word boundaries in main text, if set to true
-	private boolean showGraphGrid=false;//Draws the whole routing Graph 
-	private boolean hideLeaders=false; //Hides the leaders and unsuccessfully routed nodes, if some other feature needs to be inspected visually 
-	//DEBUG VALUES END
 
 	private int width=600;
 	private int height=550;
@@ -118,206 +124,263 @@ public class GraphCreatorPanel extends JComponent {
 	}
 
 	/**
-	 * Splits the text and displays it on-screen - this is done manually, as java.awt.font.LineBreakMeasurer doesn't allow to extract the text line-by-line.
+	 * Splits the text and displays it on-screen - this is done word by word, as java.awt.font.LineBreakMeasurer doesn't allow us to extract the text line-by-line.
 	 * As it is easy to do at this point, the Graph is also constructed here. 
 	 * @param g The Graphics object used to display everything - usually provided by Java.
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
-		g.setFont(this.getFont());
-		updateMeasurements();
 		
-		g.setColor(Color.white);
-		g.fillRect(0, 0, width, height);
-		g.setColor(Color.black);
-		FontMetrics metrics = g.getFontMetrics();
-
-		//IMPORTANT: DO NOT use FontMetrics.getHeight() for the graph, FontMetrics.getAscent() plus FontMetrics.getDescent() might not equal FontMetrics.getHeight()!
-		//It is assumed that all Nodes adjacent to each other share exactly one coordinate, which would be violated for vertically adjacent coordinates if Ascent+Descent!=Height
-		int lineHeight=metrics.getAscent()+metrics.getDescent()+spaceBetweenLines;
-		int x = leftTextBorder;
-		int y = metrics.getAscent()+10;
-
-		String words[]=text.split(" ");
-		ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge> graph=new ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge>(DefaultWeightedEdge.class);
-		TreeMap<Integer, GraphTuple> upperTuples=new TreeMap<Integer, GraphTuple>();
-		TreeMap<Integer, GraphTuple> lowerTuples=new TreeMap<Integer, GraphTuple>();
-		TreeMap<Integer,TreeMap<Integer,GraphTuple>> allLines=new TreeMap<Integer,TreeMap<Integer,GraphTuple>>();
-		
-		ArrayList<Integer> lineEnds=new ArrayList<Integer>();//Saves the position at which the text ends for each line.
-
-		TreeMap<Integer,GraphTuple> annotatedTuples=new TreeMap<Integer,GraphTuple>();
-		int annNumber=0;
-		Routing router=getRouter(routingtype);
-
-		//While it is possible to have line breaks in more places than after each word, this will be ignored for ease of implementation.
-		for(int i=0;i<words.length; i++)
+		if(testMode)//Turn visualisation down as far as possible
 		{
-			if((metrics.stringWidth(words[i].split("\\\\")[0])+x)>rightTextBorder)//Four backslashes, since both the String and the Regex use '\' as escape character
+			hideLeaders=true;
+			hideText=true;
+			showGraphGrid=false;
+			showWordBoundaries=false;
+			testResults=	"Testing mode: "+textType+" distribution\n"+
+							"Text length: "+textLength+" Words.\n"+
+							"Mean: "+annMean+"\n"+
+							"Standard Deviation: "+annSTDDevi+"\n\n";
+							
+		}
+		
+		for(int repeats=0;(repeats<1)||(testMode&&(repeats<numberOfTests));repeats++)//Completely negligible, unless testMode==true
+		{
+			g.setFont(this.getFont());
+			FontMetrics metrics = g.getFontMetrics();
+			
+			updateMeasurements();
+			g.setColor(Color.white);
+			g.fillRect(0, 0, width, height);
+			g.setColor(Color.black);
+			
+			if(testMode)
 			{
-				//Add one more node-pair after the last word
-				x-=metrics.stringWidth(" ");
-				GraphTuple t1=new GraphTuple(x,y-metrics.getAscent()-spaceBetweenLines/2);
-				graph.addVertex(t1);
-				upperTuples.put(x, t1);
-
-				GraphTuple t2=new GraphTuple(x,y+metrics.getDescent()+spaceBetweenLines/2);
-				graph.addVertex(t2);
-				lowerTuples.put(x, t2);
-
-				graph.addEdge(t1,t2,new DefaultWeightedEdge());
-				
-				lineEnds.add(x);
-				
-				//Create single tuple at text border, it will be propagated downwards
-				if(allLines.isEmpty())
-				{
-					t1=new GraphTuple(rightTextBorder,y-metrics.getAscent()-spaceBetweenLines/2);
-					if(graph.addVertex(t1)==true)
-					{
-						upperTuples.put(rightTextBorder, t1);
-					}
-				}
-				
-				//Creating additional tuples after end of current line
-				Entry<Integer,GraphTuple> temp=upperTuples.higherEntry(x);
-				while(temp!=null)
-				{
-					t2=new GraphTuple(temp.getValue().getX(),y+metrics.getDescent()+spaceBetweenLines/2);
-					graph.addVertex(t2);
-					lowerTuples.put(t2.getX(), t2);
-					graph.addEdge(temp.getValue(),t2);
-						
-					temp=upperTuples.higherEntry(temp.getKey());
-				}
-
-				//Reset drawing coordinates and move lists of tuples adjacent to new line to correct labels
-				
-				allLines.put(y, upperTuples);
-				upperTuples=lowerTuples;
-				lowerTuples=new TreeMap<Integer,GraphTuple>();
-				
-				
-				x=leftTextBorder;
-				y+=lineHeight;
-			}
-
-			//detect possible annotations for current word - Only detects one annotation per word so far!
-			if(words[i].contains("\\note"))
-			{
-				String temp[]=words[i].split("\\\\");
-				//Create annotation
-				String annText="";
-				if(temp[1].contains("{")&&temp[1].contains("}"))//Currently assumes there's only one Argument 
-				{
-					annText=temp[1].substring(temp[1].indexOf('{')+1, temp[1].lastIndexOf('}'));
-				}
+				long seed=(long)(Math.random()*Long.MAX_VALUE);
+				gen.setSeed(seed);
+				testResults+="Seed "+seed+": ";
+				if(textType.equals("normal"))text=gen.generateNormalizedText(annMean, annSTDDevi, textLength);
+				else if(textType.equals("uniform"))text=gen.generateUniformText(annMean, textLength);
 				else
 				{
-					annText=temp[1].substring(temp[1].indexOf('{')+1);
-					i++;
-					while((i<words.length)&&(!words[i].contains("}")))
+					testResults+="Unknown distribution type. Test halted.";
+					g.setColor(Color.red);
+					String error[]=testResults.split("\\n");
+					for(int i=0;i<error.length; i++)
 					{
-						annText+=" "+words[i];
-						i++;
+						g.drawString(error[i], 30, 30+i*metrics.getHeight());
 					}
-					if((i>=words.length)&&(!words[i-1].contains("}")))
+					break;//TODO: Implement metrics and find a way to display them to User.
+				}
+			}
+			
+			//IMPORTANT: DO NOT use FontMetrics.getHeight() for the graph, FontMetrics.getAscent() plus FontMetrics.getDescent() might not equal FontMetrics.getHeight()!
+			//			 It is assumed that all Nodes adjacent to each other share exactly one coordinate, which would be violated for vertically adjacent coordinates if Ascent+Descent!=Height
+			int lineHeight=metrics.getAscent()+metrics.getDescent()+spaceBetweenLines;
+			int x = leftTextBorder;
+			int y = metrics.getAscent()+10;
+			
+			String words[]=text.split(" ");
+			ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge> graph=new ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge>(DefaultWeightedEdge.class);
+			TreeMap<Integer, GraphTuple> upperTuples=new TreeMap<Integer, GraphTuple>();
+			TreeMap<Integer, GraphTuple> lowerTuples=new TreeMap<Integer, GraphTuple>();
+			TreeMap<Integer,TreeMap<Integer,GraphTuple>> allLines=new TreeMap<Integer,TreeMap<Integer,GraphTuple>>();
+			
+			ArrayList<Integer> lineEnds=new ArrayList<Integer>();//Stores the position at which the text ends for each line.
+			
+			TreeMap<Integer,GraphTuple> annotatedTuples=new TreeMap<Integer,GraphTuple>();
+			int annNumber=0;
+			Routing router=getRouter(routingtype);
+			
+			//While it is possible to have line breaks in more places than after each word, this will be ignored for ease of implementation.
+			for(int i=0;i<words.length; i++)
+			{
+				if((metrics.stringWidth(words[i].split("\\\\")[0])+x)>rightTextBorder)//Four backslashes, since both the String and the Regex use '\' as escape character
+				{
+					//Add one more node-pair after the last word
+					x-=metrics.stringWidth(" ");
+					GraphTuple t1=new GraphTuple(x,y-metrics.getAscent()-spaceBetweenLines/2);
+					graph.addVertex(t1);
+					upperTuples.put(x, t1);
+
+					GraphTuple t2=new GraphTuple(x,y+metrics.getDescent()+spaceBetweenLines/2);
+					graph.addVertex(t2);
+					lowerTuples.put(x, t2);
+					
+					graph.addEdge(t1,t2,new DefaultWeightedEdge());
+					
+					lineEnds.add(x);
+					
+					//Create single tuple at text border, it will be propagated downwards
+					if(allLines.isEmpty())
 					{
-						annText="Malformed Command: "+temp[1];
-						throw new RuntimeException(annText);
-						//TODO: Replace with proper error dialog, if necessary
+						t1=new GraphTuple(rightTextBorder,y-metrics.getAscent()-spaceBetweenLines/2);
+						if(graph.addVertex(t1)==true)
+						{
+							upperTuples.put(rightTextBorder, t1);
+						}
+					}
+					
+					//Creating additional tuples after end of current line
+					Entry<Integer,GraphTuple> temp=upperTuples.higherEntry(x);
+					while(temp!=null)
+					{
+						t2=new GraphTuple(temp.getValue().getX(),y+metrics.getDescent()+spaceBetweenLines/2);
+						graph.addVertex(t2);
+						lowerTuples.put(t2.getX(), t2);
+						graph.addEdge(temp.getValue(),t2);
+					
+						temp=upperTuples.higherEntry(temp.getKey());
+					}
+					
+					//Reset drawing coordinates and move lists of tuples adjacent to new line to correct labels
+					
+					allLines.put(y, upperTuples);
+					upperTuples=lowerTuples;
+					lowerTuples=new TreeMap<Integer,GraphTuple>();
+					
+					
+					x=leftTextBorder;
+					y+=lineHeight;
+				}
+				
+				//detect possible annotations for current word - Only detects one annotation per word so far!
+				if(words[i].contains("\\note"))
+				{
+					String temp[]=words[i].split("\\\\");
+					//Create annotation
+					String annText="";
+					if(temp[1].contains("{")&&temp[1].contains("}"))//Currently assumes there's only one Argument 
+					{
+						annText=temp[1].substring(temp[1].indexOf('{')+1, temp[1].lastIndexOf('}'));
 					}
 					else
 					{
-						assert(words[i].contains("}"));
-						annText+=" "+words[i].substring(0,words[i].indexOf('}'));
+						annText=temp[1].substring(temp[1].indexOf('{')+1);
+						i++;
+						while((i<words.length)&&(!words[i].contains("}")))
+						{
+							annText+=" "+words[i];
+							i++;
+						}
+						if((i>=words.length)&&(!words[i-1].contains("}")))
+						{
+							annText="Malformed Command: "+temp[1];
+							throw new RuntimeException(annText);
+							//TODO: Replace with proper error dialog, if necessary
+						}
+						else
+						{
+							assert(words[i].contains("}"));
+							annText+=" "+words[i].substring(0,words[i].indexOf('}'));
+						}
 					}
+					
+					GraphTuple annTuple=new GraphTuple("Annotated Tuple",x+metrics.stringWidth(temp[0])/2,y-metrics.getAscent()-spaceBetweenLines/2);
+					Annotation ann=new Annotation(annText,AnnotationFont,annTuple,spaceBetweenAnnLines,annotationBorderSize);
+					annTuple.setAnnotation(ann);
+					graph.addVertex(annTuple);
+					upperTuples.put(annTuple.getX(), annTuple);
+					annotatedTuples.put(annNumber,annTuple);
+					annNumber++;
+					
+					if(!hideText)g.drawString(temp[0], x, y);
+					
+					GraphTuple t1=new GraphTuple(x-metrics.stringWidth(" ")/2,y-metrics.getAscent()-spaceBetweenLines/2);
+					graph.addVertex(t1);
+					upperTuples.put(x-metrics.stringWidth(" ")/2, t1);
+					
+					GraphTuple t2=new GraphTuple(x-metrics.stringWidth(" ")/2,y+metrics.getDescent()+spaceBetweenLines/2);
+					graph.addVertex(t2);
+					lowerTuples.put(x-metrics.stringWidth(" ")/2, t2);
+					
+					graph.addEdge(t1,t2,new DefaultWeightedEdge());//Add Horizontal edge
+					
+					if(showWordBoundaries)g.drawRect(x-1,y-metrics.getAscent(),metrics.stringWidth(temp[0])+1,metrics.getHeight());
+					x+=metrics.stringWidth(temp[0]+" ");
 				}
-
-				//Annotation title is currently stored in the GraphTuple's name attribute 
-				GraphTuple annTuple=new GraphTuple("Annotated Tuple",x+metrics.stringWidth(temp[0])/2,y-metrics.getAscent()-spaceBetweenLines/2);
-				Annotation ann=new Annotation(annText,AnnotationFont,annTuple,spaceBetweenAnnLines,annotationBorderSize);
-				annTuple.setAnnotation(ann);
-				graph.addVertex(annTuple);
-				upperTuples.put(annTuple.getX(), annTuple);
-				annotatedTuples.put(annNumber,annTuple);
-				annNumber++;
-
-				g.drawString(temp[0], x, y);
-
-				GraphTuple t1=new GraphTuple(x-metrics.stringWidth(" ")/2,y-metrics.getAscent()-spaceBetweenLines/2);
-				graph.addVertex(t1);
-				upperTuples.put(x-metrics.stringWidth(" ")/2, t1);
-
-				GraphTuple t2=new GraphTuple(x-metrics.stringWidth(" ")/2,y+metrics.getDescent()+spaceBetweenLines/2);
-				graph.addVertex(t2);
-				lowerTuples.put(x-metrics.stringWidth(" ")/2, t2);
-
-				graph.addEdge(t1,t2,new DefaultWeightedEdge());//Add Horizontal edge
 				
-				if(showWordBoundaries)g.drawRect(x-1,y-metrics.getAscent(),metrics.stringWidth(temp[0])+1,metrics.getHeight());
-				x+=metrics.stringWidth(temp[0]+" ");
+				else //Draw regular word
+				{
+					//Draw word and add Nodes behind it
+					if(!hideText)g.drawString(words [i], x, y);
+					
+					GraphTuple t1=new GraphTuple(x-metrics.stringWidth(" ")/2,y-metrics.getAscent()-spaceBetweenLines/2);
+					graph.addVertex(t1);
+					upperTuples.put(x-metrics.stringWidth(" ")/2, t1);
+					
+					GraphTuple t2=new GraphTuple(x-metrics.stringWidth(" ")/2,y+metrics.getDescent()+spaceBetweenLines/2);
+					graph.addVertex(t2);
+					lowerTuples.put(x-metrics.stringWidth(" ")/2, t2);
+					
+					graph.addEdge(t1,t2,new DefaultWeightedEdge()); //Horizontal edges added here!
+					
+					if(showWordBoundaries)g.drawRect(x-1,y-metrics.getAscent(),metrics.stringWidth(words[i])+1,metrics.getHeight());
+					x+=metrics.stringWidth(words[i]+" ");
+				}
 			}
-
-			else //Draw regular word
-			{
-				//Draw word and add Nodes behind it
-				g.drawString(words [i], x, y);
-
-				GraphTuple t1=new GraphTuple(x-metrics.stringWidth(" ")/2,y-metrics.getAscent()-spaceBetweenLines/2);
-				graph.addVertex(t1);
-				upperTuples.put(x-metrics.stringWidth(" ")/2, t1);
-
-				GraphTuple t2=new GraphTuple(x-metrics.stringWidth(" ")/2,y+metrics.getDescent()+spaceBetweenLines/2);
-				graph.addVertex(t2);
-				lowerTuples.put(x-metrics.stringWidth(" ")/2, t2);
-
-				graph.addEdge(t1,t2,new DefaultWeightedEdge()); //Horizontal edges added here!
-
-				if(showWordBoundaries)g.drawRect(x-1,y-metrics.getAscent(),metrics.stringWidth(words[i])+1,metrics.getHeight());
-				x+=metrics.stringWidth(words[i]+" ");
-			}
-		}
-
-		//Add one final pair of tuples after the last word
-		GraphTuple t1=new GraphTuple(x,y-metrics.getAscent()-spaceBetweenLines/2);
-		graph.addVertex(t1);
-		upperTuples.put(x, t1);
-
-		GraphTuple t2=new GraphTuple(x,y+metrics.getDescent()+spaceBetweenLines/2);
-		graph.addVertex(t2);
-		lowerTuples.put(x, t2);
-
-		graph.addEdge(t1,t2,new DefaultWeightedEdge());
-		
-		lineEnds.add(x);
-		
-		//Creating additional tuples after end of current line (Last line only)
-		Entry<Integer,GraphTuple> temp=upperTuples.higherEntry(x);
-		while(temp!=null)
-		{
-			t2=new GraphTuple(temp.getValue().getX(),y+metrics.getDescent()+spaceBetweenLines/2);
-			graph.addVertex(t2);
-			lowerTuples.put(t2.getX(), t2);
-			graph.addEdge(temp.getValue(),t2);
-				
-			temp=upperTuples.higherEntry(temp.getKey());
-		}
-		
-		allLines.put(y, upperTuples);
-		allLines.put((y+lineHeight),lowerTuples);
-		
-				
-		//Adding more extra nodes after the end of shorter lines - this time coming from below
-		
-		Entry<Integer,TreeMap<Integer,GraphTuple>> prev=allLines.lowerEntry(y);
-		int i=lineEnds.size()-1;
-		while(prev!=null)
-		{
-			TreeMap<Integer,GraphTuple> prevLine=prev.getValue();
 			
-			temp=lowerTuples.higherEntry(lineEnds.get(i));
+			//Add one final pair of tuples after the last word
+			GraphTuple t1=new GraphTuple(x,y-metrics.getAscent()-spaceBetweenLines/2);
+			graph.addVertex(t1);
+			upperTuples.put(x, t1);
+			
+			GraphTuple t2=new GraphTuple(x,y+metrics.getDescent()+spaceBetweenLines/2);
+			graph.addVertex(t2);
+			lowerTuples.put(x, t2);
+			
+			graph.addEdge(t1,t2,new DefaultWeightedEdge());
+			
+			lineEnds.add(x);
+			
+			//Creating additional tuples after end of current line (Last line only)
+			Entry<Integer,GraphTuple> temp=upperTuples.higherEntry(x);
+			while(temp!=null)
+			{
+				t2=new GraphTuple(temp.getValue().getX(),y+metrics.getDescent()+spaceBetweenLines/2);
+				graph.addVertex(t2);
+				lowerTuples.put(t2.getX(), t2);
+				graph.addEdge(temp.getValue(),t2);
+				
+				temp=upperTuples.higherEntry(temp.getKey());
+			}
+			
+			allLines.put(y, upperTuples);
+			allLines.put((y+lineHeight),lowerTuples);
+			
+			//Adding more extra nodes after the end of shorter lines - this time coming from below
+			
+			Entry<Integer,TreeMap<Integer,GraphTuple>> prev=allLines.lowerEntry(y);
+			int i=lineEnds.size()-1;
+			while(prev!=null)
+			{
+				TreeMap<Integer,GraphTuple> prevLine=prev.getValue();
+				
+				temp=lowerTuples.higherEntry(lineEnds.get(i));
+				while(temp!=null)
+				{
+					//Check if corresponding tuple already exists because of downward propagation
+					if(!upperTuples.containsKey(temp.getKey()))
+					{
+						t2=temp.getValue();
+						t1=new GraphTuple(t2.getX(),t2.getY()-lineHeight);
+						graph.addVertex(t1);
+						upperTuples.put(t1.getX(),t1);
+						graph.addEdge(t1, t2);
+						
+					}
+					temp=lowerTuples.higherEntry(temp.getKey());
+				}
+				graph=(ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge>) finishTupleLine(lowerTuples,graph);
+				
+				i--;
+				lowerTuples=upperTuples;
+				upperTuples=prevLine;
+				prev=allLines.lowerEntry(prev.getKey());
+			}
+			
+			//Additional iteration for the top line
+			temp=lowerTuples.higherEntry(lineEnds.get(0));
 			while(temp!=null)
 			{
 				//Check if corresponding tuple already exists because of downward propagation
@@ -332,48 +395,24 @@ public class GraphCreatorPanel extends JComponent {
 				}
 				temp=lowerTuples.higherEntry(temp.getKey());
 			}
+			
+			graph=(ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge>) finishTupleLine(upperTuples,graph);
 			graph=(ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge>) finishTupleLine(lowerTuples,graph);
 			
-			i--;
-			lowerTuples=upperTuples;
-			upperTuples=prevLine;
-			prev=allLines.lowerEntry(prev.getKey());
-		}
-		
-		//Additional iteration for the top line
-		temp=lowerTuples.higherEntry(lineEnds.get(0));
-		while(temp!=null)
-		{
-			//Check if corresponding tuple already exists because of downward propagation
-			if(!upperTuples.containsKey(temp.getKey()))
+			if(showGraphGrid)visualizeGraph(graph,g,Color.LIGHT_GRAY);
+			
+			//Calculate all Routes via Router.findRoutes();
+			
+			List<RouteInfo> results=router.findRoutes(graph, annotatedTuples);
+			if(!hideLeaders)
 			{
-				t2=temp.getValue();
-				t1=new GraphTuple(t2.getX(),t2.getY()-lineHeight);
-				graph.addVertex(t1);
-				upperTuples.put(t1.getX(),t1);
-				graph.addEdge(t1, t2);
-				
-			}
-			temp=lowerTuples.higherEntry(temp.getKey());
-		}
-		
-		graph=(ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge>) finishTupleLine(upperTuples,graph);
-		graph=(ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge>) finishTupleLine(lowerTuples,graph);
-
-		if(showGraphGrid)visualizeGraph(graph,g,Color.LIGHT_GRAY);
-		
-		//Calculate all Routes via Router.findRoutes();
-
-		List<RouteInfo> results=router.findRoutes(graph, annotatedTuples);
-		if(!hideLeaders)
-		{
-			Iterator<RouteInfo> it=results.iterator();
-			while(it.hasNext())
-			{
-				drawRouteInfo(g,graph,it.next());
+				Iterator<RouteInfo> it=results.iterator();
+				while(it.hasNext())
+				{
+					drawRouteInfo(g,graph,it.next());
+				}
 			}
 		}
-
 	}
 
 	/**
