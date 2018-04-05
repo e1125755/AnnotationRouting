@@ -7,6 +7,14 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.time.Duration;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -34,8 +42,8 @@ public class GraphCreatorPanel extends JComponent {
 
 	private TextGenerator gen=new TextGenerator(0);//<--Temporary value, will be changed before usage.
 	private int numberOfTests=100, textLength=200;
-	private int annMean=7, annSTDDevi=10; //Values for mean and standard deviation for normally distributed annotations. annMean is also used for uniformly distributed annotations.
-	private String textType="noramal"/**//*uniform"/**/;//Changes which type of text is used in the tests. Currently recognized values are "normal" and "uniform".
+	private int annMean=7, annSTDDevi=30; //Values for mean and standard deviation for normally distributed annotations. annMean is also used for uniformly distributed annotations.
+	private String textType="normal"/**//*uniform"/**/;//Changes which type of text is used in the tests. Currently recognized values are "normal" and "uniform".
 	private String testResults;
 	
 	
@@ -130,6 +138,11 @@ public class GraphCreatorPanel extends JComponent {
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		ZonedDateTime startingTime=ZonedDateTime.now();
+		long routingStart = 0;
+		
+		g.setFont(this.getFont());
+		FontMetrics metrics = g.getFontMetrics();
 		
 		if(testMode)//Turn visualisation down as far as possible
 		{
@@ -137,28 +150,33 @@ public class GraphCreatorPanel extends JComponent {
 			hideText=true;
 			showGraphGrid=false;
 			showWordBoundaries=false;
-			testResults=	"Testing mode: "+textType+" distribution\n"+
+			testResults=	"Test started at: "+startingTime.format(DateTimeFormatter.RFC_1123_DATE_TIME)+"\n"+
+							"Testing mode: "+textType+" distribution\n"+
+							"Font: "+this.getFont().getFontName()+", "+this.getFont().getSize()+" Pt\n"+
 							"Text length: "+textLength+" Words.\n"+
 							"Mean: "+annMean+"\n"+
-							"Standard Deviation: "+annSTDDevi+"\n\n";
+							"Standard Deviation: "+annSTDDevi+"\n";
 							
 		}
 		
 		for(int repeats=0;(repeats<1)||(testMode&&(repeats<numberOfTests));repeats++)//Completely negligible, unless testMode==true
 		{
-			g.setFont(this.getFont());
-			FontMetrics metrics = g.getFontMetrics();
-			
 			updateMeasurements();
 			g.setColor(Color.white);
 			g.fillRect(0, 0, width, height);
 			g.setColor(Color.black);
 			
+			/*gen.setSeed(2925130799913272320L);
+			text=gen.generateNormalizedText(annMean, annSTDDevi, textLength);/**/
+			
 			if(testMode)
 			{
 				long seed=(long)(Math.random()*Long.MAX_VALUE);
 				gen.setSeed(seed);
-				testResults+="Seed "+seed+": ";
+				
+				testResults+="----\n";
+				testResults+="Seed: "+seed+"\n";
+				
 				if(textType.equals("normal"))text=gen.generateNormalizedText(annMean, annSTDDevi, textLength);
 				else if(textType.equals("uniform"))text=gen.generateUniformText(annMean, textLength);
 				else
@@ -170,8 +188,9 @@ public class GraphCreatorPanel extends JComponent {
 					{
 						g.drawString(error[i], 30, 30+i*metrics.getHeight());
 					}
-					break;//TODO: Implement metrics and find a way to display them to User.
+					break;
 				}
+				routingStart=System.nanoTime();
 			}
 			
 			//IMPORTANT: DO NOT use FontMetrics.getHeight() for the graph, FontMetrics.getAscent() plus FontMetrics.getDescent() might not equal FontMetrics.getHeight()!
@@ -404,7 +423,7 @@ public class GraphCreatorPanel extends JComponent {
 			//Calculate all Routes via Router.findRoutes();
 			
 			List<RouteInfo> results=router.findRoutes(graph, annotatedTuples);
-			if(!hideLeaders)
+			if(!hideLeaders)//Draw Results
 			{
 				Iterator<RouteInfo> it=results.iterator();
 				while(it.hasNext())
@@ -412,7 +431,42 @@ public class GraphCreatorPanel extends JComponent {
 					drawRouteInfo(g,graph,it.next());
 				}
 			}
+			
+			if(testMode)//Generate stats for testing mode
+			{
+				long routingEnd=System.nanoTime();
+				testResults+="Time elapsed: "+(routingEnd-routingStart)+" ns\n";
+				testResults+=evaluateResults(results);
+			}
 		}
+		if(testMode)//Save results to log file.
+		{
+			try
+			{
+				String filename="Test_"+startingTime.format(DateTimeFormatter.ofPattern("uuuu-mm-dd_kk-mm-ss"))+".log";
+				filename.replaceAll(":", "");
+				BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "utf-8"));
+				String[] resultsByLine=testResults.split("\n");
+				
+				for(int i=0;i<resultsByLine.length;i++)
+				{
+					writer.write(resultsByLine[i]);
+					writer.newLine();
+				}
+				writer.flush();
+				writer.close();
+				g.setColor(new Color(0x00A000));
+				g.drawString("Results successfully logged under: "+filename, 30, 30);
+			}
+			catch(IOException e)
+			{
+				g.setColor(Color.RED);
+				g.drawString("An Exception has occurred.", 30, 200);
+				g.drawString(e.toString(),30,200+metrics.getHeight());
+				System.out.println(e);
+			}
+		}
+		
 	}
 
 	/**
@@ -486,8 +540,7 @@ public class GraphCreatorPanel extends JComponent {
 		int currentAnnotationPos=nextAnnotationPos;
 		GraphWalk<GraphTuple, ? extends DefaultWeightedEdge> path=info.getPath();
 		
-		if((path.getEndVertex().getX()>=rightTextBorder)||(path.getStartVertex().getX()>=rightTextBorder))
-			//Draw Annotation (only if routing was successful)
+		if(info.isSuccessful())//Draw Annotation (only if routing was successful)
 		{
 			g.setColor(Color.BLACK);
 
@@ -656,6 +709,49 @@ public class GraphCreatorPanel extends JComponent {
 			g.fillRect(temp.getX()-2,temp.getY()-2,4,4);
 		}
 		g.setColor(Color.BLACK);
+	}
+	
+	/**
+	 * Testing Method - inspects the routing algorithm's results and returns a string containing further information.
+	 * Currently measures number and percentage of successfully routed sites, amount and percentage of space used in Labeling Area, and number of P-Segments.  
+	 * @param routingInfo Any List object containing all Routing information created by the algorithm.
+	 * @return A human-readable String containing the values described above.
+	 */
+	private String evaluateResults(List<RouteInfo> routingInfo)
+	{
+		String results="";
+		int psegments=0;
+		int numSuccess=0, numTotal=0;
+		int annSpaceUsed=0;
+		
+		Iterator<RouteInfo> it=routingInfo.iterator();
+		
+		while(it.hasNext())//Go through individual routings
+		{
+			RouteInfo info=it.next();
+			numTotal++;
+			if(info.isSuccessful())
+			{
+				numSuccess++;
+				annSpaceUsed+=info.getAnnotation().calculateHeight(rightAnnotationBorder-leftAnnotationBorder);
+				GraphWalk<GraphTuple, ? extends DefaultWeightedEdge> path=info.getPath();
+				Iterator<GraphTuple> vertices=path.getVertexList().iterator();
+				GraphTuple oldTuple=vertices.next();
+				
+				while(vertices.hasNext())//Go through path vertex by vertex to determine the locations of the P-Segments.
+				{
+					GraphTuple newTuple=vertices.next();
+					if(newTuple.getY()!=oldTuple.getY()) psegments++;
+					oldTuple=newTuple;
+				}
+			}
+		}
+		
+		results+=	"Successful Routings: "+numSuccess+"/"+numTotal+"("+(Math.round(10000*(((double)numSuccess)/((double)numTotal)))/100)+"%)\n"+
+					"Space used by Annotations: "+annSpaceUsed+"/"+height+"("+(Math.round(10000*(((double)annSpaceUsed)/((double)height)))/100)+"%)\n"+
+					"P-Segments in Text Area: "+psegments+"\n";
+		
+		return results;
 	}
 }
 

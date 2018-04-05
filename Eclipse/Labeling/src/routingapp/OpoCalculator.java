@@ -53,7 +53,7 @@ public class OpoCalculator {
 					}
 					else
 					{
-						//TODO: implement cap? Might get silly with many parallel opo-leaders and little space to route through
+						//Maybe implement cap? Might get silly with many parallel opo-leaders and little space to route through
 						opoNumber++;
 						if(opoNumber>biggestOpoNumber) biggestOpoNumber=opoNumber;
 					}
