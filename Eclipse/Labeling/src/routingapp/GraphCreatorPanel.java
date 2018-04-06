@@ -11,8 +11,6 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -34,6 +32,9 @@ public class GraphCreatorPanel extends JComponent {
 	
 	//DEBUG VALUES
 	private boolean testMode=true;//Toggles whether the program is in testing mode. If true, visualization is turned off, and multiple texts will be generated and routed. Overrides all other debug values.
+	private boolean humanReadableOutput=false;//Toggles whether the test results are raw data or with some additional descriptors. Does nothing if testMode==false 
+	
+	 //The following values are all overridden if testMode==true
 	private boolean showWordBoundaries=false;//Draws rectangles around detected word boundaries in main text, if set to true
 	private boolean showGraphGrid=false;//Draws the whole routing Graph 
 	private boolean hideLeaders=false; //Hides the leaders and unsuccessfully routed nodes, if some other feature needs to be inspected visually
@@ -143,6 +144,7 @@ public class GraphCreatorPanel extends JComponent {
 		
 		g.setFont(this.getFont());
 		FontMetrics metrics = g.getFontMetrics();
+		testResults="";
 		
 		if(testMode)//Turn visualisation down as far as possible
 		{
@@ -150,12 +152,20 @@ public class GraphCreatorPanel extends JComponent {
 			hideText=true;
 			showGraphGrid=false;
 			showWordBoundaries=false;
-			testResults=	"Test started at: "+startingTime.format(DateTimeFormatter.RFC_1123_DATE_TIME)+"\n"+
-							"Testing mode: "+textType+" distribution\n"+
-							"Font: "+this.getFont().getFontName()+", "+this.getFont().getSize()+" Pt\n"+
-							"Text length: "+textLength+" Words.\n"+
-							"Mean: "+annMean+"\n"+
-							"Standard Deviation: "+annSTDDevi+"\n";
+			
+			if(humanReadableOutput)
+			{
+				testResults+=	"Test started at: "+startingTime.format(DateTimeFormatter.RFC_1123_DATE_TIME)+"\n"+
+								"Testing mode: "+textType+" distribution\n"+
+								"Font: "+this.getFont().getFontName()+", "+this.getFont().getSize()+" Pt\n"+
+								"Text length: "+textLength+" Words.\n"+
+								"Mean: "+annMean+"\n"+
+								"Standard Deviation: "+annSTDDevi+"\n";
+			}
+			else
+			{
+				testResults+="Seed,Time,Sites successful,Sites total,Space used,Space total,P-Segments";
+			}
 							
 		}
 		
@@ -166,7 +176,8 @@ public class GraphCreatorPanel extends JComponent {
 			g.fillRect(0, 0, width, height);
 			g.setColor(Color.black);
 			
-			/*gen.setSeed(2925130799913272320L);
+			//Uncomment the following to inspect specific seeds in non-testing mode
+			/*gen.setSeed(173466998178271232L);
 			text=gen.generateNormalizedText(annMean, annSTDDevi, textLength);/**/
 			
 			if(testMode)
@@ -174,8 +185,16 @@ public class GraphCreatorPanel extends JComponent {
 				long seed=(long)(Math.random()*Long.MAX_VALUE);
 				gen.setSeed(seed);
 				
-				testResults+="----\n";
-				testResults+="Seed: "+seed+"\n";
+				if(humanReadableOutput)
+				{
+					testResults+="----\n";
+					testResults+="Seed: "+seed+"\n";
+				}
+				else
+				{
+					testResults+="\n";
+					testResults+=seed+",";
+				}
 				
 				if(textType.equals("normal"))text=gen.generateNormalizedText(annMean, annSTDDevi, textLength);
 				else if(textType.equals("uniform"))text=gen.generateUniformText(annMean, textLength);
@@ -435,7 +454,15 @@ public class GraphCreatorPanel extends JComponent {
 			if(testMode)//Generate stats for testing mode
 			{
 				long routingEnd=System.nanoTime();
-				testResults+="Time elapsed: "+(routingEnd-routingStart)+" ns\n";
+				if(humanReadableOutput)
+				{
+					testResults+="Time elapsed: "+(routingEnd-routingStart)+" ns\n";
+				}
+				else
+				{
+					testResults+=(routingEnd-routingStart)+",";
+				}
+				System.out.println("Time: "+routingEnd+" - "+routingStart+" = "+(routingEnd-routingStart));
 				testResults+=evaluateResults(results);
 			}
 		}
@@ -443,8 +470,7 @@ public class GraphCreatorPanel extends JComponent {
 		{
 			try
 			{
-				String filename="Test_"+startingTime.format(DateTimeFormatter.ofPattern("uuuu-mm-dd_kk-mm-ss"))+".log";
-				filename.replaceAll(":", "");
+				String filename="Test_"+startingTime.format(DateTimeFormatter.ofPattern("uuuu-MM-dd_kk-mm-ss"))+".log";
 				BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "utf-8"));
 				String[] resultsByLine=testResults.split("\n");
 				
@@ -498,14 +524,14 @@ public class GraphCreatorPanel extends JComponent {
 	}
 
 	/**
-	 * Creates an instance of the requested routing type, if supported.
+	 * Creates an instance of the requested routing algorithm type, if supported.
 	 * Currently recognized routing types are:
 	 * 		Greedy/Topmost				-		A greedy routing with backtracking, aiming to place the label as high up as possible. Can only place labels separately.
 	 * 		Greedy/Topmost (OPO-Leader)	-		Same as above, except it  will use OPO-Leaders to connect to the label instead of S-Leaders.  
 	 * 		Greedy/Topmost (2-Pass)		-		Variation on the above, it will adjust all annotation's positions after finding a  place to move them closer to where the routing ends its path through the text. 
 	 * @param routingType The parameter determining the type of routing that will be used.
-	 * @return
-	 * @throws
+	 * @return An instance of the requested routing algorithm.
+	 * @throws IllegalArgumentException, if an unknown routing type is requested.
 	 */
 	private Routing getRouter(String routingType)
 	{
@@ -746,10 +772,16 @@ public class GraphCreatorPanel extends JComponent {
 				}
 			}
 		}
-		
-		results+=	"Successful Routings: "+numSuccess+"/"+numTotal+"("+(Math.round(10000*(((double)numSuccess)/((double)numTotal)))/100)+"%)\n"+
-					"Space used by Annotations: "+annSpaceUsed+"/"+height+"("+(Math.round(10000*(((double)annSpaceUsed)/((double)height)))/100)+"%)\n"+
-					"P-Segments in Text Area: "+psegments+"\n";
+		if(humanReadableOutput)
+		{
+			results+=	"Successful Routings: "+numSuccess+"/"+numTotal+"("+(Math.round(10000*(((double)numSuccess)/((double)numTotal)))/100)+"%)\n"+
+						"Space used by Annotations: "+annSpaceUsed+"/"+height+"("+(Math.round(10000*(((double)annSpaceUsed)/((double)height)))/100)+"%)\n"+
+						"P-Segments in Text Area: "+psegments+"\n";
+		}
+		else
+		{
+			results+=numSuccess+","+numTotal+","+annSpaceUsed+","+height+","+psegments;
+		}
 		
 		return results;
 	}
