@@ -7,8 +7,10 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.time.ZonedDateTime;
@@ -44,7 +46,7 @@ public class GraphCreatorPanel extends JComponent {
 	private TextGenerator gen=new TextGenerator(0);//<--Temporary value, will be changed before usage.
 	private int numberOfTests=100, textLength=200;
 	private int annMean=7, annSTDDevi=30; //Values for mean and standard deviation for normally distributed annotations. annMean is also used for uniformly distributed annotations.
-	private String textType="normal"/**//*uniform"/**/;//Changes which type of text is used in the tests. Currently recognized values are "normal" and "uniform".
+	private String textType=/*"normal"/**/"uniform"/**/;//Changes which type of text is used in the tests. Currently recognized values are "normal" and "uniform".
 	private String testResults;
 	
 	
@@ -176,7 +178,7 @@ public class GraphCreatorPanel extends JComponent {
 			g.fillRect(0, 0, width, height);
 			g.setColor(Color.black);
 			
-			//Uncomment the following to inspect specific seeds in non-testing mode
+			//Uncomment the following lines to inspect specific seeds in non-testing mode
 			/*gen.setSeed(173466998178271232L);
 			text=gen.generateNormalizedText(annMean, annSTDDevi, textLength);/**/
 			
@@ -466,7 +468,7 @@ public class GraphCreatorPanel extends JComponent {
 				testResults+=evaluateResults(results);
 			}
 		}
-		if(testMode)//Save results to log file.
+		if(testMode)//Save results to log file and generate R file to graph results
 		{
 			try
 			{
@@ -483,6 +485,40 @@ public class GraphCreatorPanel extends JComponent {
 				writer.close();
 				g.setColor(new Color(0x00A000));
 				g.drawString("Results successfully logged under: "+filename, 30, 30);
+				
+				
+				
+				String rfile;//Create R file to plot results
+				BufferedReader br = new BufferedReader(new FileReader("Eval_Template.r"));
+				
+				try {
+				    StringBuilder sb = new StringBuilder();
+				    String line = br.readLine();
+
+				    while (line != null) {
+				        sb.append(line);
+				        sb.append("\n");
+				        line = br.readLine();
+				    }
+				    rfile = sb.toString();
+				} finally {
+				    br.close();
+				}
+				
+				
+				rfile=rfile.replaceAll("REPLACEME", "\""+filename+"\"");
+				String rfilename="Eval_"+startingTime.format(DateTimeFormatter.ofPattern("uuuu-MM-dd_kk-mm-ss"))+".r";
+
+				BufferedWriter writer2=new  BufferedWriter(new OutputStreamWriter(new FileOutputStream(rfilename), "utf-8"));
+				String[] rfileByLine=rfile.split("\n");
+				
+				for(int i=1;i<rfileByLine.length;i++)
+				{
+					writer2.write(rfileByLine[i]);
+					writer2.newLine();
+				}
+				writer2.flush();
+				writer2.close();
 			}
 			catch(IOException e)
 			{
