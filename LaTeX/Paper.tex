@@ -403,16 +403,41 @@ To generate data, we created our own texts using word length statistics from Tab
 Using this data, we compiled our own fixed-length testing texts by creating words containing randomized alphabetic characters, taking care that the word length distribution matched our data.
 Annotation sites are inserted into the text on either a normal or uniform distribution, and their labels contain similarly generated texts of randomized length.
 
-To enable the inspection of individual texts, each text was generated from a randomized seed that is noted at time of creation.
+To enable the inspection of individual texts, each text was generated from a randomized seed that is saved at time of creation. 
 
 \section{Testing methods}
 
+All tests were run under 64-bit Windows 7 on a dual-core laptop\footnote{Dell Latitude E6400, Intel Core2 Duo, 4047 MB Virtual Memory on a SSD}.
+
 To generate many datasets at once, each testing run consists of 100 randomly generated texts that are routed one after the other without drawing them on-screen. During this process, we measure the time taken to complete each text, as well as the amount of successful routings, the total space used by all labels and the amount of P-Segments within the text area.
-The results are saved to a CSV-style text file, and a R script is generated to visualize the data.
+The results are saved to a CSV-style text file, and a R script is generated to visualize the data. Additional information regarding test parameters are logged to a separate file.
+Each test run can be repeated, its seed is part of the testing parameters.
 
 \section{Results}
 
-%TODO:Run several tests with different parameters!
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[page=1, scale=0.50]{Rplots_n(5-0).pdf}
+		\caption{\label{fig:plot1_n5,0}}
+	\end{subfigure}
+	\\
+	~\\%There's probably a better way to force multiple newlines...
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[page=1, scale=0.50]{Rplots_n(5-0)_repeat.pdf}
+		\caption{\label{fig:plot2_n5,0}}
+	\end{subfigure}
+	\caption{Two plots of the same test seed's time taken per text. Note the massive differences caused by the computer's scheduling.}
+	\label{fig:timeplot}
+\end{figure}
+
+Across every test run, the first two instances always took significantly longer to complete than subsequent ones. As this was replicated even when using the same text for all 100 passes, we believe this to be an issue caused by the implementation rather than the algorithm itself. (This effect can be seen in Fig.~\ref*{fig:timeplot})
+Similarly, the biggest fluctuations in computation time for the remaining instances were caused by the computer's scheduling, as Fig.~\ref*{fig:plot1_n5,0} and Fig.~\ref*{fig:plot2_n5,0} both depict time statistics for the same run, executed twice in a row.
+
+Unsurprisingly, the amount of labeling area space used by annotations increases with the total amount of annotations in the text, but the ratio of successful routings to total sites goes down. 
+%While increasing the standard deviation for the annotation placement process also allowed some texts to reach a better label area usage, the average results became worse for that category, whereas the percentage of successful routings moves closer to the 50\% mark.
 
 \chapter{Conclusion}
 

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -33,10 +34,9 @@ import org.jgrapht.graph.ListenableUndirectedWeightedGraph;
 public class GraphCreatorPanel extends JComponent {
 	
 	//DEBUG VALUES
-	private boolean testMode=true;//Toggles whether the program is in testing mode. If true, visualization is turned off, and multiple texts will be generated and routed. Overrides all other debug values.
-	private boolean humanReadableOutput=false;//Toggles whether the test results are raw data or with some additional descriptors. Does nothing if testMode==false 
+	private boolean testMode=true;//Toggles whether the program is in testing mode. If true, visualization is turned off, and multiple texts will be generated and routed. Overrides all other debug values. 
 	
-	 //The following values are all overridden if testMode==true
+	//The following values are all overridden if testMode==true
 	private boolean showWordBoundaries=false;//Draws rectangles around detected word boundaries in main text, if set to true
 	private boolean showGraphGrid=false;//Draws the whole routing Graph 
 	private boolean hideLeaders=false; //Hides the leaders and unsuccessfully routed nodes, if some other feature needs to be inspected visually
@@ -44,10 +44,8 @@ public class GraphCreatorPanel extends JComponent {
 	//DEBUG VALUES END
 
 	private TextGenerator gen=new TextGenerator(0);//<--Temporary value, will be changed before usage.
-	private int numberOfTests=100, textLength=200;
-	private int annMean=7, annSTDDevi=30; //Values for mean and standard deviation for normally distributed annotations. annMean is also used for uniformly distributed annotations.
-	private String textType=/*"normal"/**/"uniform"/**/;//Changes which type of text is used in the tests. Currently recognized values are "normal" and "uniform".
-	private String testResults;
+	private int numberOfTests=100, textLength=300;
+	private int annMean=5, annSTDDevi=40; //Values for mean and standard deviation for normally distributed annotations. annMean is also used for uniformly distributed annotations.
 	
 	
 	private String text=
@@ -72,7 +70,7 @@ public class GraphCreatorPanel extends JComponent {
 	private int leftTextBorder, rightTextBorder, leftAnnotationBorder, rightAnnotationBorder;
 	private int spaceBetweenLines=6;
 	
-	private int annotationBorderSize=3;//Distance from annotation content to it's border rectangle
+	private int annotationBorderSize=3;//Distance from annotation content to its border rectangle
 	private int spaceBetweenAnnLines=5;
 	private Font AnnotationFont;
 	
@@ -146,7 +144,10 @@ public class GraphCreatorPanel extends JComponent {
 		
 		g.setFont(this.getFont());
 		FontMetrics metrics = g.getFontMetrics();
-		testResults="";
+		String testInfo="";
+		String testResults="";
+		
+		Random seedgen=new Random();
 		
 		if(testMode)//Turn visualisation down as far as possible
 		{
@@ -155,19 +156,19 @@ public class GraphCreatorPanel extends JComponent {
 			showGraphGrid=false;
 			showWordBoundaries=false;
 			
-			if(humanReadableOutput)
-			{
-				testResults+=	"Test started at: "+startingTime.format(DateTimeFormatter.RFC_1123_DATE_TIME)+"\n"+
-								"Testing mode: "+textType+" distribution\n"+
-								"Font: "+this.getFont().getFontName()+", "+this.getFont().getSize()+" Pt\n"+
-								"Text length: "+textLength+" Words.\n"+
-								"Mean: "+annMean+"\n"+
-								"Standard Deviation: "+annSTDDevi+"\n";
-			}
-			else
-			{
-				testResults+="Seed,Time,Sites successful,Sites total,Space used,Space total,P-Segments";
-			}
+			long generatorseed=seedgen.nextLong();/*/9047141328054740356L;/**/ //Replace with desired values to replicate specific test runs.
+			seedgen.setSeed(generatorseed);
+			
+			testInfo+=	"Test started at: "+startingTime.format(DateTimeFormatter.RFC_1123_DATE_TIME)+"\n"+
+						"Testing batch seed:"+generatorseed+"\n"+
+						"Font: "+this.getFont().getFontName()+", "+this.getFont().getSize()+" Pt\n"+
+						"Text length: "+textLength+" Words.\n"+
+						"Text mode: Normal distribution\n"+
+						"Mean: "+annMean+"\n"+
+						"Standard Deviation: "+annSTDDevi+"\n";
+			
+			
+			testResults+="Seed,Time,Sites successful,Sites total,Space used,Space total,P-Segments";
 							
 		}
 		
@@ -179,27 +180,19 @@ public class GraphCreatorPanel extends JComponent {
 			g.setColor(Color.black);
 			
 			//Uncomment the following lines to inspect specific seeds in non-testing mode
-			/*gen.setSeed(173466998178271232L);
+			/*gen.setSeed(2457556750776815616L);
 			text=gen.generateNormalizedText(annMean, annSTDDevi, textLength);/**/
 			
 			if(testMode)
 			{
-				long seed=(long)(Math.random()*Long.MAX_VALUE);
+				long seed=(seedgen.nextLong());
 				gen.setSeed(seed);
 				
-				if(humanReadableOutput)
-				{
-					testResults+="----\n";
-					testResults+="Seed: "+seed+"\n";
-				}
-				else
-				{
-					testResults+="\n";
-					testResults+=seed+",";
-				}
+				testResults+="\n";
+				testResults+=seed+",";
 				
-				if(textType.equals("normal"))text=gen.generateNormalizedText(annMean, annSTDDevi, textLength);
-				else if(textType.equals("uniform"))text=gen.generateUniformText(annMean, textLength);
+				text=gen.generateNormalizedText(annMean, annSTDDevi, textLength);
+				/*else if(textType.equals("uniform"))text=gen.generateUniformText(annMean, textLength);
 				else
 				{
 					testResults+="Unknown distribution type. Test halted.";
@@ -210,7 +203,7 @@ public class GraphCreatorPanel extends JComponent {
 						g.drawString(error[i], 30, 30+i*metrics.getHeight());
 					}
 					break;
-				}
+				}*/
 				routingStart=System.nanoTime();
 			}
 			
@@ -456,14 +449,9 @@ public class GraphCreatorPanel extends JComponent {
 			if(testMode)//Generate stats for testing mode
 			{
 				long routingEnd=System.nanoTime();
-				if(humanReadableOutput)
-				{
-					testResults+="Time elapsed: "+(routingEnd-routingStart)+" ns\n";
-				}
-				else
-				{
-					testResults+=(routingEnd-routingStart)+",";
-				}
+				
+				testResults+=(routingEnd-routingStart)+",";
+				
 				System.out.println("Time: "+routingEnd+" - "+routingStart+" = "+(routingEnd-routingStart));
 				testResults+=evaluateResults(results);
 			}
@@ -483,10 +471,21 @@ public class GraphCreatorPanel extends JComponent {
 				}
 				writer.flush();
 				writer.close();
+				
+				//Log additional human-readable data relevant to all tests.
+				writer=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename.replace(".log", ".info"))));
+				String[] infoByLine=testInfo.split("\n");
+				
+				for(int i=0;i<infoByLine.length;i++)
+				{
+					writer.write(infoByLine[i]);
+					writer.newLine();
+				}
+				writer.flush();
+				writer.close();
+				
 				g.setColor(new Color(0x00A000));
 				g.drawString("Results successfully logged under: "+filename, 30, 30);
-				
-				
 				
 				String rfile;//Create R file to plot results
 				BufferedReader br = new BufferedReader(new FileReader("Eval_Template.r"));
@@ -777,7 +776,7 @@ public class GraphCreatorPanel extends JComponent {
 	 * Testing Method - inspects the routing algorithm's results and returns a string containing further information.
 	 * Currently measures number and percentage of successfully routed sites, amount and percentage of space used in Labeling Area, and number of P-Segments.  
 	 * @param routingInfo Any List object containing all Routing information created by the algorithm.
-	 * @return A human-readable String containing the values described above.
+	 * @return A String containing the values described above, separated by commas.
 	 */
 	private String evaluateResults(List<RouteInfo> routingInfo)
 	{
@@ -808,16 +807,8 @@ public class GraphCreatorPanel extends JComponent {
 				}
 			}
 		}
-		if(humanReadableOutput)
-		{
-			results+=	"Successful Routings: "+numSuccess+"/"+numTotal+"("+(Math.round(10000*(((double)numSuccess)/((double)numTotal)))/100)+"%)\n"+
-						"Space used by Annotations: "+annSpaceUsed+"/"+height+"("+(Math.round(10000*(((double)annSpaceUsed)/((double)height)))/100)+"%)\n"+
-						"P-Segments in Text Area: "+psegments+"\n";
-		}
-		else
-		{
-			results+=numSuccess+","+numTotal+","+annSpaceUsed+","+height+","+psegments;
-		}
+		
+		results+=numSuccess+","+numTotal+","+annSpaceUsed+","+height+","+psegments;
 		
 		return results;
 	}

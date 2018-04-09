@@ -35,6 +35,11 @@ Amrei Loose.
   textzwischenräumen.
 \newblock Master's thesis, Karlsruhe Institute of Technology, 2015.
 
+\bibitem{Miller1958}
+G.A. Miller, E.B. Newman, and E.A. Friedman.
+\newblock Length-frequency statistics for written english.
+\newblock {\em Information and Control}, 1(4):370 -- 389, 1958.
+
 \bibitem{Nollenburg2010}
 Martin N\"{o}llenburg, Valentin Polishchuk, and Mikko Sysikaski.
 \newblock Dynamic one-sided boundary labeling.

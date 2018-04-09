@@ -2,7 +2,8 @@ Eclipse/Labeling/bin/**
 Eclipse/.metadata/**
 Eclipse/.recommenders/**
 Eclipse/Labeling/*.log
-Eclipse/Labeling/Rplot.pdf
+Eclipse/Labeling/*.info
+Eclipse/Labeling/*.pdf
 Eclipse/Labeling/*.r
 !Eclipse/Labeling/Eval_Template.r
 Eclipse/Labeling/Errorlog.Rout
