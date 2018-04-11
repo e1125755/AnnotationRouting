@@ -407,7 +407,7 @@ To enable the inspection of individual texts, each text was generated from a ran
 
 \section{Testing methods}
 
-All tests were run under 64-bit Windows 7 on a dual-core laptop\footnote{Dell Latitude E6400, Intel Core2 Duo, 4047 MB Virtual Memory on a SSD}.
+All tests were run under 64-bit Windows 7 Professional Version 6.1.7601 Service Pack 1 Build 7601 on a consumer-grade laptop using Java 1.8.0u40. The laptop is a Dell Latitude E6400 with an Intel Core2 Duo dual-core processor running at 2.53 GHz and 4 GB DDR2 RAM. There's 4047 MB virtual memory available on the SSD as well.
 
 To generate many datasets at once, each testing run consists of 100 randomly generated texts that are routed one after the other without drawing them on-screen. During this process, we measure the time taken to complete each text, as well as the amount of successful routings, the total space used by all labels and the amount of P-Segments within the text area.
 The results are saved to a CSV-style text file, and a R script is generated to visualize the data. Additional information regarding test parameters are logged to a separate file.
@@ -422,8 +422,7 @@ Each test run can be repeated, its seed is part of the testing parameters.
 		\includegraphics[page=1, scale=0.50]{Rplots_n(5-0).pdf}
 		\caption{\label{fig:plot1_n5,0}}
 	\end{subfigure}
-	\\
-	~\\%There's probably a better way to force multiple newlines...
+	
 	\begin{subfigure}[b]{\textwidth}
 		\centering
 		\includegraphics[page=1, scale=0.50]{Rplots_n(5-0)_repeat.pdf}
