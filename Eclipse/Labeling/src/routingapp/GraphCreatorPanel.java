@@ -34,8 +34,17 @@ import org.jgrapht.graph.ListenableUndirectedWeightedGraph;
 public class GraphCreatorPanel extends JComponent {
 	
 	//DEBUG VALUES
-	private boolean testMode=true;//Toggles whether the program is in testing mode. If true, visualization is turned off, and multiple texts will be generated and routed. Overrides all other debug values. 
-	
+	private boolean testMode=false;//Toggles whether the program is in testing mode. If true, visualization is turned off, and multiple texts will be generated and routed. Overrides all other debug values.
+	private String annDistribution=	"uniform";		//Only used if testMode==true - determines which type of annotation distribution is used for the randomized texts. 
+									//"top-left";	//Uncomment whatever value you want to use - "uniform" creates truly random annotations, whereas the others are normally distributed around a region.
+									//"top";
+									//"top-right";
+									//"left";
+									//"center";
+									//"right";
+									//"bottom-left";
+									//"bottom";
+									//"bottom-right";
 	//The following values are all overridden if testMode==true
 	private boolean showWordBoundaries=false;//Draws rectangles around detected word boundaries in main text, if set to true
 	private boolean showGraphGrid=false;//Draws the whole routing Graph 
@@ -43,9 +52,9 @@ public class GraphCreatorPanel extends JComponent {
 	private boolean hideText=false;//Disables drawing the text on-screen.
 	//DEBUG VALUES END
 
-	private TextGenerator gen=new TextGenerator(0);//<--Temporary value, will be changed before usage.
+	private TextGenerator gen=new TextGenerator(0);//<--Temporary seed, will be changed before use.
 	private int numberOfTests=100, textLength=300;
-	private int annMean=5, annSTDDevi=40; //Values for mean and standard deviation for normally distributed annotations. annMean is also used for uniformly distributed annotations.
+	private int annCount=15; //Values for mean and standard deviation for normally distributed annotations. annMean is also used for uniformly distributed annotations.
 	
 	
 	private String text=
@@ -163,9 +172,9 @@ public class GraphCreatorPanel extends JComponent {
 						"Testing batch seed:"+generatorseed+"\n"+
 						"Font: "+this.getFont().getFontName()+", "+this.getFont().getSize()+" Pt\n"+
 						"Text length: "+textLength+" Words.\n"+
-						"Text mode: Normal distribution\n"+
-						"Mean: "+annMean+"\n"+
-						"Standard Deviation: "+annSTDDevi+"\n";
+						"Annotations: "+annCount+"\n"+
+						"Text mode: Normal distribution\n";
+//						"Standard Deviation: "+annSTDDevi+"\n";
 			
 			
 			testResults+="Seed,Time,Sites successful,Sites total,Space used,Space total,P-Segments";
@@ -180,8 +189,8 @@ public class GraphCreatorPanel extends JComponent {
 			g.setColor(Color.black);
 			
 			//Uncomment the following lines to inspect specific seeds in non-testing mode
-			/*gen.setSeed(2457556750776815616L);
-			text=gen.generateNormalizedText(annMean, annSTDDevi, textLength);/**/
+			gen.setSeed(2457556750776815616L);
+			text=gen.generateNormalizedText(annCount, textLength, rightTextBorder-leftTextBorder, metrics, annDistribution);/**/
 			
 			if(testMode)
 			{
@@ -191,19 +200,9 @@ public class GraphCreatorPanel extends JComponent {
 				testResults+="\n";
 				testResults+=seed+",";
 				
-				text=gen.generateNormalizedText(annMean, annSTDDevi, textLength);
-				/*else if(textType.equals("uniform"))text=gen.generateUniformText(annMean, textLength);
-				else
-				{
-					testResults+="Unknown distribution type. Test halted.";
-					g.setColor(Color.red);
-					String error[]=testResults.split("\\n");
-					for(int i=0;i<error.length; i++)
-					{
-						g.drawString(error[i], 30, 30+i*metrics.getHeight());
-					}
-					break;
-				}*/
+				//text=gen.generateNormalizedText(annMean, annSTDDevi, textLength);
+				text=gen.generateUniformText(annCount, textLength);
+				
 				routingStart=System.nanoTime();
 			}
 			
