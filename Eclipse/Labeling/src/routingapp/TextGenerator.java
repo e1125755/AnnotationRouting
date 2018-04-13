@@ -1,16 +1,15 @@
 package routingapp;
 
-import java.awt.Canvas;
-import java.awt.Font;
 import java.awt.FontMetrics;
-import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.Random;
-import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * String-generating class. Generates correctly formatted texts for use in the routing application.
+ * NOTE: Generating words is done the same way in all methods - it should be put into a separate method.
  * 
  * @author Jakob Klinger
  *
@@ -168,7 +167,9 @@ public class TextGenerator {
 
 	
 	/**
-	 * Generates a text with words made of random alphabetic characters and normally distributed annotations, focused on a region of the text. 
+	 * Generates a text with words made of random alphabetic characters and normally distributed annotations, focused on a region of the text.
+	 * To do so, this method must use the same process of dividing the text into separate lines as GraphCreatorPanel.java.
+	 * Any changes to that process must be applied here as well, or unintended results will happen!  
 	 * @param textLength The length of the text in words
 	 * @param annNum How many annotations the text will contain. 
 	 * @param textWidth Space available to the text, measured in pixels - needed to split the text into lines to define text regions.
@@ -183,7 +184,7 @@ public class TextGenerator {
 	{
 		String text="";
 		double vertMean=0.5, horizMean=0.5;//Default values - remain unchanged if annMode==center
-		double vertStDev=0.33, horizStDev=0.33;
+		double vertStDev=0.33/2, horizStDev=0.33/2;
 		
 		if(annMode.contains("top"))
 		{
@@ -232,27 +233,67 @@ public class TextGenerator {
 		
 		String textByLine[]=text.split("\n");
 		
-	
-		//generate Annotations
-		/*text+="\\note{";
+		//Generate annotations
+		//NOTE: Using GraphTuples for positions mostly because Java has no in-built Tuple class. Coordinates used here are based on lines and character count, whereas 
+		TreeSet<GraphTuple> locations=new TreeSet<GraphTuple>(new Comparator<GraphTuple>(){
+
+			@Override
+			public int compare(GraphTuple o1, GraphTuple o2) {
+				int ret;//Tuples will be ordered by their order in the text.
+				
+				if(o1.equals(o2)) ret=0;
+				else if( (o1.getY()<o2.getY()) || ( (o1.getY()==o2.getY()) && (o1.getX()<o2.getX()) ) ) ret=(-1);
+				else ret=1;
+				return ret;
+			}});
 		
-		do{
-			word="";
-			for(int j=0;(rng.nextFloat()<=wordProb[j]);j++)
-			{
-				if((j==0)&&(rng.nextFloat()<0.125f))
-				{
-					word+=(char)('A'+rng.nextInt(25));
-				}
-				else
-				{
-					word+=(char)('a'+rng.nextInt(25));
-				}
-			}
-			text+=word+" ";
-		}while(rng.nextFloat()>0.2);
-		text=text.substring(0,text.lastIndexOf(' '))+"} ";*/
+		while(locations.size()<annNum)//Generate annotation positions
+		{
+			int line=(int)((rng.nextGaussian()*vertStDev+vertMean)*textByLine.length);//Determine line number of annotation
+			line=Math.max(line, 0);//Compensating for out-of-bounds results
+			line=Math.min(line, textByLine.length-1);
+			
+			int posInLine=(int)((rng.nextGaussian()*horizStDev+horizMean)*textByLine[line].length());//Determine vertical position, measured in characters - note that this favors longer words.
+			posInLine=Math.max(posInLine, 0);//Compensating for out-of-bounds results
+			posInLine=Math.min(posInLine, textByLine[line].length()-1);
+			posInLine=textByLine[line].substring(posInLine, textByLine[line].length()).indexOf(" ");//Find position of selected word's end
+			if(posInLine==-1) posInLine=textByLine[line].length();
+			
+			GraphTuple newPos=new GraphTuple(posInLine, line);
+			if(!locations.contains(newPos))locations.add(newPos);
+		}
 		
+		//Place annotations in text - using reverse reading order because inserting any other way would throw off the positions for annotations further down in the same line. 
+		Iterator<GraphTuple> it=locations.descendingIterator();
+		
+		while(it.hasNext())
+		{
+			//Generate annotation text
+			String annText="\\note{";
+			do{
+				String word="";
+				for(int j=0;(rng.nextFloat()<=wordProb[j]);j++)
+				{
+					if((j==0)&&(rng.nextFloat()<0.125f))
+					{
+						word+=(char)('A'+rng.nextInt(25));
+					}
+					else
+					{
+						word+=(char)('a'+rng.nextInt(25));
+					}
+				}
+				annText+=word+" ";
+			}while(rng.nextFloat()>0.2);
+			annText=annText.substring(0,annText.lastIndexOf(' '))+"} ";
+			
+			GraphTuple annPos=it.next();
+			String before=textByLine[annPos.getY()].substring(0, annPos.getX());
+			String after=textByLine[annPos.getY()].substring(annPos.getX(),textByLine[annPos.getY()].length());
+			textByLine[annPos.getY()]=before+annText+after;
+		}
+		
+		System.out.println(String.join("!\n", textByLine));
 		
 		return String.join("", textByLine);
 	}

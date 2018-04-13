@@ -1,8 +1,9 @@
 package routingapp;
 /**
  * Custom Graph node for the annotation routing program.
- * It currently contains its location as coordinates, and can be named.
- * Optionally, an Annotation can be set, which should in turn have this node listed as its associated node. 
+ * It contains its location as coordinates, and can be named.
+ * Optionally, an Annotation can be set, which should in turn have this node listed as its associated node.
+ * The routeinfo attribute contains all routing information from this site to its label. This implies that an annotation is set was well, although it is not enforced.
  * @author Jakob Klinger
  *
  */

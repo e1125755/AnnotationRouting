@@ -35,12 +35,12 @@ public class GraphCreatorPanel extends JComponent {
 	
 	//DEBUG VALUES
 	private boolean testMode=false;//Toggles whether the program is in testing mode. If true, visualization is turned off, and multiple texts will be generated and routed. Overrides all other debug values.
-	private String annDistribution=	"uniform";		//Only used if testMode==true - determines which type of annotation distribution is used for the randomized texts. 
+	private String annDistribution=	//"uniform";		//Only used if testMode==true - determines which type of annotation distribution is used for the randomized texts. 
 									//"top-left";	//Uncomment whatever value you want to use - "uniform" creates truly random annotations, whereas the others are normally distributed around a region.
 									//"top";
 									//"top-right";
 									//"left";
-									//"center";
+									"center";
 									//"right";
 									//"bottom-left";
 									//"bottom";
@@ -190,7 +190,7 @@ public class GraphCreatorPanel extends JComponent {
 			
 			//Uncomment the following lines to inspect specific seeds in non-testing mode
 			gen.setSeed(2457556750776815616L);
-			text=gen.generateNormalizedText(annCount, textLength, rightTextBorder-leftTextBorder, metrics, annDistribution);/**/
+			text=gen.generateNormalizedText(annCount, textLength, rightTextBorder-leftTextBorder-1, metrics, annDistribution);/**/
 			
 			if(testMode)
 			{
@@ -227,7 +227,7 @@ public class GraphCreatorPanel extends JComponent {
 			//While it is possible to have line breaks in more places than after each word, this will be ignored for ease of implementation.
 			for(int i=0;i<words.length; i++)
 			{
-				if((metrics.stringWidth(words[i].split("\\\\")[0])+x)>rightTextBorder)//Four backslashes, since both the String and the Regex use '\' as escape character
+				if((metrics.stringWidth(words[i].split("\\\\")[0]+" ")+x)>rightTextBorder)//Four backslashes, since both the String and the Regex use '\' as escape character
 				{
 					//Add one more node-pair after the last word
 					x-=metrics.stringWidth(" ");
@@ -243,7 +243,7 @@ public class GraphCreatorPanel extends JComponent {
 					
 					lineEnds.add(x);
 					
-					//Create single tuple at text border, it will be propagated downwards
+					//Create single node at text area border, it will be propagated downwards later
 					if(allLines.isEmpty())
 					{
 						t1=new GraphTuple(rightTextBorder,y-metrics.getAscent()-spaceBetweenLines/2);
@@ -276,17 +276,17 @@ public class GraphCreatorPanel extends JComponent {
 					y+=lineHeight;
 				}
 				
-				//detect possible annotations for current word - Only detects one annotation per word so far!
+				//detect possible annotations for current word - Only detects one annotation per word!
 				if(words[i].contains("\\note"))
 				{
 					String temp[]=words[i].split("\\\\");
 					//Create annotation
 					String annText="";
-					if(temp[1].contains("{")&&temp[1].contains("}"))//Currently assumes there's only one Argument 
+					if(temp[1].contains("{")&&temp[1].contains("}"))//Handling single-word annotations - currently assumes there's only one Argument 
 					{
 						annText=temp[1].substring(temp[1].indexOf('{')+1, temp[1].lastIndexOf('}'));
 					}
-					else
+					else//Handling multi-word annotations.
 					{
 						annText=temp[1].substring(temp[1].indexOf('{')+1);
 						i++;
@@ -345,7 +345,7 @@ public class GraphCreatorPanel extends JComponent {
 					graph.addVertex(t2);
 					lowerTuples.put(x-metrics.stringWidth(" ")/2, t2);
 					
-					graph.addEdge(t1,t2,new DefaultWeightedEdge()); //Horizontal edges added here!
+					graph.addEdge(t1,t2,new DefaultWeightedEdge()); //Add Horizontal edge
 					
 					if(showWordBoundaries)g.drawRect(x-1,y-metrics.getAscent(),metrics.stringWidth(words[i])+1,metrics.getHeight());
 					x+=metrics.stringWidth(words[i]+" ");
