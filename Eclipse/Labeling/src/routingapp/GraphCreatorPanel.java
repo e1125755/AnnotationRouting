@@ -35,12 +35,12 @@ public class GraphCreatorPanel extends JComponent {
 	
 	//DEBUG VALUES
 	private boolean testMode=false;//Toggles whether the program is in testing mode. If true, visualization is turned off, and multiple texts will be generated and routed. Overrides all other debug values.
-	private String annDistribution=	//"uniform";		//Only used if testMode==true - determines which type of annotation distribution is used for the randomized texts. 
+	private String annDistribution=	"uniform";		//Only used if testMode==true - determines which type of annotation distribution is used for the randomized texts. 
 									//"top-left";	//Uncomment whatever value you want to use - "uniform" creates truly random annotations, whereas the others are normally distributed around a region.
 									//"top";
 									//"top-right";
 									//"left";
-									"center";
+									//"center";
 									//"right";
 									//"bottom-left";
 									//"bottom";
@@ -190,7 +190,8 @@ public class GraphCreatorPanel extends JComponent {
 			
 			//Uncomment the following lines to inspect specific seeds in non-testing mode
 			gen.setSeed(2457556750776815616L);
-			text=gen.generateNormalizedText(annCount, textLength, rightTextBorder-leftTextBorder-1, metrics, annDistribution);/**/
+			if(!annDistribution.equals("uniform"))text=gen.generateNormalizedText(annCount, textLength, rightTextBorder-leftTextBorder, metrics, annDistribution);
+			else text=gen.generateUniformText(annCount, textLength);/**/
 			
 			if(testMode)
 			{
@@ -227,6 +228,7 @@ public class GraphCreatorPanel extends JComponent {
 			//While it is possible to have line breaks in more places than after each word, this will be ignored for ease of implementation.
 			for(int i=0;i<words.length; i++)
 			{
+				//Check if text area border was reached
 				if((metrics.stringWidth(words[i].split("\\\\")[0]+" ")+x)>rightTextBorder)//Four backslashes, since both the String and the Regex use '\' as escape character
 				{
 					//Add one more node-pair after the last word
@@ -286,7 +288,7 @@ public class GraphCreatorPanel extends JComponent {
 					{
 						annText=temp[1].substring(temp[1].indexOf('{')+1, temp[1].lastIndexOf('}'));
 					}
-					else//Handling multi-word annotations.
+					else//Handling annotations with more than one word.
 					{
 						annText=temp[1].substring(temp[1].indexOf('{')+1);
 						i++;
@@ -316,6 +318,7 @@ public class GraphCreatorPanel extends JComponent {
 					annotatedTuples.put(annNumber,annTuple);
 					annNumber++;
 					
+					//Draw word
 					if(!hideText)g.drawString(temp[0], x, y);
 					
 					GraphTuple t1=new GraphTuple(x-metrics.stringWidth(" ")/2,y-metrics.getAscent()-spaceBetweenLines/2);
@@ -332,7 +335,7 @@ public class GraphCreatorPanel extends JComponent {
 					x+=metrics.stringWidth(temp[0]+" ");
 				}
 				
-				else //Draw regular word
+				else //Draw un-annotated word
 				{
 					//Draw word and add Nodes behind it
 					if(!hideText)g.drawString(words [i], x, y);

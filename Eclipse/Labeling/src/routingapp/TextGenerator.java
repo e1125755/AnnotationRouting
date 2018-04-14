@@ -157,7 +157,7 @@ public class TextGenerator {
 					}
 					text+=word+" ";
 				}while(rng.nextFloat()>0.2);
-				text=text.substring(0,text.lastIndexOf(' '))+"} ";
+				text=text.substring(0,text.lastIndexOf(' '))+"}";
 				annLocations.remove((Integer)i);//Might not be necessary
 			}
 			
@@ -221,7 +221,7 @@ public class TextGenerator {
 				}
 				result=rng.nextFloat();
 			}
-			if(xPos+metrics.stringWidth(word)>textWidth)
+			if(xPos+metrics.stringWidth(word+" ")>textWidth)
 			{
 				text+="\n";
 				xPos=0;
@@ -256,7 +256,7 @@ public class TextGenerator {
 			int posInLine=(int)((rng.nextGaussian()*horizStDev+horizMean)*textByLine[line].length());//Determine vertical position, measured in characters - note that this favors longer words.
 			posInLine=Math.max(posInLine, 0);//Compensating for out-of-bounds results
 			posInLine=Math.min(posInLine, textByLine[line].length()-1);
-			posInLine=textByLine[line].substring(posInLine, textByLine[line].length()).indexOf(" ");//Find position of selected word's end
+			posInLine=posInLine+textByLine[line].substring(posInLine, textByLine[line].length()).indexOf(" ");//Find position of selected word's end
 			if(posInLine==-1) posInLine=textByLine[line].length();
 			
 			GraphTuple newPos=new GraphTuple(posInLine, line);
@@ -285,7 +285,7 @@ public class TextGenerator {
 				}
 				annText+=word+" ";
 			}while(rng.nextFloat()>0.2);
-			annText=annText.substring(0,annText.lastIndexOf(' '))+"} ";
+			annText=annText.substring(0,annText.lastIndexOf(' '))+"}";
 			
 			GraphTuple annPos=it.next();
 			String before=textByLine[annPos.getY()].substring(0, annPos.getX());
@@ -293,7 +293,7 @@ public class TextGenerator {
 			textByLine[annPos.getY()]=before+annText+after;
 		}
 		
-		System.out.println(String.join("!\n", textByLine));
+		System.out.println(String.join("\n",textByLine));
 		
 		return String.join("", textByLine);
 	}
