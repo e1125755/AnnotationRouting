@@ -293,7 +293,7 @@ public class TextGenerator {
 			textByLine[annPos.getY()]=before+annText+after;
 		}
 		
-		System.out.println(String.join("\n",textByLine));
+		//System.out.println(String.join("\n",textByLine));
 		
 		return String.join("", textByLine);
 	}

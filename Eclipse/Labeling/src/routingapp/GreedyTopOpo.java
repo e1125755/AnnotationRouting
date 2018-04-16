@@ -10,12 +10,12 @@ import org.jgrapht.graph.GraphWalk;
 public class GreedyTopOpo extends GreedyTopRouting {
 
 	Integer opoNumber, opoEnd=null, biggestOpoNumber=1;
-	//Inherited from parent:	int rightTextBorder, leftAnnotationBorder, rightAnnotationBorder, annotationSpacing, nextAnnotationPos;
+	//Inherited from parent:	int rightTextBorder, pageHeight leftAnnotationBorder, rightAnnotationBorder, annotationSpacing, nextAnnotationPos;
 	//							GraphTuple lastAnnotatedWord.
 
-	public GreedyTopOpo(int textBorder, int leftAnnBorder, int rightAnnBorder,
+	public GreedyTopOpo(int textBorder, int height, int leftAnnBorder, int rightAnnBorder,
 			int annSpacing) {
-		super(textBorder, leftAnnBorder, rightAnnBorder, annSpacing);
+		super(textBorder, height, leftAnnBorder, rightAnnBorder, annSpacing);
 	}
 
 	public List<RouteInfo> findRoutes(WeightedGraph<GraphTuple, DefaultWeightedEdge> graph, TreeMap<Integer,GraphTuple> map)

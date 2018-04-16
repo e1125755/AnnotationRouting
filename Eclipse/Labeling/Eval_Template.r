@@ -4,7 +4,7 @@
 zz <- file("Errorlog.Rout", open="wt")
 sink(zz, type="message")
 
-#Don't manipulate this line - it is automatically replaced by the program!
+#Don't manipulate this line - it is automatically changed by the program to point at the current output file!
 filename <- REPLACEME
 
 results <- read.table(filename, sep=",", row.names=1, header=TRUE)
@@ -18,8 +18,8 @@ boxplot(results$Time, ylab="Time (ns)", main="Time elapsed (Outliers removed)", 
 boxplot(results$TimeToSites, main="Average time per site (Outliers removed)", outline=FALSE)
 boxplot(results$Sites.ratio, main="Percentage of successful routings")
 boxplot(results$Space.ratio, main="Percentage of Label Area usage")
-plot(results$Sites.total,results$Space.used, xlab="Sites in text", ylab="Label area space used", main="Label area usage by number of sites")
-#with(results, abline(lm(Sites.total ~ Space.used)))
+plot(results$Sites.successful,results$Space.ratio, xlab="Successfully routed sites", ylab="Label area space used (%)", main="Label area usage by number of successful routings")
+#with(results, abline(lm(Sites.successful ~ Space.ratio)))
 
 
 

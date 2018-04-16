@@ -11,13 +11,12 @@ import org.jgrapht.graph.GraphWalk;
 
 public class GreedyTopTwoPassRouting extends GreedyTopRouting {
 	
-	protected int pageHeight;
-	//Inherited from parent:	int rightTextBorder, leftAnnotationBorder, rightAnnotationBorder, annotationSpacing, nextAnnotationPos;
+	//protected int pageHeight;
+	//Inherited from parent:	int rightTextBorder, pageHeight, leftAnnotationBorder, rightAnnotationBorder, annotationSpacing, nextAnnotationPos;
 	//							GraphTuple lastAnnotatedWord.
 	
-	public GreedyTopTwoPassRouting(int textBorder, int pageHeight, int leftAnnotationBorder, int rightAnnotationBorder, int annotationSpacing) {
-		super(textBorder,leftAnnotationBorder,rightAnnotationBorder,annotationSpacing);
-		this.pageHeight=pageHeight;
+	public GreedyTopTwoPassRouting(int textBorder, int height, int leftAnnotationBorder, int rightAnnotationBorder, int annotationSpacing) {
+		super(textBorder,height,leftAnnotationBorder,rightAnnotationBorder,annotationSpacing);
 	}
 
 	public GraphWalk<GraphTuple, ? extends DefaultWeightedEdge> findRouteFor(

@@ -13,12 +13,13 @@ import org.jgrapht.graph.GraphWalk;
 
 public class GreedyTopRouting implements Routing{
 
-	protected int rightTextBorder, leftAnnotationBorder, rightAnnotationBorder, annotationSpacing;
+	protected int rightTextBorder, pageHeight, leftAnnotationBorder, rightAnnotationBorder, annotationSpacing;
 	protected int nextAnnotationPos;
 	protected GraphTuple lastAnnotatedWord;
-	public GreedyTopRouting(int textBorder, int leftAnnBorder, int rightAnnBorder, int annSpacing)
+	public GreedyTopRouting(int textBorder, int height, int leftAnnBorder, int rightAnnBorder, int annSpacing)
 	{
 		rightTextBorder=textBorder;
+		pageHeight=height;
 		leftAnnotationBorder=leftAnnBorder;
 		rightAnnotationBorder=rightAnnBorder;
 		annotationSpacing=annSpacing;
@@ -32,6 +33,7 @@ public class GreedyTopRouting implements Routing{
 			WeightedGraph<GraphTuple,DefaultWeightedEdge> graph, GraphTuple source) {
 
 		int index=0;
+		int annWidth=rightAnnotationBorder-leftAnnotationBorder;
 		GraphTuple currentNode=source;
 
 		ArrayList<GraphTuple> pathNodes=new ArrayList<GraphTuple>();
@@ -39,7 +41,7 @@ public class GreedyTopRouting implements Routing{
 		pathNodes.add(index, currentNode);
 		index++;
 
-		if(currentNode.getY()>=nextAnnotationPos)//Check whether we can route up/horizontally
+		if((currentNode.getY()>=nextAnnotationPos)&&((nextAnnotationPos+source.getAnnotation().calculateHeight(annWidth))<pageHeight))//Check whether we can route up/horizontally, and if annotation fits the remaining space
 		{
 			boolean deadend=false;
 			boolean backtrack=false;

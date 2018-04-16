@@ -34,8 +34,8 @@ import org.jgrapht.graph.ListenableUndirectedWeightedGraph;
 public class GraphCreatorPanel extends JComponent {
 	
 	//DEBUG VALUES
-	private boolean testMode=false;//Toggles whether the program is in testing mode. If true, visualization is turned off, and multiple texts will be generated and routed. Overrides all other debug values.
-	private String annDistribution=	"uniform";		//Only used if testMode==true - determines which type of annotation distribution is used for the randomized texts. 
+	private boolean testMode=true;//Toggles whether the program is in testing mode. If true, visualization is turned off, and multiple texts will be generated and routed. Overrides all other debug values.
+	private String annDistribution=	//"uniform";		//Only used if testMode==true - determines which type of annotation distribution is used for the randomized texts. 
 									//"top-left";	//Uncomment whatever value you want to use - "uniform" creates truly random annotations, whereas the others are normally distributed around a region.
 									//"top";
 									//"top-right";
@@ -44,7 +44,7 @@ public class GraphCreatorPanel extends JComponent {
 									//"right";
 									//"bottom-left";
 									//"bottom";
-									//"bottom-right";
+									"bottom-right";
 	//The following values are all overridden if testMode==true
 	private boolean showWordBoundaries=false;//Draws rectangles around detected word boundaries in main text, if set to true
 	private boolean showGraphGrid=false;//Draws the whole routing Graph 
@@ -54,7 +54,7 @@ public class GraphCreatorPanel extends JComponent {
 
 	private TextGenerator gen=new TextGenerator(0);//<--Temporary seed, will be changed before use.
 	private int numberOfTests=100, textLength=300;
-	private int annCount=15; //Values for mean and standard deviation for normally distributed annotations. annMean is also used for uniformly distributed annotations.
+	private int annCount=10; //Values for mean and standard deviation for normally distributed annotations. annMean is also used for uniformly distributed annotations.
 	
 	
 	private String text=
@@ -165,16 +165,16 @@ public class GraphCreatorPanel extends JComponent {
 			showGraphGrid=false;
 			showWordBoundaries=false;
 			
-			long generatorseed=seedgen.nextLong();/*/9047141328054740356L;/**/ //Replace with desired values to replicate specific test runs.
+			long generatorseed=/*seedgen.nextLong();/*/1673820936631236714L;/**/ //Replace with desired values to replicate specific test runs.
 			seedgen.setSeed(generatorseed);
 			
 			testInfo+=	"Test started at: "+startingTime.format(DateTimeFormatter.RFC_1123_DATE_TIME)+"\n"+
 						"Testing batch seed:"+generatorseed+"\n"+
 						"Font: "+this.getFont().getFontName()+", "+this.getFont().getSize()+" Pt\n"+
+						"Text Area width: "+(rightTextBorder-leftTextBorder)+" Pixel\n"+
 						"Text length: "+textLength+" Words.\n"+
 						"Annotations: "+annCount+"\n"+
-						"Text mode: Normal distribution\n";
-//						"Standard Deviation: "+annSTDDevi+"\n";
+						"Text mode: "+((annDistribution.equals("uniform"))?"Uniform distribution":"Clustered distribution: "+annDistribution)+"\n";
 			
 			
 			testResults+="Seed,Time,Sites successful,Sites total,Space used,Space total,P-Segments";
@@ -189,7 +189,7 @@ public class GraphCreatorPanel extends JComponent {
 			g.setColor(Color.black);
 			
 			//Uncomment the following lines to inspect specific seeds in non-testing mode
-			gen.setSeed(2457556750776815616L);
+			gen.setSeed(-8765336103901329443L);
 			if(!annDistribution.equals("uniform"))text=gen.generateNormalizedText(annCount, textLength, rightTextBorder-leftTextBorder, metrics, annDistribution);
 			else text=gen.generateUniformText(annCount, textLength);/**/
 			
@@ -201,8 +201,9 @@ public class GraphCreatorPanel extends JComponent {
 				testResults+="\n";
 				testResults+=seed+",";
 				
-				//text=gen.generateNormalizedText(annMean, annSTDDevi, textLength);
-				text=gen.generateUniformText(annCount, textLength);
+				if(annDistribution.equals("uniform"))text=gen.generateUniformText(annCount, textLength);
+				else text=gen.generateNormalizedText(annCount, textLength, (rightTextBorder-leftTextBorder), metrics, annDistribution);
+				
 				
 				routingStart=System.nanoTime();
 			}
@@ -454,7 +455,7 @@ public class GraphCreatorPanel extends JComponent {
 				
 				testResults+=(routingEnd-routingStart)+",";
 				
-				System.out.println("Time: "+routingEnd+" - "+routingStart+" = "+(routingEnd-routingStart));
+				//System.out.println("Time: "+routingEnd+" - "+routingStart+" = "+(routingEnd-routingStart));
 				testResults+=evaluateResults(results);
 			}
 		}
@@ -574,7 +575,7 @@ public class GraphCreatorPanel extends JComponent {
 	{
 		if(routingType.equals("Greedy/Topmost"))
 		{
-			return new GreedyTopRouting(rightTextBorder, leftAnnotationBorder, rightAnnotationBorder, spaceBetweenLines);
+			return new GreedyTopRouting(rightTextBorder, height, leftAnnotationBorder, rightAnnotationBorder, spaceBetweenLines);
 		}
 		else if(routingType.equals("Greedy/Topmost (2-Pass)"))
 		{
@@ -582,7 +583,7 @@ public class GraphCreatorPanel extends JComponent {
 		}
 		else if(routingType.equals("Greedy/Topmost (OPO-Leader)"))
 		{
-			return new GreedyTopOpo(rightTextBorder, leftAnnotationBorder, rightAnnotationBorder, spaceBetweenLines);
+			return new GreedyTopOpo(rightTextBorder, height, leftAnnotationBorder, rightAnnotationBorder, spaceBetweenLines);
 		}
 		else//Argument not recognized.
 		{
@@ -593,6 +594,7 @@ public class GraphCreatorPanel extends JComponent {
 	/**
 	 * Draws the path created by the routing and - if applicable - the annotation it is connected to.
 	 * Afterwards it updates nextAnnotationPos, which might be needed for subsequent routings.
+	 * NOTE: While this method works well enough to produce good visualizations for a variety of leaders, there still are several issues where the drawing quality degrades.
 	 * @param g The Graphics object - used to draw and retrieve font-metrics
 	 * @param graph the Graph that the routes are based on
 	 * @param path The route that was created by routeAnnotations()
