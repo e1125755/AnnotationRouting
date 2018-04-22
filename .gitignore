@@ -5,6 +5,7 @@ Eclipse/Labeling/*.log
 Eclipse/Labeling/*.info
 Eclipse/Labeling/*.pdf
 Eclipse/Labeling/*.r
+Eclipse/Labeling/*.png
 Eclipse/Labeling/.RData
 Eclipse/Labeling/.Rhistory
 Eclipse/Labeling/Errorlog.Rout

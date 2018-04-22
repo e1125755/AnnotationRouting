@@ -439,7 +439,34 @@ Each test run can be repeated, its seed is part of the testing parameters.
 Across every test run, the first two instances always took significantly longer to complete than subsequent ones. As this was replicated even when using the same text for all 100 passes, we believe this to be an issue caused by the implementation rather than the algorithm itself. (This effect can be seen in Fig.~\ref*{fig:timeplot})
 Similarly, the biggest fluctuations in computation time for the remaining instances were caused by the computer's scheduling, as Fig.~\ref*{fig:plot1_n5,0} and Fig.~\ref*{fig:plot2_n5,0} both depict time statistics for the same run, executed twice in a row.
 
-Unsurprisingly, the amount of labeling area space used by annotations increases with the total amount of annotations in the text, but the ratio of successful routings to total sites goes down. 
+\change{Adding more sources to the text increases the both the space usage of the labeling area and the number of successfully routes, but there seems to be a limit, as increasing the amount of sources only brings marginal improvements after a certain point. For our experiments, this was reached at 15 sources in a 300-word text. Doubling their amount improved both the space usage and the amount of routed leaders for several test instances, but the overall highest amount of successful routings increased only by 1, whereas the increase from 10 to 15 sources impacted the results much stronger. (See Fig.~\ref*{fig:uniformstats} for details.)}
+
+ \begin{figure}
+ 	\centering
+ 	\begin{subfigure}[b]{\textwidth}
+ 		\centering
+ 		\includegraphics[scale=0.8]{Rplot_10u.png}
+ 		\caption{\label{fig:10u}}
+ 	\end{subfigure}
+ 	
+ 	\begin{subfigure}[b]{\textwidth}
+ 		\centering
+ 		\includegraphics[scale=0.8]{Rplot_15u.png}
+ 		\caption{\label{fig:15u}}
+ 	\end{subfigure}
+    \begin{subfigure}[b]{\textwidth}
+		 \centering
+		 \includegraphics[scale=0.8]{Rplot_30u.png}
+		 \caption{\label{fig:30u}}
+    \end{subfigure}
+ 
+ 	\caption{Three plots of test batches with identical seeds. The only difference is the number of sources in the generated texts: 10, 15 and 30 respectively.}
+ 	\label{fig:uniformstats}
+ \end{figure}
+
+\change{While the placement of sources definitely had an impact on the amount of successful routings, the influence of horizontal placement is far smaller than that of the vertical placement. This is likely due to the annotations being placed vertically, which means that the more annotations are placed, the less likely it becomes for sources close to the beginning of the text to be routed. Together with the Routing Area, which allows for labels to be placed further up, this means that placements in the first few lines are disadvantaged compared to those further down.}
+
+\change{The effects of clustering are currently minor, and mostly outweighed by the influence of vertical placement, as the average word length is short enough that there is enough whitespace in each line to avoid leaders from blocking each other. Increasing the word length would make this effect more severe, and it would be interesting to see the influence on the results.}
 %While increasing the standard deviation for the annotation placement process also allowed some texts to reach a better label area usage, the average results became worse for that category, whereas the percentage of successful routings moves closer to the 50\% mark.
 
 \chapter{Conclusion}
