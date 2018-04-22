@@ -5,5 +5,7 @@ Eclipse/Labeling/*.log
 Eclipse/Labeling/*.info
 Eclipse/Labeling/*.pdf
 Eclipse/Labeling/*.r
-!Eclipse/Labeling/Eval_Template.r
+Eclipse/Labeling/.RData
+Eclipse/Labeling/.Rhistory
 Eclipse/Labeling/Errorlog.Rout
+!Eclipse/Labeling/Eval_Template.r

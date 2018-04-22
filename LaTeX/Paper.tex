@@ -401,11 +401,15 @@ If any of the parameters on the control panel (see section~\ref*{sec:GUI}) are c
 
 To generate data, we created our own texts using word length statistics from Table III in "Length-frequency statistics for written English" by Miller et al. \cite{Miller1958}, which lists word frequencies by length. We opted to use the data from the "Content Words" column, as the combined statistics almost exclusively produced words with three or less letters in our tests.
 Using this data, we compiled our own fixed-length testing texts by creating words containing randomized alphabetic characters, taking care that the word length distribution matched our data.
-Annotation sites are inserted into the text on either a normal or uniform distribution, and their labels contain similarly generated texts of randomized length.
+\change{A fixed number of annotation sites is inserted into the text either by distributing their locations uniformly across the text, or by clustering them regionally.}
+	
+\change{For the clustering approach, we divided the text vertically and horizontally into three subsections each - top/center/bottom and left/center/right respectively. To determine the site's location, we then determined the line the site will be in and its exact word by generating numbers from two normal distributions, each with a standard deviation of $1/6$th of the text's width or height, and a mean located at 25\%, 50\% or 75\% of that parameter, depending on the chosen region.}
 
-To enable the inspection of individual texts, each text was generated from a randomized seed that is saved at time of creation. 
+\change{The uniform distribution is achieved by choosing each annotated word in advance, regardless of its relative location within the text.}
 
-\section{Testing methods}
+To enable the inspection of individual texts, each text was generated from a randomized seed that is saved at time of creation. \change{To enable the repetition of full test batches, each of them was also generated using a seed, which is recorded as well.}
+
+\section{Experimental Setup}
 
 All tests were run under 64-bit Windows 7 Professional Version 6.1.7601 Service Pack 1 Build 7601 on a consumer-grade laptop using Java 1.8.0u40. The laptop is a Dell Latitude E6400 with an Intel Core2 Duo dual-core processor running at 2.53 GHz and 4 GB DDR2 RAM. There's 4047 MB virtual memory available on the SSD as well.
 

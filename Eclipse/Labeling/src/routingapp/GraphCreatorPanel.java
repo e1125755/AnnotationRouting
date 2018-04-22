@@ -34,7 +34,7 @@ import org.jgrapht.graph.ListenableUndirectedWeightedGraph;
 public class GraphCreatorPanel extends JComponent {
 	
 	//DEBUG VALUES
-	private boolean testMode=true;//Toggles whether the program is in testing mode. If true, visualization is turned off, and multiple texts will be generated and routed. Overrides all other debug values.
+	private boolean testMode=false;//Toggles whether the program is in testing mode. If true, visualization is turned off, and multiple texts will be generated and routed. Overrides all other debug values.
 	private String annDistribution=	//"uniform";		//Only used if testMode==true - determines which type of annotation distribution is used for the randomized texts. 
 									//"top-left";	//Uncomment whatever value you want to use - "uniform" creates truly random annotations, whereas the others are normally distributed around a region.
 									//"top";
@@ -47,7 +47,7 @@ public class GraphCreatorPanel extends JComponent {
 									"bottom-right";
 	//The following values are all overridden if testMode==true
 	private boolean showWordBoundaries=false;//Draws rectangles around detected word boundaries in main text, if set to true
-	private boolean showGraphGrid=false;//Draws the whole routing Graph 
+	private boolean showGraphGrid=true;//Draws the whole routing Graph 
 	private boolean hideLeaders=false; //Hides the leaders and unsuccessfully routed nodes, if some other feature needs to be inspected visually
 	private boolean hideText=false;//Disables drawing the text on-screen.
 	//DEBUG VALUES END
