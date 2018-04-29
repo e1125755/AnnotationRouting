@@ -23,4 +23,4 @@
 \contentsline {section}{\numberline {4.3}Results}{16}{section.4.3}
 \contentsline {chapter}{\chapternumberline {5}Conclusion}{19}{chapter.5}
 \contentsline {section}{\numberline {5.1}Further notes}{19}{section.5.1}
-\contentsline {chapter}{Bibliography}{21}{section*.12}
+\contentsline {chapter}{Bibliography}{21}{section*.11}

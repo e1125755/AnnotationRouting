@@ -342,13 +342,13 @@ The program itself can be found at GitHub \footnote{\url{https://github.com/e112
 \section{Architecture}
 The program is divided into three parts. The GUI and program window only propagate user interaction to other parts of the program. It will be discussed further in the next section.
 The main drawing area handles the visualization of the results, calculates where to place the text on-screen, and also generates the routing graph, as this can be done alongside the text placement.
-\change{The routing is done in a separate class, and can easily be exchanged with another algorithm because of this.}
+The routing is done in a separate class, and can easily be exchanged with another algorithm because of this.
+
 \section{GUI}
 \label{sec:GUI}
-
 The GUI of the program is kept simple, as the main goal was to demonstrate the routing algorithm. All customization options are located on the control panel above the drawing area, which contains the text, leaders and annotations. (See also Fig.~\ref*{fig:ProgWindow})
 
-The control panel's first three options determine the font the program uses for the main text, whether it is bold or italicized and its size. \change{The annotations' text currently uses a smaller version of this font. The fourth and last option allows the selection of different routing algorithms, although the current options are mostly variations on the routing algorithm described in Section~\ref*{sec:AlgDesc}.} After changing any value, the program will automatically be notified of the changes and react accordingly.
+The control panel's first three options determine the font the program uses for the main text, whether it is bold or italicized and its size. The annotations' text currently uses a smaller version of this font. The fourth and last option allows the selection of different routing algorithms, although the current options are mostly variations on the routing algorithm described in Section~\ref*{sec:AlgDesc}. After changing any value, the program will automatically be notified of the changes and react accordingly.
 
 \begin{figure}%TODO: Replace with better screenshot!
 	\captionsetup{justification=centering, margin=0.75cm}
@@ -359,23 +359,22 @@ The control panel's first three options determine the font the program uses for 
 \end{figure}
 
 \section{Drawing Area}
-\change{As this program is a proof of concept, the drawing area itself can't be interacted with, it only serves to display the algorithm's results. If we were to adapt this program for regular use, the user should be able to manually change routings or move labels around here.
+As this program is a proof of concept, the drawing area itself can't be interacted with, it only serves to display the algorithm's results. If we were to adapt this program for regular use, the user should be able to manually change routings or move labels around here.
 Due to reasons described below in Section~\ref*{sec:Challenge}, each word has to be placed individually, which allows us to create the routing graph alongside the darwing process. 
-After the text has been drawn completely, the routing algorithm is invoked from here, and its results are visualized.}
+After the text has been drawn completely, the routing algorithm is invoked from here, and its results are visualized.
 
 \section{Routing Algorithm}
 
-\change{The Routing algorithm has already been described thoroughly in Section~\ref{sec:AlgDesc}, that process is implemented by creating ordered lists of the vertices traversed by the SP-Path, along with some additional information on where to draw the P-segment located in the Routing Area. While the algorithm offers methods to route each annotation individually, we currently route all annotations at the same time, which vastly decreases the required communication between the algorithm and the rest of the program.}
+The Routing algorithm has already been described thoroughly in Section~\ref*{sec:AlgDesc}, that process is implemented by creating ordered lists of the vertices traversed by the SP-Path, along with some additional information on where to draw the P-segment located in the Routing Area. While the algorithm offers methods to route each annotation individually, we currently route all annotations at the same time, which vastly decreases the required communication between the algorithm and the rest of the program.
 
 \section{Challenges}
 \label{sec:Challenge}
 Displaying the text on-screen without losing the position of the whitespace characters turned out to be harder than expected. While Java offers a class that divides any string of characters into separate lines, the resulting line object does not allow for it's text to be extracted, which makes it unusable for our purposes. This problem was solved by placing each word on the screen individually. For simplicity's sake, we only allowed line breaks between words, whenever a whitespace character was encountered.
 
-Another issue was the visualization of the routing graph and the leaders. While JGraphT offers ways to display graphs, it wasn't possible to influence the placement of individual vertices. Our solution was forgoing these options and drawing the graph \change{unassisted}, assigning coordinates to each vertex on creation. Vertices are represented by small rectangles, whereas edges are represented with straight lines. To avoid confusion between crossing leaders and leaders that incorporate the same vertex in their path, but curve away from each other, all leaders are drawn with rounded corners, which can be seen in Fig.~\ref{fig:ProgWindow}.
+Another issue was the visualization of the routing graph and the leaders. While JGraphT offers ways to display graphs, it wasn't possible to influence the placement of individual vertices. Our solution was forgoing these options and drawing the graph unassisted, assigning coordinates to each vertex on creation. Vertices are represented by small rectangles, whereas edges are represented with straight lines. To avoid confusion between crossing leaders and leaders that incorporate the same vertex in their path, but curve away from each other, all leaders are drawn with rounded corners, which can be seen in Fig.~\ref{fig:ProgWindow}.
 
-%Add Test data generation/retrieval here?
 
-\section{Workflow}%<--What do I put here?
+\section{Workflow}
 
 When the program starts, it first scans the text word by word in reading order, placing each word $w \in W$  on-screen, and saving the content of each encountered annotation for later. As the words are placed, vertices are added to the graph after each word, and at the start and end of each line. Source vertices are inserted whenever an annotation is encountered, and contain a reference to their annotation in addition to the information contained in regular vertices.
 
@@ -386,13 +385,6 @@ Once the graph has been generated, a list of all source vertices in reading orde
 If any of the parameters on the control panel (see section~\ref*{sec:GUI}) are changed, the process re-starts from the beginning.
 
 %TODO: Schematischen Graph (Flowchart?) von oben beschriebenem Ablauf erstellen!
-%As the Graph's vertices represent fixed locations on the canvas, they each have coordinates associated with them, with the vertices representing the sites containing extra information, such as references to the corresponding annotation and to the leader connecting the two (if existent).
-%The additional information stored in the vertices is used for both routing and drawing the leaders: The routing was done via a depth-first search algorithm that prioritized vertices located further up if possible, and vertices to the right otherwise. After the algorithm terminates, it returns  a vertex-based graph walk describing the route from the site to the border of the text area alongside information about where to draw the OPO-segment in the buffer zone if successful, or a walk containing only the starting vertex, if no valid path was found. Using this information alongside the positional data stored in the vertices, the polyline representing the leader can be drawn.
-
-
-%TODO: Schönheitsfeatures, etc.
-
-
 
 
 \chapter{Evaluation and Testing}
@@ -401,13 +393,13 @@ If any of the parameters on the control panel (see section~\ref*{sec:GUI}) are c
 
 To generate data, we created our own texts using word length statistics from Table III in "Length-frequency statistics for written English" by Miller et al. \cite{Miller1958}, which lists word frequencies by length. We opted to use the data from the "Content Words" column, as the combined statistics almost exclusively produced words with three or less letters in our tests.
 Using this data, we compiled our own fixed-length testing texts by creating words containing randomized alphabetic characters, taking care that the word length distribution matched our data.
-\change{A fixed number of annotation sites is inserted into the text either by distributing their locations uniformly across the text, or by clustering them regionally.}
+A fixed number of annotation sites is inserted into the text either by distributing their locations uniformly across the text, or by clustering them regionally.
 	
-\change{For the clustering approach, we divided the text vertically and horizontally into three subsections each - top/center/bottom and left/center/right respectively. To determine the site's location, we then determined the line the site will be in and its exact word by generating numbers from two normal distributions, each with a standard deviation of $1/6$th of the text's width or height, and a mean located at 25\%, 50\% or 75\% of that parameter, depending on the chosen region.}
+For the clustering approach, we divided the text vertically and horizontally into three subsections each - top/center/bottom and left/center/right respectively. To determine the site's location, we then determined the line the site will be in and its exact word by generating numbers from two normal distributions, each with a standard deviation of $1/6$th of the text's width or height, and a mean located at 25\%, 50\% or 75\% of that parameter, depending on the chosen region.
 
-\change{The uniform distribution is achieved by choosing each annotated word in advance, regardless of its relative location within the text.}
+The uniform distribution is achieved by choosing each annotated word in advance, regardless of its relative location within the text.
 
-To enable the inspection of individual texts, each text was generated from a randomized seed that is saved at time of creation. \change{To enable the repetition of full test batches, each of them was also generated using a seed, which is recorded as well.}
+To enable the inspection of individual texts, each text was generated from a randomized seed that is saved at time of creation. To enable the repetition of full test batches, each of them was also generated using a seed, which is recorded as well.
 
 \section{Experimental Setup}
 
@@ -419,54 +411,37 @@ Each test run can be repeated, its seed is part of the testing parameters.
 
 \section{Results}
 
-\begin{figure}
-	\centering
-	\begin{subfigure}[b]{\textwidth}
-		\centering
-		\includegraphics[page=1, scale=0.50]{Rplots_n(5-0).pdf}
-		\caption{\label{fig:plot1_n5,0}}
-	\end{subfigure}
-	
-	\begin{subfigure}[b]{\textwidth}
-		\centering
-		\includegraphics[page=1, scale=0.50]{Rplots_n(5-0)_repeat.pdf}
-		\caption{\label{fig:plot2_n5,0}}
-	\end{subfigure}
-	\caption{Two plots of the same test seed's time taken per text. Note the massive differences caused by the computer's scheduling.}
-	\label{fig:timeplot}
-\end{figure}
+Across every test run, the first two instances always took significantly longer to complete than subsequent ones. As this was replicated even when using the same text for all 100 passes, we believe this to be an issue caused by the implementation rather than the algorithm itself. 
+\change{Another issue was a significantly increased execution time for some instances, which could not be reproduced in subsequent tests under the same conditions and are assumed to be caused by differences in scheduling or Java's garbage collection. Disregarding these outliers, the worst time measured across all tests was about two milliseconds.}%Wie kann ich einbauen, dass der Computer heiß läuft?
 
-Across every test run, the first two instances always took significantly longer to complete than subsequent ones. As this was replicated even when using the same text for all 100 passes, we believe this to be an issue caused by the implementation rather than the algorithm itself. (This effect can be seen in Fig.~\ref*{fig:timeplot})
-Similarly, the biggest fluctuations in computation time for the remaining instances were caused by the computer's scheduling, as Fig.~\ref*{fig:plot1_n5,0} and Fig.~\ref*{fig:plot2_n5,0} both depict time statistics for the same run, executed twice in a row.
-
-\change{Adding more sources to the text increases the both the space usage of the labeling area and the number of successfully routes, but there seems to be a limit, as increasing the amount of sources only brings marginal improvements after a certain point. For our experiments, this was reached at 15 sources in a 300-word text. Doubling their amount improved both the space usage and the amount of routed leaders for several test instances, but the overall highest amount of successful routings increased only by 1, whereas the increase from 10 to 15 sources impacted the results much stronger. (See Fig.~\ref*{fig:uniformstats} for details.)}
+Adding more sources to the text increases the both the space usage of the labeling area and the number of successful routes, but there seems to be a limit, as increasing the amount of sources only brings marginal improvements after a certain point. For our experiments, this was reached at 15 sources in a 300-word text. Doubling their amount improved both the space usage and the amount of routed leaders for several test instances, but the overall highest amount of successful routings increased only by 1, whereas the increase from 10 to 15 sources impacted the results much stronger. (See Fig.~\ref*{fig:uniformstats} for details.)
 
  \begin{figure}
  	\centering
  	\begin{subfigure}[b]{\textwidth}
  		\centering
  		\includegraphics[scale=0.8]{Rplot_10u.png}
- 		\caption{\label{fig:10u}}
+ 		\caption{\label{fig:10u}Results for 10 sources}
  	\end{subfigure}
  	
  	\begin{subfigure}[b]{\textwidth}
  		\centering
  		\includegraphics[scale=0.8]{Rplot_15u.png}
- 		\caption{\label{fig:15u}}
+ 		\caption{\label{fig:15u}Results for 15 sources}
  	\end{subfigure}
     \begin{subfigure}[b]{\textwidth}
 		 \centering
 		 \includegraphics[scale=0.8]{Rplot_30u.png}
-		 \caption{\label{fig:30u}}
+		 \caption{\label{fig:30u}Results for 30 sources}
     \end{subfigure}
  
- 	\caption{Three plots of test batches with identical seeds. The only difference is the number of sources in the generated texts: 10, 15 and 30 respectively.}
+ 	\caption{Three plots of test batches with identical seeds. \change{Each instance used a uniform distribution of sources and a 300-word text.}}
  	\label{fig:uniformstats}
  \end{figure}
 
-\change{While the placement of sources definitely had an impact on the amount of successful routings, the influence of horizontal placement is far smaller than that of the vertical placement. This is likely due to the annotations being placed vertically, which means that the more annotations are placed, the less likely it becomes for sources close to the beginning of the text to be routed. Together with the Routing Area, which allows for labels to be placed further up, this means that placements in the first few lines are disadvantaged compared to those further down.}
+While the placement of sources definitely had an impact on the amount of successful routings, the influence of horizontal placement is far smaller than that of the vertical placement. This is likely due to the annotations being placed vertically, which means that the more annotations are placed, the less likely it becomes for sources close to the beginning of the text to be routed. Together with the Routing Area, which allows for labels to be placed further up, this means that placements in the first few lines are disadvantaged compared to those further down.
 
-\change{The effects of clustering are currently minor, and mostly outweighed by the influence of vertical placement, as the average word length is short enough that there is enough whitespace in each line to avoid leaders from blocking each other. Increasing the word length would make this effect more severe, and it would be interesting to see the influence on the results.}
+The effects of clustering are currently minor, and mostly outweighed by the influence of vertical placement, as the average word length is short enough that there is enough whitespace in each line to avoid leaders from blocking each other. Increasing the word length would make this effect more severe, and it would be interesting to see the influence on the results.
 %While increasing the standard deviation for the annotation placement process also allowed some texts to reach a better label area usage, the average results became worse for that category, whereas the percentage of successful routings moves closer to the 50\% mark.
 
 \chapter{Conclusion}

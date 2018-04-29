@@ -58,9 +58,46 @@ public class TextGenerator {
 	 * >16	0.02928564
 	 * 
 	 * Data taken from https://www.sciencedirect.com/science/article/pii/S0019995858902298 (Table III) and converted to percentages (See Tab3Calc.xslx for calculations.)
+	 * 
+	 * Custom "longer words" probability:
+	 * 1	1
+	 * 2	0.957959418
+	 * 3	0.903367849
+	 * 4	0.852755988
+	 * 5	0.737914444
+	 * 6	0.665327895
+	 * 7	0.604873967
+	 * 8	0.553205732
+	 * 9	0.405093609
+	 * 10	0.363047798
+	 * 11	0.318073423
+	 * 12	0.283662797
+	 * 13	0.21186696
+	 * 14	0.154213994
+	 * 15	0.126392637
+	 * 16	0.088571279
+	 * >16	0.02928564
 	 */
 	
-	double wordProb[]={	1,
+	double wordProb[]=/*{	1,
+	 					0.957959418,
+	 					0.903367849,
+	 					0.852755988,
+	 					0.737914444,
+	 					0.665327895,
+	 					0.604873967,
+	 					0.553205732,
+	 					0.405093609,
+	 					0.363047798,
+	 					0.318073423,
+	 					0.283662797,
+	 					0.21186696,
+	 					0.154213994,
+	 					0.126392637,
+	 					0.088571279,
+	 					0.02928564,
+						-1};
+					/*/{	1,
 						0.907959418,
 						0.803367849,
 						0.652755988,
@@ -77,7 +114,7 @@ public class TextGenerator {
 						0.086392637,
 						0.058571279,
 						0.02928564,
-						-1};//<--Actual Probability is 0, but the RNG might still generate 0.0f 
+						-1};/**///<--Actual Probability is 0, but the RNG might still generate 0.0f 
 	
 	Random rng;
 	

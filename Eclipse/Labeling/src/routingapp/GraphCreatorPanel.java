@@ -34,9 +34,9 @@ import org.jgrapht.graph.ListenableUndirectedWeightedGraph;
 public class GraphCreatorPanel extends JComponent {
 	
 	//DEBUG VALUES
-	private boolean testMode=true;//Toggles whether the program is in testing mode. If true, visualization is turned off, and multiple texts will be generated and routed. Overrides all other debug values.
-	private String annDistribution=	//"uniform";		//Only used if testMode==true - determines which type of annotation distribution is used for the randomized texts. 
-									//"top-left";	//Uncomment whatever value you want to use - "uniform" creates truly random annotations, whereas the others are normally distributed around a region.
+	private boolean testMode=false;//Toggles whether the program is in testing mode. If true, visualization is turned off, and multiple texts will be generated and routed. Overrides all other debug values.
+	private String annDistribution=	"uniform";		//Only used if testMode==true - determines which type of annotation distribution is used for the randomized texts. 
+									//"top-left";		//Uncomment whatever value you want to use - "uniform" creates truly random annotations, whereas the others are normally distributed around a region.
 									//"top";
 									//"top-right";
 									//"left";
@@ -44,7 +44,7 @@ public class GraphCreatorPanel extends JComponent {
 									//"right";
 									//"bottom-left";
 									//"bottom";
-									"bottom-right";
+									//"bottom-right";
 	//The following values are all overridden if testMode==true
 	private boolean showWordBoundaries=false;//Draws rectangles around detected word boundaries in main text, if set to true
 	private boolean showGraphGrid=false;//Draws the whole routing Graph 
@@ -54,7 +54,7 @@ public class GraphCreatorPanel extends JComponent {
 
 	private TextGenerator gen=new TextGenerator(0);//<--Temporary seed, will be changed before use.
 	private int numberOfTests=100, textLength=300;
-	private int annCount=30; //Number of annotations placed in the generated text.
+	private int annCount=10; //Number of annotations placed in the generated text.
 	
 	//Default text, overwritten if a generated text is used.
 	private String text=
@@ -149,7 +149,7 @@ public class GraphCreatorPanel extends JComponent {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		ZonedDateTime startingTime=ZonedDateTime.now();
-		long routingStart = 0;
+		long graphStart=0, routingStart=0;
 		
 		g.setFont(this.getFont());
 		FontMetrics metrics = g.getFontMetrics();
@@ -177,7 +177,7 @@ public class GraphCreatorPanel extends JComponent {
 						"Text mode: "+((annDistribution.equals("uniform"))?"Uniform distribution":"Clustered distribution: "+annDistribution)+"\n";
 			
 			
-			testResults+="Seed,Time,Sites successful,Sites total,Space used,Space total,P-Segments";
+			testResults+="Seed,Graph Time,Routing Time,Sites successful,Sites total,Space used,Space total,P-Segments";
 							
 		}
 		
@@ -205,7 +205,7 @@ public class GraphCreatorPanel extends JComponent {
 				else text=gen.generateNormalizedText(annCount, textLength, (rightTextBorder-leftTextBorder), metrics, annDistribution);
 				
 				
-				routingStart=System.nanoTime();
+				graphStart=System.nanoTime();
 			}
 			
 			//IMPORTANT: DO NOT use FontMetrics.getHeight() for the graph, FontMetrics.getAscent() plus FontMetrics.getDescent() might not equal FontMetrics.getHeight()!
@@ -435,10 +435,10 @@ public class GraphCreatorPanel extends JComponent {
 			graph=(ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge>) finishTupleLine(upperTuples,graph);
 			graph=(ListenableUndirectedWeightedGraph<GraphTuple, DefaultWeightedEdge>) finishTupleLine(lowerTuples,graph);
 			
-			if(showGraphGrid)visualizeGraph(graph,g,Color.LIGHT_GRAY);
+			if(showGraphGrid) visualizeGraph(graph,g,Color.LIGHT_GRAY);
+			if(testMode) routingStart=System.nanoTime();
 			
 			//Calculate all Routes via Router.findRoutes();
-			
 			List<RouteInfo> results=router.findRoutes(graph, annotatedTuples);
 			if(!hideLeaders)//Draw Results
 			{
@@ -453,9 +453,9 @@ public class GraphCreatorPanel extends JComponent {
 			{
 				long routingEnd=System.nanoTime();
 				
+				testResults+=(routingStart-graphStart)+",";
 				testResults+=(routingEnd-routingStart)+",";
 				
-				//System.out.println("Time: "+routingEnd+" - "+routingStart+" = "+(routingEnd-routingStart));
 				testResults+=evaluateResults(results);
 			}
 		}

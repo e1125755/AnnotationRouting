@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  22 APR 2018 18:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  29 APR 2018 14:58
 entering extended mode
 **./Paper.tex
 (Paper.tex
@@ -1679,39 +1679,29 @@ Package pdftex.def Info: ProgramWindowAnnotated.png used on input line 356.
 
 ]
 [15]
-<Rplots_n(5-0).pdf, id=337, 505.89pt x 505.89pt>
-File: Rplots_n(5-0).pdf Graphic file (type pdf)
-<use Rplots_n(5-0).pdf>
-Package pdftex.def Info: Rplots_n(5-0).pdf used on input line 426.
-(pdftex.def)             Requested size: 252.94437pt x 252.94437pt.
-<Rplots_n(5-0)_repeat.pdf, id=338, 505.89pt x 505.89pt>
-File: Rplots_n(5-0)_repeat.pdf Graphic file (type pdf)
-<use Rplots_n(5-0)_repeat.pdf>
-Package pdftex.def Info: Rplots_n(5-0)_repeat.pdf used on input line 432.
-(pdftex.def)             Requested size: 252.94437pt x 252.94437pt.
-<Rplot_10u.png, id=339, 244.66406pt x 244.66406pt>
+<Rplot_10u.png, id=336, 244.66406pt x 244.66406pt>
 File: Rplot_10u.png Graphic file (type png)
 <use Rplot_10u.png>
-Package pdftex.def Info: Rplot_10u.png used on input line 448.
+Package pdftex.def Info: Rplot_10u.png used on input line 423.
 (pdftex.def)             Requested size: 195.7315pt x 195.7315pt.
-<Rplot_15u.png, id=340, 244.66406pt x 244.66406pt>
+<Rplot_15u.png, id=337, 244.66406pt x 244.66406pt>
 File: Rplot_15u.png Graphic file (type png)
 <use Rplot_15u.png>
-Package pdftex.def Info: Rplot_15u.png used on input line 454.
+Package pdftex.def Info: Rplot_15u.png used on input line 429.
 (pdftex.def)             Requested size: 195.7315pt x 195.7315pt.
-<Rplot_30u.png, id=341, 244.66406pt x 244.66406pt>
+<Rplot_30u.png, id=338, 244.66406pt x 244.66406pt>
 File: Rplot_30u.png Graphic file (type png)
 <use Rplot_30u.png>
-Package pdftex.def Info: Rplot_30u.png used on input line 459.
+Package pdftex.def Info: Rplot_30u.png used on input line 434.
 (pdftex.def)             Requested size: 195.7315pt x 195.7315pt.
 
 
-LaTeX Warning: Float too large for page by 88.86432pt on input line 465.
+LaTeX Warning: Float too large for page by 88.86432pt on input line 440.
 
-[16] [17 <./Rplots_n(5-0).pdf> <./Rplots_n(5-0)_repeat.pdf>] [18 <./Rplot_10u.p
-ng> <./Rplot_15u.png> <./Rplot_30u.png>] [19
+[16] [17 <./Rplot_10u.png> <./Rplot_15u.png> <./Rplot_30u.png>] [18
 
-] [20
+] [19]
+[20
 
 ] (Paper.bbl
 bibitemlist
@@ -1721,19 +1711,19 @@ bibitemlist
 \tf@toc=\write5
 \openout5 = `Paper.toc'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 486.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 486.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 461.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 461.
  (Paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 486.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 486.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 461.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 461.
 Package rerunfilecheck Info: File `Paper.out' has not changed.
-(rerunfilecheck)             Checksum: B39F9A2BC8E1BBC8E39FE4492A41119A;1269.
+(rerunfilecheck)             Checksum: 7B3032FEF75D2D816D3DF2C9415BBA17;1269.
  ) 
 Here is how much of TeX's memory you used:
- 16033 strings out of 493634
- 243987 string characters out of 3135239
- 399242 words of memory out of 3000000
- 18981 multiletter control sequences out of 15000+200000
+ 16017 strings out of 493634
+ 243641 string characters out of 3135239
+ 399027 words of memory out of 3000000
+ 18968 multiletter control sequences out of 15000+200000
  119629 words of font info for 99 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  55i,18n,92p,1394b,702s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1762,9 +1752,9 @@ b/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/User
 s/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><
 C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8
 a.pfb>
-Output written on Paper.pdf (27 pages, 543190 bytes).
+Output written on Paper.pdf (27 pages, 531744 bytes).
 PDF statistics:
- 479 PDF objects out of 1000 (max. 8388607)
- 131 named destinations out of 1000 (max. 500000)
- 237 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 461 PDF objects out of 1000 (max. 8388607)
+ 130 named destinations out of 1000 (max. 500000)
+ 227 words of extra memory for PDF output out of 10000 (max. 10000000)
 
