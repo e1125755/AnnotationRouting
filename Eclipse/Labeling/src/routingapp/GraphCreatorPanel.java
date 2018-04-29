@@ -35,8 +35,8 @@ public class GraphCreatorPanel extends JComponent {
 	
 	//DEBUG VALUES
 	private boolean testMode=true;//Toggles whether the program is in testing mode. If true, visualization is turned off, and multiple texts will be generated and routed. Overrides all other debug values.
-	private String annDistribution=	//"uniform";		//Only used if testMode==true - determines which type of annotation distribution is used for the randomized texts. 
-									//"top-left";		//Uncomment whatever value you want to use - "uniform" creates truly random annotations, whereas the others are normally distributed around a region.
+	private String annDistribution=	"uniform";		//Only used if testMode==true - determines which type of annotation distribution is used for the randomized texts. 
+									//"top-left";	//Uncomment whatever value you want to use - "uniform" creates truly random annotations, whereas the others are normally distributed around a region.
 									//"top";
 									//"top-right";
 									//"left";
@@ -44,7 +44,7 @@ public class GraphCreatorPanel extends JComponent {
 									//"right";
 									//"bottom-left";
 									//"bottom";
-									"bottom-right";
+									//"bottom-right";
 	//The following values are all overridden if testMode==true
 	private boolean showWordBoundaries=false;//Draws rectangles around detected word boundaries in main text, if set to true
 	private boolean showGraphGrid=false;//Draws the whole routing Graph 
@@ -54,7 +54,7 @@ public class GraphCreatorPanel extends JComponent {
 
 	private TextGenerator gen=new TextGenerator(0);//<--Temporary seed, will be changed before use.
 	private int numberOfTests=100, textLength=300;
-	private int annCount=10; //Number of annotations placed in the generated text.
+	private int annCount=15; //Number of annotations placed in the generated text.
 	
 	//Default text, overwritten if a generated text is used.
 	private String text=

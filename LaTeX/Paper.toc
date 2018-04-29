@@ -2,7 +2,10 @@
 \select@language {english}
 \select@language {naustrian}
 \select@language {english}
-\contentsline {chapter}{Contents}{v}{section*.2}
+\contentsline {chapter}{Abstract}{v}{chapter*.2}
+\select@language {naustrian}
+\select@language {english}
+\contentsline {chapter}{Contents}{vii}{section*.3}
 \contentsline {chapter}{\chapternumberline {1}Introduction}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Terminology and Fundamentals}{1}{section.1.1}
 \contentsline {section}{\numberline {1.2}Related Work}{3}{section.1.2}
@@ -19,8 +22,8 @@
 \contentsline {section}{\numberline {3.6}Workflow}{13}{section.3.6}
 \contentsline {chapter}{\chapternumberline {4}Evaluation and Testing}{15}{chapter.4}
 \contentsline {section}{\numberline {4.1}Data generation}{15}{section.4.1}
-\contentsline {section}{\numberline {4.2}Experimental Setup}{15}{section.4.2}
-\contentsline {section}{\numberline {4.3}Results}{16}{section.4.3}
-\contentsline {chapter}{\chapternumberline {5}Conclusion}{19}{chapter.5}
-\contentsline {section}{\numberline {5.1}Further notes}{19}{section.5.1}
-\contentsline {chapter}{Bibliography}{21}{section*.11}
+\contentsline {section}{\numberline {4.2}Experimental Setup}{17}{section.4.2}
+\contentsline {section}{\numberline {4.3}Results}{17}{section.4.3}
+\contentsline {chapter}{\chapternumberline {5}Conclusion}{21}{chapter.5}
+\contentsline {section}{\numberline {5.1}Further notes}{21}{section.5.1}
+\contentsline {chapter}{Bibliography}{23}{section*.14}

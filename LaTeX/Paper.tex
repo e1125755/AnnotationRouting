@@ -22,7 +22,7 @@
 
 \setaddress{Scherzergasse 10/8, 1020 Wien}
 \setregnumber{1125755}
-\setdate{25}{09}{2017}%TODO: Update
+\setdate{29}{04}{2018}%TODO: Update
 
 \settitle{Boundary Labeling for annotated documents}{Boundary Labeling in annotierten Dokumenten}
 \setsubtitle{}{}%{TestSubtitleENG}{TestSubtitelGER}
@@ -54,15 +54,16 @@
 %\todo{Ihr Text hier.}
 %\end{kurzfassung}
 
-%\begin{abstract}
-%\todo{Enter your text here.}
-%\end{abstract}
+\begin{abstract}
+	In this paper, we present an algorithm capable of solving the one-sided boundary-labeling problem for crossing-free, monotonous OPO-Leaders in $O(n^2)$ using only the space between words and lines. We prove its correctness and evaluate its performance under different conditions.
+\end{abstract}
 
 \selectlanguage{english}
 
 \tableofcontents
 
 \mainmatter
+
 
 
 %TODO: Abstract: \begin{abstract}...\end{abstract}
@@ -113,7 +114,6 @@ Since then, several papers have been written about boundary labeling. One of the
 Another article using boundary labeling is \cite{Goetzelmann2006} by G{\"o}etzelmann et al., which creates boundary labeling-style annotations along other methods to label different parts of three-dimensional figures, resulting in pictures similar to what could be found in a textbook. As this algorithm works in real-time, it is suitable for labeling interactive models and allows for user interaction.
 
 
-%Beispiele von suboptimalen Lösungen einfügen? (Bilder)
 Boundary labeling in text documents however, is rarely discussed, and only few papers exist about this topic. The programs that employ this style of annotation often also use rather simple algorithms, to mediocre results or make extensive use of the interactivity of a digital medium, showing annotations only on demand. However, the few papers that approach this topic add interesting information to the discussion.
 
 The paper about the Luatodonotes-Package\cite{Kindermann2014} uses several styles of drawing leaders, and came to the conclusion that leaders without bends are easier to follow, which fits with \cite{Barth2015}'s observations, which ranks OPO- and PO-Leaders lower than other variants.
@@ -360,7 +360,7 @@ The control panel's first three options determine the font the program uses for 
 
 \section{Drawing Area}
 As this program is a proof of concept, the drawing area itself can't be interacted with, it only serves to display the algorithm's results. If we were to adapt this program for regular use, the user should be able to manually change routings or move labels around here.
-Due to reasons described below in Section~\ref*{sec:Challenge}, each word has to be placed individually, which allows us to create the routing graph alongside the darwing process. 
+Due to reasons described below in Section~\ref*{sec:Challenge}, each word has to be placed individually, which allows us to create the routing graph alongside the drawing process. 
 After the text has been drawn completely, the routing algorithm is invoked from here, and its results are visualized.
 
 \section{Routing Algorithm}
@@ -391,10 +391,26 @@ If any of the parameters on the control panel (see section~\ref*{sec:GUI}) are c
 
 \section{Data generation} 
 
-To generate data, we created our own texts using word length statistics from Table III in "Length-frequency statistics for written English" by Miller et al. \cite{Miller1958}, which lists word frequencies by length. We opted to use the data from the "Content Words" column, as the combined statistics almost exclusively produced words with three or less letters in our tests.
-Using this data, we compiled our own fixed-length testing texts by creating words containing randomized alphabetic characters, taking care that the word length distribution matched our data.
-A fixed number of annotation sites is inserted into the text either by distributing their locations uniformly across the text, or by clustering them regionally.
+To generate data, we created our own texts using word length statistics from Table III in "Length-frequency statistics for written English" by Miller et al. \cite{Miller1958}, which lists word frequencies by length. We opted to use the data from the "Content Words" column, as the combined statistics almost exclusively produced words with three or less letters in our tests. \change{Furthermore, we created a custom distribution based on these values to test the algorithm's behavior in texts with longer words.}
+Using this data, we compiled our own fixed-length testing texts by creating words containing randomized alphabetic characters, taking care that the word length distribution matched our data. \change{The results of both distributions can be seen in Fig.~\ref{fig:wordlength}}
+A fixed number of annotation sites is inserted into the text either by distributing their locations uniformly across the text, or by clustering them regionally. 
 	
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[scale=0.65]{ContentWords.png}
+		\caption{A generated text using the "Content Words" distribution from Miller et al.\cite{Miller1958}.}
+	\end{subfigure}
+	~\\
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[scale=0.65]{LongerWords.png}
+		\caption{A generated text using our custom distribution.}
+	\end{subfigure}
+	\label{fig:wordlength}
+	\caption{Results for both text generation distributions, with annotations.}
+\end{figure}	
 For the clustering approach, we divided the text vertically and horizontally into three subsections each - top/center/bottom and left/center/right respectively. To determine the site's location, we then determined the line the site will be in and its exact word by generating numbers from two normal distributions, each with a standard deviation of $1/6$th of the text's width or height, and a mean located at 25\%, 50\% or 75\% of that parameter, depending on the chosen region.
 
 The uniform distribution is achieved by choosing each annotated word in advance, regardless of its relative location within the text.
@@ -414,24 +430,24 @@ Each test run can be repeated, its seed is part of the testing parameters.
 Across every test run, the first two instances always took significantly longer to complete than subsequent ones. As this was replicated even when using the same text for all 100 passes, we believe this to be an issue caused by the implementation rather than the algorithm itself. 
 \change{Another issue was a significantly increased execution time for some instances, which could not be reproduced in subsequent tests under the same conditions and are assumed to be caused by differences in scheduling or Java's garbage collection. Disregarding these outliers, the worst time measured across all tests was about two milliseconds.}%Wie kann ich sagen, dass der Computer heiß läuft?
 
-Adding more sources to the text increases the both the space usage of the labeling area and the number of successful routes, but there seems to be a limit, as increasing the amount of sources only brings marginal improvements after a certain point. For our experiments, this was reached at 15 sources in a 300-word text. Doubling their amount improved both the space usage and the amount of routed leaders for several test instances, but the overall highest amount of successful routings increased only by 1, whereas the increase from 10 to 15 sources impacted the results much stronger. (See Fig.~\ref*{fig:uniformstats} for details.)
+Adding more sources to the text increases the both the space usage of the labeling area and the number of successful routes, but there seems to be a limit, as increasing the amount of sources only brings marginal improvements after a certain point. For our experiments, this was reached at 15 sources in a 300-word text. Doubling their amount improved both the space usage and the number of routed leaders for several test instances, but the overall highest amount of successful routings increased only by 1, whereas the increase from 10 to 15 sources impacted the results much stronger. (See Fig.~\ref*{fig:uniformstats} for details.)
 
  \begin{figure}
  	\centering
  	\begin{subfigure}[b]{\textwidth}
  		\centering
- 		\includegraphics[scale=0.8]{Rplot_10u.png}
+ 		\includegraphics[scale=0.6]{Rplot_10u.png}
  		\caption{\label{fig:10u}Results for 10 sources}
  	\end{subfigure}
  	
  	\begin{subfigure}[b]{\textwidth}
  		\centering
- 		\includegraphics[scale=0.8]{Rplot_15u.png}
+ 		\includegraphics[scale=0.6]{Rplot_15u.png}
  		\caption{\label{fig:15u}Results for 15 sources}
  	\end{subfigure}
     \begin{subfigure}[b]{\textwidth}
 		 \centering
-		 \includegraphics[scale=0.8]{Rplot_30u.png}
+		 \includegraphics[scale=0.6]{Rplot_30u.png}
 		 \caption{\label{fig:30u}Results for 30 sources}
     \end{subfigure}
  
@@ -441,17 +457,44 @@ Adding more sources to the text increases the both the space usage of the labeli
 
 While the placement of sources definitely had an impact on the amount of successful routings, the influence of horizontal placement is far smaller than that of the vertical placement. This is likely due to the annotations being placed vertically, which means that the more annotations are placed, the less likely it becomes for sources close to the beginning of the text to be routed. Together with the Routing Area, which allows for labels to be placed further up, this means that placements in the first few lines are disadvantaged compared to those further down.
 
-The effects of clustering are minor, and mostly outweighed by the influence of vertical placement, as the average word length is short enough that there is enough whitespace in each line to avoid leaders from blocking each other.
+The effects of clustering are minor, and mostly outweighed by the influence of vertical placement, as the average word length is short enough that there is sufficient whitespace in each line to avoid leaders from blocking each other. 
+
+\newpage
+\change{Re-running the tests with an increased word length showed several changes: Most noticable was a higher variance in results - whereas the histogram in Fig.~\ref*{fig:15u} has a noticable peak at 10 successful routings, the values in Fig.~\ref*{fig:15uLong} are more spread out, reaching both better and worse end results.
+The bottom left clustering also no longer achieves obviously better results than other vertex placements. While Fig.~\ref*{fig:15blLong} has less results with nine or less successful routings then Fig.~\ref*{fig:15uLong}, it also has less results in the 12+ range.
+Finally, the vertical placement of vertices has a noticable impact - Fig.~\ref*{fig:15blLong} contains less results in below 10 successful routings than Fig.~\ref*{fig:15brLong}, and even has some instances with 13 successes.}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[scale=0.6]{Rplot_15u_longer.png}
+		\caption{\label{fig:15uLong}Results for uniform distribution.}
+	\end{subfigure}
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[scale=0.6]{Rplot_15bl_longer.png}
+		\caption{\label{fig:15blLong}Results for clustered distribution in the bottom left.}
+	\end{subfigure}
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[scale=0.6]{Rplot_15br_longer.png}
+		\caption{\label{fig:15brLong}Results for clustered distribution in the bottom right.}
+	\end{subfigure}
+	\caption{Test results for instances with 15 differently distributed sources over a 300-word text with increased word length.}
+	\label{fig:longTests}
+\end{figure}
 %Increasing the word length would make this effect more severe, and it would be interesting to see the influence on the results.
 
 
 \chapter{Conclusion}
 
+\change{In this paper we presented an algorithm capable of solving the one-sided boundary labeling problem for monotonous, crossing-free OPO-Leaders using only the whitespace between words and lines. We have shown it to run in $O(n^2)$ and proven its correctness. Finally, we have evaluated its performance under different conditions.}
+
 \section{Further notes}
 
+\change{An obvious weakness of our algorithm is its inability to create routings for source nodes above the next free annotation positions. Adding leaders that are only allowed to go down instead of up would allow for these positions to be routed, but would require extra precautions to avoid intersecting leaders. Alternatively, leaders could be restricted by how many P-Segments can be included before reaching the labeling area to make them easier to follow.}
 
-
-%Section Ideas: The Program/Framework (Modellerklärung), The Algorithm(s), Implementation, Evaluation, Conclusion
 
 
 \backmatter %TODO: Es gibt mehr nützliche Kommandos in VUTINFTH für zb Listen von Bildern, etc.!
