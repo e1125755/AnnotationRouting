@@ -79,7 +79,7 @@ public class TextGenerator {
 	 * >16	0.02928564
 	 */
 	
-	double wordProb[]=/*{	1,
+	double wordProb[]= /*{1,//Longer words
 	 					0.957959418,
 	 					0.903367849,
 	 					0.852755988,
@@ -97,7 +97,7 @@ public class TextGenerator {
 	 					0.088571279,
 	 					0.02928564,
 						-1};
-					/*/{	1,
+				/*/	  {	1,//Content words
 						0.907959418,
 						0.803367849,
 						0.652755988,
@@ -173,7 +173,7 @@ public class TextGenerator {
 				}
 				result=rng.nextFloat();
 			}
-			text+=word+" ";
+			text+=word;
 			
 			if(annLocations.contains(i))//generate Annotation
 			{
@@ -194,9 +194,10 @@ public class TextGenerator {
 					}
 					text+=word+" ";
 				}while(rng.nextFloat()>0.2);
-				text=text.substring(0,text.lastIndexOf(' '))+"}";
+				text=text.substring(0,text.lastIndexOf(' ')-1)+"}";
 				annLocations.remove((Integer)i);//Might not be necessary
 			}
+			text+=" ";
 			
 		}
 		return text;

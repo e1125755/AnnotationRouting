@@ -26,7 +26,7 @@ a <- ggplot(results)
 a <- a+geom_bar(aes(factor(results$Sites.successful)),fill="lightgoldenrod2")
 a <- a+stat_boxplot(aes(factor(results$Sites.successful),results$Space.ratio), geom="errorbar")#Workaround to get T-shaped whiskers
 a <- a+geom_boxplot(aes(factor(results$Sites.successful),results$Space.ratio))
-a <- a+xlab("Number of successful routings")+ylab("Successful routings/Used space")+ggtitle("Label space usage by routings")
+a <- a+xlab("Number of successful routings")+ylab("Results per category              Space usage (%)       ")+ggtitle("Labeling area space usage by routings")
 
 a
 
