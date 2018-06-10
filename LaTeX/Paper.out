@@ -9,7 +9,7 @@
 \BOOKMARK [1][-]{section.2.3}{Analysis and Proof}{chapter.2}% 9
 \BOOKMARK [0][-]{chapter.3}{Implementation}{}% 10
 \BOOKMARK [1][-]{section.3.1}{Architecture}{chapter.3}% 11
-\BOOKMARK [1][-]{section.3.2}{GUI}{chapter.3}% 12
+\BOOKMARK [1][-]{section.3.2}{User Interface}{chapter.3}% 12
 \BOOKMARK [1][-]{section.3.3}{Drawing Area}{chapter.3}% 13
 \BOOKMARK [1][-]{section.3.4}{Routing Algorithm}{chapter.3}% 14
 \BOOKMARK [1][-]{section.3.5}{Challenges}{chapter.3}% 15
@@ -19,5 +19,4 @@
 \BOOKMARK [1][-]{section.4.2}{Experimental Setup}{chapter.4}% 19
 \BOOKMARK [1][-]{section.4.3}{Results}{chapter.4}% 20
 \BOOKMARK [0][-]{chapter.5}{Conclusion}{}% 21
-\BOOKMARK [1][-]{section.5.1}{Further notes}{chapter.5}% 22
-\BOOKMARK [0][-]{section*.14}{Bibliography}{}% 23
+\BOOKMARK [0][-]{section*.14}{Bibliography}{}% 22
