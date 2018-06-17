@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  10 JUN 2018 16:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.11)  17 JUN 2018 20:30
 entering extended mode
 **./Paper.tex
 (Paper.tex
@@ -1637,7 +1637,7 @@ Package babel Info: Redefining ngerman shorthand "~
 <GraphTerminologyExtended.png, id=176, 410.2828pt x 165.61874pt>
 File: GraphTerminologyExtended.png Graphic file (type png)
 <use GraphTerminologyExtended.png>
-Package pdftex.def Info: GraphTerminologyExtended.png used on input line 83.
+Package pdftex.def Info: GraphTerminologyExtended.png used on input line 87.
 (pdftex.def)             Requested size: 389.76645pt x 157.3369pt.
 
 Underfull \vbox (badness 1521) has occurred while \output is active []
@@ -1646,12 +1646,12 @@ Underfull \vbox (badness 1521) has occurred while \output is active []
 <WordBoundaries.png, id=211, 301.125pt x 131.74219pt>
 File: WordBoundaries.png Graphic file (type png)
 <use WordBoundaries.png>
-Package pdftex.def Info: WordBoundaries.png used on input line 135.
+Package pdftex.def Info: WordBoundaries.png used on input line 139.
 (pdftex.def)             Requested size: 301.12425pt x 131.74185pt.
 <RoutingGraph_edited.png, id=212, 301.125pt x 134.75343pt>
 File: RoutingGraph_edited.png Graphic file (type png)
 <use RoutingGraph_edited.png>
-Package pdftex.def Info: RoutingGraph_edited.png used on input line 142.
+Package pdftex.def Info: RoutingGraph_edited.png used on input line 146.
 (pdftex.def)             Requested size: 301.12425pt x 134.7531pt.
  [5
 
@@ -1659,9 +1659,9 @@ Package pdftex.def Info: RoutingGraph_edited.png used on input line 142.
 <Ceiling.png, id=226, 263.48438pt x 112.92188pt>
 File: Ceiling.png Graphic file (type png)
 <use Ceiling.png>
-Package pdftex.def Info: Ceiling.png used on input line 165.
+Package pdftex.def Info: Ceiling.png used on input line 169.
 (pdftex.def)             Requested size: 263.48372pt x 112.92159pt.
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 218.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 222.
 
 ("C:\Users\Jakob\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\t1pcr.fd"
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
@@ -1670,13 +1670,13 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [7 <./Ceiling.png>] [8] [9] [10]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 335.
+(Font)              <9> on input line 339.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 335.
+(Font)              <5> on input line 339.
 <ProgramWindowAnnotated.png, id=315, 557.08125pt x 465.23813pt>
 File: ProgramWindowAnnotated.png Graphic file (type png)
 <use ProgramWindowAnnotated.png>
-Package pdftex.def Info: ProgramWindowAnnotated.png used on input line 352.
+Package pdftex.def Info: ProgramWindowAnnotated.png used on input line 356.
 (pdftex.def)             Requested size: 417.80992pt x 348.92773pt.
  [11
 
@@ -1684,25 +1684,25 @@ Package pdftex.def Info: ProgramWindowAnnotated.png used on input line 352.
 
 ]
 
-Package caption Warning: \label without proper reference on input line 407.
+Package caption Warning: \label without proper reference on input line 411.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: Reference `fig:wordlength' on page 15 undefined on input line 39
-1.
+5.
 
 <ContentWords.png, id=340, 463.7325pt x 465.23813pt>
 File: ContentWords.png Graphic file (type png)
 <use ContentWords.png>
-Package pdftex.def Info: ContentWords.png used on input line 398.
+Package pdftex.def Info: ContentWords.png used on input line 402.
 (pdftex.def)             Requested size: 301.42255pt x 302.4012pt.
 <LongerWords.png, id=343, 463.7325pt x 490.83376pt>
 File: LongerWords.png Graphic file (type png)
 <use LongerWords.png>
-Package pdftex.def Info: LongerWords.png used on input line 404.
+Package pdftex.def Info: LongerWords.png used on input line 408.
 (pdftex.def)             Requested size: 301.42255pt x 319.03815pt.
 
-LaTeX Warning: Float too large for page by 117.70915pt on input line 409.
+LaTeX Warning: Float too large for page by 117.70915pt on input line 413.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1712,33 +1712,33 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 <Rplot_10u.png, id=356, 338.76563pt x 338.76563pt>
 File: Rplot_10u.png Graphic file (type png)
 <use Rplot_10u.png>
-Package pdftex.def Info: Rplot_10u.png used on input line 435.
+Package pdftex.def Info: Rplot_10u.png used on input line 439.
 (pdftex.def)             Requested size: 118.56973pt x 118.56973pt.
 <Rplot_15u.png, id=357, 338.76563pt x 338.76563pt>
 File: Rplot_15u.png Graphic file (type png)
 <use Rplot_15u.png>
-Package pdftex.def Info: Rplot_15u.png used on input line 440.
+Package pdftex.def Info: Rplot_15u.png used on input line 444.
 (pdftex.def)             Requested size: 118.56973pt x 118.56973pt.
 <Rplot_30u.png, id=358, 338.76563pt x 338.76563pt>
 File: Rplot_30u.png Graphic file (type png)
 <use Rplot_30u.png>
-Package pdftex.def Info: Rplot_30u.png used on input line 445.
+Package pdftex.def Info: Rplot_30u.png used on input line 449.
 (pdftex.def)             Requested size: 118.56973pt x 118.56973pt.
  [17]
 <Rplot_15u_longer.png, id=364, 338.76563pt x 338.76563pt>
 File: Rplot_15u_longer.png Graphic file (type png)
 <use Rplot_15u_longer.png>
-Package pdftex.def Info: Rplot_15u_longer.png used on input line 465.
+Package pdftex.def Info: Rplot_15u_longer.png used on input line 469.
 (pdftex.def)             Requested size: 186.32166pt x 186.32166pt.
 <Rplot_15bl_longer.png, id=365, 338.76563pt x 338.76563pt>
 File: Rplot_15bl_longer.png Graphic file (type png)
 <use Rplot_15bl_longer.png>
-Package pdftex.def Info: Rplot_15bl_longer.png used on input line 471.
+Package pdftex.def Info: Rplot_15bl_longer.png used on input line 475.
 (pdftex.def)             Requested size: 186.32166pt x 186.32166pt.
 <Rplot_15br_longer.png, id=366, 338.76563pt x 338.76563pt>
 File: Rplot_15br_longer.png Graphic file (type png)
 <use Rplot_15br_longer.png>
-Package pdftex.def Info: Rplot_15br_longer.png used on input line 476.
+Package pdftex.def Info: Rplot_15br_longer.png used on input line 480.
 (pdftex.def)             Requested size: 186.32166pt x 186.32166pt.
  [18 <./Rplot_10u.png> <./Rplot_15u.png> <./Rplot_30u.png>] [19 <./Rplot_15u_lo
 nger.png> <./Rplot_15bl_longer.png> <./Rplot_15br_longer.png>] [20
@@ -1753,11 +1753,11 @@ bibitemlist
 \tf@toc=\write5
 \openout5 = `Paper.toc'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 498.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 498.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 502.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 502.
  (Paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 498.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 498.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 502.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 502.
 Package rerunfilecheck Info: File `Paper.out' has not changed.
 (rerunfilecheck)             Checksum: 5D31E20C83B2D80C97E7773592678FC7;1265.
 
@@ -1768,7 +1768,7 @@ LaTeX Warning: There were undefined references.
 Here is how much of TeX's memory you used:
  16056 strings out of 493634
  244389 string characters out of 3135239
- 399229 words of memory out of 3000000
+ 400229 words of memory out of 3000000
  18996 multiletter control sequences out of 15000+200000
  119629 words of font info for 99 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
@@ -1798,7 +1798,7 @@ b/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/User
 s/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><
 C:/Users/Jakob/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8
 a.pfb>
-Output written on Paper.pdf (31 pages, 674273 bytes).
+Output written on Paper.pdf (31 pages, 674386 bytes).
 PDF statistics:
  494 PDF objects out of 1000 (max. 8388607)
  136 named destinations out of 1000 (max. 500000)
