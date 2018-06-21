@@ -25,4 +25,5 @@
 \contentsline {section}{\numberline {4.2}Experimental Setup}{17}{section.4.2}
 \contentsline {section}{\numberline {4.3}Results}{17}{section.4.3}
 \contentsline {chapter}{\chapternumberline {5}Conclusion}{21}{chapter.5}
-\contentsline {chapter}{Bibliography}{23}{section*.14}
+\contentsline {chapter}{List of Figures}{23}{section*.13}
+\contentsline {chapter}{Bibliography}{27}{section*.16}
